@@ -233,6 +233,9 @@ export class CardHubsListComponent extends WidgetBaseComponent
     if (this.disableMenu) {
       return false
     }
+    // if(path.includes('/app/discussion-forum-v2')) {
+    //   this.configSvc.updateTourGuideMethod(false)
+    // }
     this.router.navigate([path])
   }
 

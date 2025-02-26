@@ -1,4 +1,5 @@
 <app-tour *ngIf="loggedinUser && !showTour && !disableHeightOnTop"></app-tour>
+<ws-discussion-tour-guide *ngIf="loggedinUser && !showTour && !disableHeightOnTop"></ws-discussion-tour-guide>
 <app-no-connection></app-no-connection>
 <mat-progress-bar mode="indeterminate" color="warn" class="route-change" *ngIf="routeChangeInProgress">
 </mat-progress-bar>

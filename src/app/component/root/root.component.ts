@@ -201,6 +201,7 @@ export class RootComponent implements OnInit, AfterViewInit, AfterViewChecked {
   processed: any
   loginToken: any
   showTour = false
+  showDiscussionTour = false
   currentRouteData: any = []
   loggedinUser = !!(this.configSvc.userProfile && this.configSvc.userProfile.userId)
   headerFooterConfigData: any = {}
@@ -232,8 +233,6 @@ export class RootComponent implements OnInit, AfterViewInit, AfterViewChecked {
     // tslint: disable
   }
   ngOnInit() {
-    // let showTour = localStorage.getItem('tourGuide')? JSON.parse(localStorage.getItem('tourGuide')||''): {}
-    // this.showTour = showTour && showTour.disable ? showTour.disable : false
     this.mobileAppsSvc.mobileTopHeaderVisibilityStatus.subscribe((status: any) => {
       this.mobileTopHeaderVisibilityStatus = status
     })
@@ -518,6 +517,15 @@ export class RootComponent implements OnInit, AfterViewInit, AfterViewChecked {
     return showTour
   }
 
+  getDiscussionTourGuide() {
+    let showDiscussionTour = false
+    this.configSvc.updateTourGuide.subscribe((res: any) => {
+      showDiscussionTour = res
+    })
+    this.showDiscussionTour = showDiscussionTour
+    return showDiscussionTour
+  }
+
   getHeaderFooterConfiguration() {
     const baseUrl = this.configSvc.sitePath
     // tslint:disable-next-line: prefer-template
@@ -529,8 +537,12 @@ export class RootComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   ngAfterViewChecked() {
     const show = this.getTourGuide()
+    const showDiscussionTour = this.getDiscussionTourGuide()
     if (show !== this.showTour) { // check if it change, tell CD update view
-      // this.showTour = this.showTour
+     
+    }
+    if(showDiscussionTour !== this.showDiscussionTour) {
+
     }
     this.changeDetector.detectChanges()
   }

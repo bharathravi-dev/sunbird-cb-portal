@@ -163,7 +163,8 @@ import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-t
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip'
 import { PickerModule } from '@ctrl/ngx-emoji-mart'
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular'
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { DiscussionTourGuideComponent } from './component/discussion-tour-guide/discussion-tour-guide.component'
 // @Injectable()
 // export class HammerConfig extends GestureConfig {
 //   buildHammer(element: HTMLElement) {
@@ -217,6 +218,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SurveyShikshaComponent,
     PrivacyPolicyComponent,
     LearnerAdvisoryComponent,
+    DiscussionTourGuideComponent,
   ],
   imports: [
     FormsModule,
