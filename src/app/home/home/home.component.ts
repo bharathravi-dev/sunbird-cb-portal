@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core'
-import {  HttpErrorResponse } from '@angular/common/http'
+import { HttpErrorResponse } from '@angular/common/http'
 import { ActivatedRoute, Router } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
 import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from '@angular/material/legacy-snack-bar'
@@ -9,7 +9,7 @@ import _ from 'lodash'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
-import { ConfigurationsService, EventService, WsEvents  } from '@sunbird-cb/utils-v2'
+import { ConfigurationsService, EventService, WsEvents } from '@sunbird-cb/utils-v2'
 import { MobileAppsService } from '../../services/mobile-apps.service'
 import { UserProfileService } from '@ws/app/src/lib/routes/user-profile/services/user-profile.service'
 // import { IUserProfileDetailsFromRegistry } from '@ws/app/src/lib/routes/user-profile/models/user-profile.model'
@@ -72,10 +72,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
     horizontalPosition: 'center',
     verticalPosition: 'bottom',
   }
+  canShowCustomAttrOpen: boolean = false
+  rootOrgId: string = ''
 
   ngOnInit() {
     let isNotMyUser = false
     let isIgotOrg = false
+    if (this.configSvc && this.configSvc.unMappedUser) {
+      this.rootOrgId = this.configSvc.unMappedUser.rootOrgId || ''
+    }
     if (this.configSvc && this.configSvc.unMappedUser
       && this.configSvc.unMappedUser.profileDetails
       && this.configSvc.unMappedUser.profileDetails.profileStatus) {
@@ -85,7 +90,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       && this.configSvc.unMappedUser.profileDetails
       && this.configSvc.unMappedUser.profileDetails.employmentDetails
       && this.configSvc.unMappedUser.profileDetails.employmentDetails.departmentName) {
-        isIgotOrg = this.configSvc.unMappedUser.profileDetails.employmentDetails.departmentName.toLowerCase() === 'igot' ? true : false
+      isIgotOrg = this.configSvc.unMappedUser.profileDetails.employmentDetails.departmentName.toLowerCase() === 'igot' ? true : false
     }
     // let isIgotOrg = true
     if (isNotMyUser && isIgotOrg) {
@@ -246,13 +251,37 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     this.enrollInterval = setInterval(() => {
       this.getEnrollmentData()
-    },                                1000)
+    }, 1000)
 
     if (localStorage.getItem('websiteLanguage')) {
       this.translate.setDefaultLang('en')
       const lang = localStorage.getItem('websiteLanguage')!
       this.translate.use(lang)
     }
+    if (localStorage.getItem('canShowCustomAttrPopup')) {
+      this.canShowCustomAttrOpen = JSON.parse(localStorage.getItem('canShowCustomAttrPopup') || 'false')
+    } else {
+      this.getOrgDetails()
+    }
+  }
+
+
+  getOrgDetails() {
+    const request = {
+      request: { organisationId: this.rootOrgId },
+    }
+    this.userProfileService.readOrgData(request).subscribe((res: any) => {
+      this.canShowCustomAttrOpen = _.get(res, 'result.response.customfieldsdata.isPopupEnabled') ? true : false
+      localStorage.setItem('canShowCustomAttrPopup', JSON.stringify(this.canShowCustomAttrOpen))
+    }, error => {
+      this.canShowCustomAttrOpen = false
+      console.error('Error fetching organization details', error)
+    })
+  }
+
+  remaindCustomAttPopup() {
+    this.canShowCustomAttrOpen = false
+    localStorage.setItem('canShowCustomAttrPopup', 'false')
   }
 
   ngAfterViewInit() {
@@ -282,29 +311,29 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   translateHub(hubName: string): string {
-    const translationKey =  hubName
+    const translationKey = hubName
     return this.translate.instant(translationKey)
   }
 
   getListPendingApproval(): void {
     this.userProfileService.listApprovalPendingFields()
-    .pipe(takeUntil(this.destroySubject$))
-    .subscribe((res: any) => {
-      this.pendingApprovalList = res.result.data
-      // TODO...
-      // this.matSnackBar.openFromComponent(NotificationComponent, {
-      //   data: { type: 'pending' },
-      // ...this.configSuccess,
-      // })
-      if (!(this.pendingApprovalList && this.pendingApprovalList.length)) {
-        this.handleUpdateMobileNudge()
-      }
+      .pipe(takeUntil(this.destroySubject$))
+      .subscribe((res: any) => {
+        this.pendingApprovalList = res.result.data
+        // TODO...
+        // this.matSnackBar.openFromComponent(NotificationComponent, {
+        //   data: { type: 'pending' },
+        // ...this.configSuccess,
+        // })
+        if (!(this.pendingApprovalList && this.pendingApprovalList.length)) {
+          this.handleUpdateMobileNudge()
+        }
 
-    },         (error: HttpErrorResponse) => {
-      if (!error.ok) {
-        this.matSnackBar.open('Unable to fetch pending approval list')
-      }
-    })
+      }, (error: HttpErrorResponse) => {
+        if (!error.ok) {
+          this.matSnackBar.open('Unable to fetch pending approval list')
+        }
+      })
   }
 
   handleUpdateMobileNudge() {
@@ -405,16 +434,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
         userId: this.configSvc.unMappedUser.id,
         profileDetails: {
           additionalProperties: {
-            isProfileUpdatedMsgViewed:  true,
+            isProfileUpdatedMsgViewed: true,
           },
-         },
+        },
       },
     }
     this.userProfileService.editProfileDetails(reqUpdates).subscribe((res: any) => {
       if (res) {
         this.isMDOMsgOpen = true
       }
-    },                                                               (error: HttpErrorResponse) => {
+    }, (error: HttpErrorResponse) => {
       if (!error.ok) {
         this.matSnackBar.open(error.error.text)
       }
@@ -422,7 +451,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   getApprovedStatus(): void {
-      this.userProfileService.fetchApprovedFields()
+    this.userProfileService.fetchApprovedFields()
       .pipe(takeUntil(this.destroySubject$))
       .subscribe((res: any) => {
         if (res) {
@@ -442,16 +471,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
           } else {
             this.approvedStatus = false
           }
-         }
-      },         (error: HttpErrorResponse) => {
+        }
+      }, (error: HttpErrorResponse) => {
         if (!error.ok) {
           this.matSnackBar.open(error.error.text)
         }
       })
-    }
+  }
 
   getRejectedStatus(): void {
-      this.userProfileService.listRejectedFields()
+    this.userProfileService.listRejectedFields()
       .pipe(takeUntil(this.destroySubject$))
       .subscribe((res: any) => {
         if (res) {
@@ -472,89 +501,93 @@ export class HomeComponent implements OnInit, AfterViewInit {
             this.rejectedStatus = false
           }
         }
-      },         (error: HttpErrorResponse) => {
+      }, (error: HttpErrorResponse) => {
         if (!error.ok) {
           this.matSnackBar.open(error.error.text)
         }
       })
-    }
+  }
 
-    raiseTelemetryInteratEvent(event: any) {
-        if (event && event.viewMoreUrl) {
-          this.raiseTelemetry(`${event.stripTitle} ${event.viewMoreUrl.viewMoreText}`, event.typeOfTelemetry)
-        }
-        if (!this.isTelemetryRaised && event && !event.viewMoreUrl) {
-          if (event.contentId && event.contentId.includes("ext")) {
-            this.events.raiseInteractTelemetry(
-              {
-                type: 'click',
-                subType: event.typeOfTelemetry,
-                id: 'card-content',
-              },
-              {
-                id: event.contentId || event.identifier,
-                type: 'External content'
-              },
-              {
-                module: WsEvents.EnumTelemetrymodules.HOME
-              }
-            )
-          } else {
-            let id = event.typeOfTelemetry === 'mdoChannel' ? event.identifier : event.orgId
-            let type = event.typeOfTelemetry === 'mdoChannel' ? 'org/ministry' : event.title
-            let _subType = event.typeOfTelemetry === 'mdoChannel' ? 'mdo-channel' :
-             event.typeOfTelemetry === 'karmaProgram' ? 'karma-programs' : event.typeOfTelemetry
-            if ((event.typeOfTelemetry === 'cbpPlan' && !event?.sakshamAIGenerated
-              || event.typeOfTelemetry === 'forYou' 
-              || event.typeOfTelemetry === 'continueLearning') && event.selectedTab && event.selectedPill
-            ) {
-              id = event.identifier
-              type = event.primaryCategory
-              _subType = `${event.selectedTab}-${event.selectedPill}`
-            }
-            else if(event.typeOfTelemetry === 'cbpPlan' && event?.sakshamAIGenerated) {
-              id = event.identifier
-              type = event.primaryCategory
-              _subType = 'igot-ai'
-            } 
-            else if(event.typeOfTelemetry === 'providers') {
-              id = event.orgId
-              type = 'org'
-              _subType = `training-institutions`
-            }
-    
-            this.events.raiseInteractTelemetry(
-              {
-                type: 'click',
-                subType: _subType,
-                id: 'card-content',
-                pageid: "/page/home"
-              },
-              {
-                id,
-                type,
-              },
-              {
-                module: WsEvents.EnumTelemetrymodules.HOME,
-              }
-            )
-          }
-        }
-        this.isTelemetryRaised = true
-        
-      }
-    
-      raiseTelemetry(name: string, subtype: string) {
+  raiseTelemetryInteratEvent(event: any) {
+    if (event && event.viewMoreUrl) {
+      this.raiseTelemetry(`${event.stripTitle} ${event.viewMoreUrl.viewMoreText}`, event.typeOfTelemetry)
+    }
+    if (!this.isTelemetryRaised && event && !event.viewMoreUrl) {
+      if (event.contentId && event.contentId.includes("ext")) {
         this.events.raiseInteractTelemetry(
           {
             type: 'click',
-            subType: subtype,
-            id: `${_.kebabCase(name).toLocaleLowerCase()}`,
+            subType: event.typeOfTelemetry,
+            id: 'card-content',
           },
-          {},
+          {
+            id: event.contentId || event.identifier,
+            type: 'External content'
+          },
+          {
+            module: WsEvents.EnumTelemetrymodules.HOME
+          }
+        )
+      } else {
+        let id = event.typeOfTelemetry === 'mdoChannel' ? event.identifier : event.orgId
+        let type = event.typeOfTelemetry === 'mdoChannel' ? 'org/ministry' : event.title
+        let _subType = event.typeOfTelemetry === 'mdoChannel' ? 'mdo-channel' :
+          event.typeOfTelemetry === 'karmaProgram' ? 'karma-programs' : event.typeOfTelemetry
+        if ((event.typeOfTelemetry === 'cbpPlan' && !event?.sakshamAIGenerated
+          || event.typeOfTelemetry === 'forYou'
+          || event.typeOfTelemetry === 'continueLearning') && event.selectedTab && event.selectedPill
+        ) {
+          id = event.identifier
+          type = event.primaryCategory
+          _subType = `${event.selectedTab}-${event.selectedPill}`
+        }
+        else if (event.typeOfTelemetry === 'cbpPlan' && event?.sakshamAIGenerated) {
+          id = event.identifier
+          type = event.primaryCategory
+          _subType = 'igot-ai'
+        }
+        else if (event.typeOfTelemetry === 'providers') {
+          id = event.orgId
+          type = 'org'
+          _subType = `training-institutions`
+        }
+
+        this.events.raiseInteractTelemetry(
+          {
+            type: 'click',
+            subType: _subType,
+            id: 'card-content',
+            pageid: "/page/home"
+          },
+          {
+            id,
+            type,
+          },
           {
             module: WsEvents.EnumTelemetrymodules.HOME,
           }
         )
       }
+    }
+    this.isTelemetryRaised = true
+
+  }
+
+  raiseTelemetry(name: string, subtype: string) {
+    this.events.raiseInteractTelemetry(
+      {
+        type: 'click',
+        subType: subtype,
+        id: `${_.kebabCase(name).toLocaleLowerCase()}`,
+      },
+      {},
+      {
+        module: WsEvents.EnumTelemetrymodules.HOME,
+      }
+    )
+  }
+
+  redirectToCustomProfile() {
+    this.router.navigate(['/app/person-profile/me'], { fragment: 'customAttr' })
+  }
 }
