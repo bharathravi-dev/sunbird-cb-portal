@@ -115,14 +115,8 @@ export class PdfComponent implements OnInit, OnDestroy {
           } else {
             this.widgetResolverPdfData.widgetData.resumePage = 1
           }          
-          if (this.pdfData && this.pdfData.identifier) {
-            if (this.activatedRoute.snapshot.queryParams.collectionId) {
-              await this.fetchContinueLearning(
-                this.pdfData.identifier,
-              )
-            } else {
-              await this.fetchContinueLearning(this.pdfData.identifier)
-            }
+          if (this.pdfData && this.pdfData.identifier) {            
+            await this.fetchContinueLearning(this.pdfData.identifier)
           }
           this.widgetResolverPdfData.widgetData.pdfUrl = this.pdfData
             ? this.forPreview
@@ -212,80 +206,60 @@ export class PdfComponent implements OnInit, OnDestroy {
     this.eventSvc.dispatchEvent(event)
   }
 
-  async fetchContinueLearning(pdfId: string): Promise<boolean> {
-    return new Promise(resolve => {
-      // this.contentSvc.fetchContentHistory(collectionId).subscribe(
-      //   data => {
-      //     if (data) {
-      //       if (data.identifier === pdfId && data.continueData && data.continueData.progress) {
-      //         this.widgetResolverPdfData.widgetData.resumePage = Number(data.continueData.progress)
-      //       }
-      //     }
-      //     resolve(true)
-      //   },
-      //   () => resolve(true),
-      // )
-      let userId
-      if (this.configSvc.userProfile) {
-        userId = this.configSvc.userProfile.userId || ''
-      }
+  async fetchContinueLearning(pdfId: string): Promise<void> {
+    let userId
+    if (this.configSvc.userProfile) {
+      userId = this.configSvc.userProfile.userId || ''
+    }
 
-      // this.activatedRoute.data.subscribe(data => {
-      //   userId = data.profileData.data.userId
-      // })
-      if (this.activatedRoute.snapshot.queryParams.collectionId &&
-        this.activatedRoute.snapshot.queryParams.batchId &&
-        pdfId
-      ) {
-        const requestCourse = this.viewerSvc.getBatchIdAndCourseId(
-          this.activatedRoute.snapshot.queryParams.collectionId,
-          this.activatedRoute.snapshot.queryParams.batchId,
-          pdfId)
-        const language = this.viewerSvc.getResourceContentLanguage(pdfId) 
-        const req: NsContent.IContinueLearningDataReq = {
-          request: {
-            userId,
-            language,
-            batchId: requestCourse.batchId,
-            courseId: requestCourse.courseId || '',
-            contentIds: [],
-            fields: ['progressdetails'],
-          },
-        }
-        this.contentSvc.fetchContentHistoryV2(req).subscribe(
-          data => {
-            if (data && data.result && data.result.contentList.length) {
-              this.contentSvc.setProgramChildResumeData(data.result.contentList, requestCourse.courseId)
-              for (const content of data.result.contentList) {
-                if (content.contentId === pdfId && content.progressdetails && content.progressdetails.current) {
-                  if (content.progress === 100 || content.status === 2) {
-                    if(this.activatedRoute.snapshot.queryParams && this.activatedRoute.snapshot.queryParams.from 
-                      && 
-                      this.activatedRoute.snapshot.queryParams.from === 'globalSearch') {
-                      if(this.activatedRoute.snapshot.queryParams.pn) {
-                        let pageNumber  = this.activatedRoute.snapshot.queryParams.pn
-                        this.widgetResolverPdfData.widgetData.resumePage = Number(pageNumber)
-                      }
-                    } else {
-                      this.widgetResolverPdfData.widgetData.resumePage = 1
-                    }                    
-                  } else {
-                    this.widgetResolverPdfData.widgetData.resumePage = Number(content.progressdetails.current.pop())
+    if (this.activatedRoute.snapshot.queryParams.collectionId &&
+      this.activatedRoute.snapshot.queryParams.batchId &&
+      pdfId
+    ) {
+      const requestCourse = this.viewerSvc.getBatchIdAndCourseId(
+        this.activatedRoute.snapshot.queryParams.collectionId,
+        this.activatedRoute.snapshot.queryParams.batchId,
+        pdfId)
+      const language = this.viewerSvc.getResourceContentLanguage(pdfId)
+      const req: NsContent.IContinueLearningDataReq = {
+        request: {
+          userId,
+          language,
+          batchId: requestCourse.batchId,
+          courseId: requestCourse.courseId || '',
+          contentIds: [],
+          fields: ['progressdetails'],
+        },
+      }
+      try {
+        const data: any = await this.contentSvc.fetchContentHistoryV2(req).toPromise()
+        if (data && data.result && data.result.contentList.length) {
+          this.contentSvc.setProgramChildResumeData(data.result.contentList, requestCourse.courseId)
+          for (const content of data.result.contentList) {
+            if (content.contentId === pdfId && content.progressdetails && content.progressdetails.current) {
+              if (content.progress === 100 || content.status === 2) {
+                if (this.activatedRoute.snapshot.queryParams && this.activatedRoute.snapshot.queryParams.from
+                  &&
+                  this.activatedRoute.snapshot.queryParams.from === 'globalSearch') {
+                  if (this.activatedRoute.snapshot.queryParams.pn) {
+                    const pageNumber = this.activatedRoute.snapshot.queryParams.pn
+                    this.widgetResolverPdfData.widgetData.resumePage = Number(pageNumber)
                   }
-                  this.pdfScormDataService.handlePdfMarkComplete.next(content)
+                } else {
+                  this.widgetResolverPdfData.widgetData.resumePage = 1
                 }
+              } else {
+                this.widgetResolverPdfData.widgetData.resumePage = Number(content.progressdetails.current.pop())
               }
+              this.pdfScormDataService.handlePdfMarkComplete.next(content)
             }
-            resolve(true)
-          },
-          () => resolve(true),
-        )
-        resolve(true)
-      } else {
-         resolve(true)
+          }
+        }
+      } catch (e) {
+        // ignore error
       }
-
-    })
+    }
+    return
   }
 
   private async setS3Cookie(contentId: string) {

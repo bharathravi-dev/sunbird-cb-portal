@@ -245,9 +245,11 @@ export function videoJsInitializer(
       currentTimeInterval = interval(500).subscribe(_ => {
         if (player.currentTime() >= player.duration() * 5 / 100 && player.currentTime() < player.duration() * 95 / 100
           && !readyToRaise) {
+        console.log(player.currentTime(),'player.currentTime()')
           readyToRaise = true
         }
-        if (player.currentTime() >= player.duration() * 95 / 100 && readyToRaise) {
+        console.log('timespentTimer', timespentTimer)
+        if (player.currentTime() >= player.duration() * 95 / 100 && readyToRaise && timespentTimer >= (player.duration() * 40 / 100)) {
           fireRealTimeProgress(mimeType, widgetData, fireRProgress, player.currentTime(), player.duration())
           readyToRaise = false
         }
@@ -311,8 +313,13 @@ export function videoInitializer(
   let loaded = false
   let readyToRaise = false
   let currTime = 0
+  let timespentTimer = passThroughData && passThroughData['resumeFrom'] ? passThroughData['resumeFrom'] : 1
+  if (passThroughData && passThroughData['lastAccessTime'] === undefined) {
+    passThroughData['lastAccessTime'] = 0
+  }
   if (enableTelemetry) {
     playSubscription = fromEvent(elem, 'play').subscribe(() => {
+      
       if (!loaded) {
         eventDispatcher(WsEvents.EnumTelemetrySubType.Loaded, widgetData, WsEvents.EnumTelemetryMediaActivity.PLAYED, mimeType)
         heartBeatSubscription = interval(2 * 60000).subscribe(_ => {
@@ -321,11 +328,14 @@ export function videoInitializer(
         loaded = true
       }
       currentTimeInterval = interval(500).subscribe(_ => {
+        // console.log('timespentTimer', timespentTimer)
+        debugger
+  console.log('passThroughData', passThroughData)
         if (elem.currentTime >= elem.duration * 5 / 100 && elem.currentTime < elem.duration * 95 / 100
           && !readyToRaise) {
           readyToRaise = true
         }
-        if (elem.currentTime >= elem.duration * 95 / 100 && readyToRaise) {
+        if (elem.currentTime >= elem.duration * 95 / 100 && readyToRaise && timespentTimer >= (elem.duration * 40 / 100)) {
           fireRealTimeProgress(mimeType, widgetData, fireRProgress, elem.currentTime, elem.duration)
           readyToRaise = false
         }
@@ -453,7 +463,7 @@ export function youtubeInitializer(
             && !readyToRaise) {
             readyToRaise = true
           }
-          if (player.getCurrentTime() >= player.getDuration() * 95 / 100 && readyToRaise) {
+          if (player.getCurrentTime() >= player.getDuration() * 95 / 100 && readyToRaise && timespentTimer >= (player.getDuration() * 40 / 100)) {
             fireRealTimeProgress(mimeType, widgetData, fireRProgress, player.getCurrentTime(), player.getDuration())
             readyToRaise = false
           }

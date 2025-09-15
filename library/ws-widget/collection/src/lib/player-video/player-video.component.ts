@@ -473,6 +473,7 @@ export class PlayerVideoComponent extends WidgetBaseComponent
     if (!this.widgetData.disableTelemetry && typeof (this.widgetData.disableTelemetry) !== 'undefined') {
       enableTelemetry = true
     }
+    debugger
     const initObj = videoJsInitializer(
       this.videoTag.nativeElement,
       {
