@@ -60,12 +60,12 @@ export class VerifyOtpComponent implements OnInit, OnDestroy {
   }
 
   verifyEmailOTP(): void {
-    this.otpService.verifyEmailOTP(this.otpEntered, this.data.value)
+    this.otpService.verifyOTPV4(this.otpEntered, this.data.value, 'email')
     .pipe(takeUntil(this.destroySubject$))
     .subscribe((_res: any) => {
       this.matSnackbar.open(this.handleTranslateTo('OTPSentSuccess'))
       this.handleCloseModal()
-      this.otpVerified.emit({type: 'email', token: _res.result.contextToken})
+      this.otpVerified.emit({type: 'email',otpValue: this.otpEntered, token: _res.result.contextToken})
     }, (error: HttpErrorResponse) => {
       if (!error.ok) {
         this.matSnackbar.open(_.get(error, 'error.params.errmsg') || this.handleTranslateTo('OTPVerifyFailed'))
@@ -75,12 +75,12 @@ export class VerifyOtpComponent implements OnInit, OnDestroy {
   }
 
   verifyMobileOTP(): void {
-    this.otpService.verifyOTP(this.otpEntered, this.data.value)
+    this.otpService.verifyOTPV4(this.otpEntered, this.data.value, 'phone')
     .pipe(takeUntil(this.destroySubject$))
     .subscribe((_res: any) => {
       this.matSnackbar.open(this.handleTranslateTo('OTPSentSuccess'))
       this.handleCloseModal()
-      this.otpVerified.emit({type: 'mobile'})
+      this.otpVerified.emit({type: 'mobile',otpValue: this.otpEntered,})
     }, (error: HttpErrorResponse) => {
       if (!error.ok) {
         this.matSnackbar.open(_.get(error, 'error.params.errmsg') || this.handleTranslateTo('OTPVerifyFailed'))
