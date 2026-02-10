@@ -181,13 +181,13 @@ iframe {
 
 // Material Over-rides
 .auto-mat-form-field-input-infix {
-  .mat-form-field-infix {
+  .mat-mdc-form-field-infix {
     width: auto;
     min-width: 2em;
   }
 }
 
-.mat-form-field-infix {
+.mat-mdc-form-field-infix {
   line-height: 1.2 !important;
 }
 
@@ -224,18 +224,18 @@ mat-toolbar {
 .full-height-tab-group {
   height: 100%;
 
-  .mat-tab-body-wrapper {
+  .mat-mdc-tab-body-wrapper {
     height: 100%;
   }
 }
 
 // Override checkbox
 .fit-checkbox-to-width {
-  .mat-checkbox-layout {
+  .mdc-checkbox {
     width: 100%;
   }
 
-  .mat-checkbox-label {
+  .mdc-label {
     flex: 1;
     min-width: 1px;
   }
@@ -244,10 +244,11 @@ mat-toolbar {
 // Apply custom scroll
 .mat-drawer-inner-container,
 .mat-drawer-content,
-.mat-dialog-content,
-.mat-select-panel,
+.mat-mdc-dialog-content,
+.mat-mdc-select-panel,
 textarea {
   @extend .custom-scroll;
+
   &::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -256,7 +257,7 @@ textarea {
 
 // Override Side nav bar
 .sidenav-content-min-112 {
-  .mat-sidenav-content {
+  .mat-drawer-content {
     min-height: calc(100vh - 168px);
   }
 }
@@ -500,24 +501,22 @@ h3.shepherd-title {
   color: #102b4e !important;
 }
 
-.mat-flat-button {
+.mat-mdc-flat-button {
   border: 1px solid;
 }
 
 #bannerColors {
-  .mat-radio-label {
+  .mdc-label {
     display: flex;
     flex-direction: column-reverse;
     align-items: flex-start;
   }
 
-  .mat-radio-label-content {
-    display: flex;
-    padding: 0;
-    margin: 0;
+  .mat-mdc-radio-touch-target {
+    // Adjust if needed
   }
 
-  .mat-radio-container {
+  .mdc-radio {
     margin: 0 0 0 10px;
   }
 }
@@ -557,13 +556,13 @@ h3.shepherd-title {
 
 // used at discussion start component
 .remove-pad {
-  .mat-dialog-container {
+  .mat-mdc-dialog-container {
     padding: 0 24px;
   }
 }
 
-::ng-deep.mat-dialog-container {
-  overflow: hidden!important;
+::ng-deep.mat-mdc-dialog-container {
+  overflow: hidden !important;
 }
 
 @media only screen and (max-width: 585px) {
@@ -585,11 +584,11 @@ h3.shepherd-title {
 }
 
 .custom-dialog-container .mat-dialog-container {
-    padding: 0px !important;
-    background-color: transparent!important;
-    box-shadow: none!important;
-    width: auto!important;
-    margin:0px auto!important;
+  padding: 0px !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  width: auto !important;
+  margin: 0px auto !important;
 }
 
 
@@ -607,7 +606,9 @@ body:has(.requires-no-scroll) {
   border-radius: 20px 0 0 20px;
 }
 
-.tour-step.right-panel::after, .tour-step.top-panel::after, .tour-step.bottom-panel::after {
+.tour-step.right-panel::after,
+.tour-step.top-panel::after,
+.tour-step.bottom-panel::after {
   border-radius: 0 20px 20px 0;
 }
 
@@ -634,6 +635,7 @@ body:has(.requires-no-scroll) {
   height: 320px !important;
   top: 88px !important;
 }
+
 .tour-image {
   mat-icon {
     height: 36px !important;
@@ -761,7 +763,8 @@ body:has(.requires-no-scroll) {
   width: 80px !important;
 }
 
-.tour_learn_mobile, .tour_discuss_mobile {
+.tour_learn_mobile,
+.tour_discuss_mobile {
   transform: scale(1.5);
   border-radius: 50%;
   height: 55px !important;
@@ -770,7 +773,8 @@ body:has(.requires-no-scroll) {
 
 
 
-.tour_learn_mobile_container.top-panel:after, .tour_discuss_mobile_container.top-panel:after {
+.tour_learn_mobile_container.top-panel:after,
+.tour_discuss_mobile_container.top-panel:after {
   height: 320px !important;
   top: -134px !important;
   left: 156px !important;
@@ -808,13 +812,13 @@ ngx-guided-tour {
     position: relative;
     background-color: #1C4CA1 !important;
     color: white !important;
-    box-shadow: 0px 8px 24px rgba(0,0,0, 0.24) !important;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.24) !important;
   }
 
   .tour-buttons {
     .back-button {
       border-radius: 4px !important;
-      border: 1px solid rgba(0,0,0, 0.08) !important;
+      border: 1px solid rgba(0, 0, 0, 0.08) !important;
       opacity: 1 !important;
       background-color: transparent !important;
       color: white !important;
@@ -903,6 +907,7 @@ ngx-guided-tour {
   .tour-step.tour-bottom-left .tour-arrow::before {
     border-bottom: 1rem solid #F3962E !important;
   }
+
   .tour_profile_container {
     margin-left: 0.8rem;
   }
@@ -912,15 +917,20 @@ ngx-guided-tour {
       left: -65px !important;
       top: -25px !important;
     }
+
     .right-connector {
       margin-top: 0.4rem;
     }
+
     .circle-start-dot {
       margin-left: 35px;
     }
   }
 
-  .tour_learn_mobile_container, .tour_discuss_mobile_container, .tour_search_mobile_container, .tour_profile_mobile_container {
+  .tour_learn_mobile_container,
+  .tour_discuss_mobile_container,
+  .tour_search_mobile_container,
+  .tour_profile_mobile_container {
     width: 320px !important;
 
     .tour-block {
@@ -1020,7 +1030,8 @@ ngx-guided-tour {
     }
   }
 
-  .tour_learn_mobile_container, .tour_discuss_mobile_container {
+  .tour_learn_mobile_container,
+  .tour_discuss_mobile_container {
     .tour-button-container {
       display: flex;
       justify-content: space-between;
@@ -1029,7 +1040,7 @@ ngx-guided-tour {
     }
 
     .back-button {
-      color: rgba(255,255,255,1) !important;
+      color: rgba(255, 255, 255, 1) !important;
       font-family: "Lato-Bold", sans-serif !important;
       font-size: 12px !important;
       font-weight: 700 !important;
@@ -1037,7 +1048,7 @@ ngx-guided-tour {
       letter-spacing: 0.5px !important;
       text-align: center !important;
       border-radius: 4px !important;
-      border: 1px solid rgba(255,255,255, 0.4) !important;
+      border: 1px solid rgba(255, 255, 255, 0.4) !important;
       opacity: 1 !important;
     }
 
@@ -1072,6 +1083,7 @@ ngx-guided-tour {
         transform: rotate(40deg) !important;
       }
     }
+
     .tour-button-container {
       position: absolute;
       display: flex;
@@ -1081,7 +1093,7 @@ ngx-guided-tour {
     }
 
     .back-button {
-      color: rgba(255,255,255,1) !important;
+      color: rgba(255, 255, 255, 1) !important;
       font-family: "Lato-Bold", sans-serif !important;
       font-size: 12px !important;
       font-weight: 700 !important;
@@ -1089,14 +1101,15 @@ ngx-guided-tour {
       letter-spacing: 0.5px !important;
       text-align: center !important;
       border-radius: 4px !important;
-      border: 1px solid rgba(255,255,255, 0.4) !important;
+      border: 1px solid rgba(255, 255, 255, 0.4) !important;
       opacity: 1 !important;
     }
+
     .next-button {
       border-radius: 4px !important;
     }
   }
-  
+
 }
 
 .tour_profile_mobile_container {
@@ -1151,7 +1164,7 @@ ngx-guided-tour {
   }
 }
 
-#advwebForm .zstitlemini  {
+#advwebForm .zstitlemini {
   white-space: initial;
 }
 
@@ -1171,10 +1184,12 @@ ngx-guided-tour {
   .circle {
     clip-path: inset(0 50% 80% 0) !important;
   }
+
   .circle-start-dot {
     margin-top: 16px;
     margin-left: 8px;
   }
+
   .triangle {
     transform: rotate(90deg) !important;
   }
@@ -1230,13 +1245,11 @@ ngx-guided-tour {
     bottom: 0;
     left: 0;
     transform: translateX(-100%);
-    background-image: linear-gradient(
-      90deg,
-      rgba(#fff, 0) 0,
-      rgba(#fff, 0.2) 20%,
-      rgba(#fff, 0.5) 60%,
-      rgba(#fff, 0)
-    );
+    background-image: linear-gradient(90deg,
+        rgba(#fff, 0) 0,
+        rgba(#fff, 0.2) 20%,
+        rgba(#fff, 0.5) 60%,
+        rgba(#fff, 0));
     animation: shimmer 1s infinite;
     content: '';
   }
@@ -1250,12 +1263,13 @@ ngx-guided-tour {
 
 .blue-loader {
   background-color: $brandAccentColor !important;
+
   &::after {
-      background-image: linear-gradient(90deg,
-          rgba(#9d92ee, 0) 0,
-          rgba(#9d92ee, 0.2) 20%,
-          rgba(#9d92ee, 0.5) 60%,
-          rgba(#9d92ee, 0)) !important;
+    background-image: linear-gradient(90deg,
+        rgba(#9d92ee, 0) 0,
+        rgba(#9d92ee, 0.2) 20%,
+        rgba(#9d92ee, 0.5) 60%,
+        rgba(#9d92ee, 0)) !important;
   }
 }
 
@@ -1266,23 +1280,25 @@ ngx-guided-tour {
 .width-unset {
   width: unset !important;
 }
+
 @media only screen and (max-width: 768px) {
   .tour_learn_mobile_container .tour-block {
     width: 85%;
   }
 
- 
+
 }
 
 @media only screen and (max-width: 768px) {
   .tour_discuss_mobile_container .tour-block {
-    width:100%;
+    width: 100%;
   }
 
   .tour_profile_mobile_container {
-  .tour-step.bottom-panel:after {
-    right:178px !important;
-  }}
+    .tour-step.bottom-panel:after {
+      right: 178px !important;
+    }
+  }
 }
 
 .mat-tooltip {
@@ -1327,12 +1343,13 @@ ngx-guided-tour {
   background-color: $brandAccentColor !important;
   border-radius: 9999px !important;
   font-weight: 700;
+
   mat-icon {
     color: #1b4ca1;
   }
 }
 
-.mat-flat-button[disabled] {
+.mat-mdc-flat-button[disabled] {
   opacity: 50% !important;
 }
 
@@ -1347,6 +1364,7 @@ ngx-guided-tour {
     --mat-mdc-snack-bar-button-color: #fff;
     --mdc-snackbar-supporting-text-color: #fff;
   }
+
   &.error {
     --mdc-snackbar-container-color: #{$snackBarDanger};
     --mat-mdc-snack-bar-button-color: #fff;
@@ -1364,7 +1382,7 @@ ngx-guided-tour {
   --mdc-snackbar-container-color: #{$snackBarDanger} !important;
 }
 
-.mat-dialog-container {
+.mat-mdc-dialog-container {
   border-radius: 12px !important;
 }
 
@@ -1376,40 +1394,33 @@ ngx-guided-tour {
   cursor: pointer;
 }
 
-.mat-full-radius, .mat-full-radius-select {
-  .mat-form-field-appearance-outline .mat-form-field-outline {
+.mat-full-radius,
+.mat-full-radius-select {
+
+  // Adaptation for MDC Outline can be complex.
+  // We target the notched outline
+  .mat-form-field-appearance-outline .mdc-notched-outline {
     border-radius: 30px;
-  }
 
-  .mat-form-field {
-    .mat-form-field-outline {
-      &-end {
-        border-radius: 0 30px 30px 0 !important;
-      }
+    .mdc-notched-outline__leading {
+      border-top-left-radius: 30px;
+      border-bottom-left-radius: 30px;
+      width: 30px !important;
+    }
 
-      &-start {
-        border-radius: 30px 0 0 30px !important;
-        flex-grow: 1;
-      }
+    .mdc-notched-outline__trailing {
+      border-top-right-radius: 30px;
+      border-bottom-right-radius: 30px;
     }
   }
 
-  .mat-form-field-appearance-outline .mat-form-field-infix {
-    padding: 6px 0 15px 0;
-  }
-
-  .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
-    transform: translateY(5%);
-  }
-
-  .mat-form-field-appearance-outline .mat-form-field-flex {
-    padding: 0 16px 0 16px;
-  }
+  // Hide default border radius logic from legacy if needed
 }
 
 .mat-full-radius-select {
-  .mat-form-field-appearance-outline .mat-form-field-infix {
-    padding: 16px 0 16px 0 !important;
+  .mat-mdc-form-field-infix {
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
   }
 }
 
@@ -1419,9 +1430,10 @@ ngx-guided-tour {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
   @media screen and (max-width: 768px) {
     max-width: 22em;
-    
+
   }
 }
 
@@ -1430,7 +1442,7 @@ ngx-guided-tour {
   position: fixed !important;
   right: 0px;
 
-  .mat-dialog-container {
+  .mat-mdc-dialog-container {
     border-radius: 0px !important;
     padding: 0px !important;
   }
@@ -1441,7 +1453,7 @@ ngx-guided-tour {
   }
 }
 
-.lang-chips .mat-chip-list-wrapper {
+.lang-chips .mat-mdc-chip-set {
   gap: 8px !important;
   display: flex !important;
 }
