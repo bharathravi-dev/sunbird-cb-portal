@@ -244,24 +244,24 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "port": 3000,
-            "browserTarget": "fusion:build"
+            "buildTarget": "fusion:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "fusion:build:production"
+              "buildTarget": "fusion:build:production"
             },
             "nb": {
-              "browserTarget": "fusion:build:nb"
+              "buildTarget": "fusion:build:nb"
             },
             "de": {
-              "browserTarget": "fusion:build:de"
+              "buildTarget": "fusion:build:de"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "fusion:build"
+            "buildTarget": "fusion:build"
           }
         },
         "test": {

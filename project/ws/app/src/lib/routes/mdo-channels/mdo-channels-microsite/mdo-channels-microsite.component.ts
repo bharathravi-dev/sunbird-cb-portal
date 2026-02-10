@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { MatLegacyTabChangeEvent as MatTabChangeEvent } from '@angular/material/legacy-tabs'
+import { MatTabChangeEvent } from '@angular/material/tabs'
 import { ActivatedRoute, Router } from '@angular/router'
 import { EventService, WsEvents } from '@sunbird-cb/utils-v2'
 /* tslint:disable */

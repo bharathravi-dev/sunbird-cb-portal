@@ -2,7 +2,7 @@ import { Component, Input, ViewChild, ElementRef, OnDestroy, OnChanges } from '@
 import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms'
 import { RdbmsHandsOnService } from '../../rdbms-hands-on.service'
 import { NSRdbmsHandsOn } from '../../rdbms-hands-on.model'
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { EventService } from '@sunbird-cb/utils-v2'
 
 @Component({

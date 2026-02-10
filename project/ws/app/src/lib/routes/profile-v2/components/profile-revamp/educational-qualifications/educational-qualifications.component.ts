@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { educationalQualifications } from '../../../models/profile-revamp.model';
-import { MAT_LEGACY_DIALOG_DATA, MatLegacyDialogRef } from '@angular/material/legacy-dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProfileV2RevampService } from '../../../services/profile-v2-revamp.service';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _ from 'lodash';
 
 @Component({
@@ -21,10 +21,10 @@ export class EducationalQualificationsComponent implements OnInit {
   //#endregion (global variables)
 
   constructor(
-    private dialogRef: MatLegacyDialogRef<EducationalQualificationsComponent>,
-            @Inject(MAT_LEGACY_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<EducationalQualificationsComponent>,
+            @Inject(MAT_DIALOG_DATA) private data: any,
             private profileV2RevampSvc: ProfileV2RevampService,
-            private snackBar: MatLegacySnackBar,
+            private snackBar: MatSnackBar,
   ) { 
     if (this.data && this.data.userId) {
       this.userId = data.userId;

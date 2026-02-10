@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { MatLegacyTabChangeEvent as MatTabChangeEvent } from '@angular/material/legacy-tabs'
+import { MatTabChangeEvent } from '@angular/material/tabs'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { EFeedbackRole, EFeedbackType, IFeedbackSummary } from '@sunbird-cb/collection'
 import { IResolveResponse } from '@sunbird-cb/utils-v2'

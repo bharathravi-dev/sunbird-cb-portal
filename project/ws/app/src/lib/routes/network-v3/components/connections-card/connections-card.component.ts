@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as _ from 'lodash';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfigurationsService, EventService, NsUser, WsEvents } from '@sunbird-cb/utils-v2';
 import { Router } from '@angular/router';
 import { NetworkingService } from '../../services/networking.service';
-import { MatLegacyDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '@sunbird-cb/consumption'
 
 @Component({
@@ -24,11 +24,11 @@ export class ConnectionsCardComponent implements OnInit {
   currentUserDetails: NsUser.IUserProfile | null = null;
 
   constructor(
-    private snackBar: MatLegacySnackBar,
+    private snackBar: MatSnackBar,
     private router: Router,
     private configSvc: ConfigurationsService,
     private networkingSvc: NetworkingService,
-    private dialog: MatLegacyDialog,
+    private dialog: MatDialog,
      private events: EventService,
   ) { }
 

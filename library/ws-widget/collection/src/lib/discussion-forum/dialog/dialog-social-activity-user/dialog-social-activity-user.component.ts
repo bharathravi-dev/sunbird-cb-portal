@@ -5,8 +5,8 @@ import { TFetchStatus, ConfigurationsService } from '@sunbird-cb/utils-v2'
 import { WsDiscussionForumService } from '../../ws-discussion-forum.services'
 import { WsDiscussionForumUserService } from '../../ws-discussion-forum-user.service'
 import { NsDiscussionForum } from '../../ws-discussion-forum.model'
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog'
-import { MatLegacyTabChangeEvent as MatTabChangeEvent } from '@angular/material/legacy-tabs'
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { MatTabChangeEvent } from '@angular/material/tabs'
 
 const TAB_INDEX_ACTIVITY_TYPE_MAPPING: { [key: number]: string } = {
   0: 'like',

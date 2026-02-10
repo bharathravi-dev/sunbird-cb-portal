@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { connectionUpdates, routesData } from '../../models/network-v3.model';
 import * as _ from 'lodash';
 import { NetworkingService } from '../../services/networking.service';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfigurationsService, MultilingualTranslationsService } from '@sunbird-cb/utils-v2';
 import { TranslateService } from '@ngx-translate/core';
 import { MobileAppsService } from 'src/app/services/mobile-apps.service';
@@ -67,7 +67,7 @@ export class NetworkComponent implements OnInit {
 
   constructor(
     private networkingSvc: NetworkingService,
-    private snackBar: MatLegacySnackBar,
+    private snackBar: MatSnackBar,
     private configSvc: ConfigurationsService,
     private translateService: TranslateService,
     private mobileAppsSvc: MobileAppsService,

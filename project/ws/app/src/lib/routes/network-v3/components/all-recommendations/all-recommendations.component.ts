@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageChangeEmitter } from '../../models/network-v3.model';
 import * as _ from 'lodash';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NetworkingService } from '../../services/networking.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class AllRecommendationsComponent implements OnInit {
 
 
   constructor(
-    private snackBar: MatLegacySnackBar,
+    private snackBar: MatSnackBar,
     private networkingSvc: NetworkingService
   ) { }
 

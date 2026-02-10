@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PaginationComponent } from './pagination.component';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacySelectModule } from '@angular/material/legacy-select';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -16,7 +16,7 @@ import { MatLegacySelectModule } from '@angular/material/legacy-select';
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
-    MatLegacySelectModule
+    MatSelectModule
   ],
   exports: [PaginationComponent]
 })

@@ -29,7 +29,7 @@ describe('MentorsComponent', () => {
   let mockNetworkingService: any;
 
   beforeEach(() => {
-    // Mock MatLegacySnackBar
+    // Mock MatSnackBar
     mockSnackBar = {
       open: jest.fn()
     };

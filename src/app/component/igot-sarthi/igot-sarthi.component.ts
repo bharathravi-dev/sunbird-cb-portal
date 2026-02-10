@@ -4,7 +4,7 @@ import { ConfigurationsService, EventService, WsEvents } from '@sunbird-cb/utils
 import { RootService } from '../../component/root/root.service';
 import { environment } from '../../../environments/environment';  
 import { NonReleventFeedbackDialogComponent } from '@sunbird-cb/collection/src/lib/_common/non-relevent-feedback-dialog/non-relevent-feedback-dialog.component';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
+import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar as MatSnackbarNew } from '@angular/material/snack-bar'
 import cloneDeep from 'lodash/cloneDeep';
 // import { timeout, catchError } from 'rxjs/operators';

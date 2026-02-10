@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_LEGACY_DIALOG_DATA, MatLegacyDialogRef } from '@angular/material/legacy-dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'ws-app-certificate-view-popup',
@@ -9,8 +9,8 @@ import { MAT_LEGACY_DIALOG_DATA, MatLegacyDialogRef } from '@angular/material/le
 export class CertificateViewPopupComponent implements OnInit{
   certificateUrl = '';
 
-  constructor(private dialogRef: MatLegacyDialogRef<CertificateViewPopupComponent>,
-      @Inject(MAT_LEGACY_DIALOG_DATA) public data: any) {
+  constructor(private dialogRef: MatDialogRef<CertificateViewPopupComponent>,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
       }
 
   ngOnInit(): void {

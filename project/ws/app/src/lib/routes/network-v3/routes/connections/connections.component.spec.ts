@@ -20,7 +20,7 @@ describe('ConnectionsComponent', () => {
       handleTranslateTo: jest.fn()
     };
 
-    // Mock MatLegacySnackBar
+    // Mock MatSnackBar
     mockSnackBar = {
       open: jest.fn()
     };

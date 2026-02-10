@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, throwError } from 'rxjs';
 import * as _ from 'lodash';
 
@@ -38,7 +38,7 @@ describe('PeopleSuggestionsComponent', () => {
       declarations: [PeopleSuggestionsComponent],
       providers: [
         { provide: ProfileV2RevampService, useValue: mockProfileV2RevampService },
-        { provide: MatLegacySnackBar, useValue: mockSnackBar },
+        { provide: MatSnackBar, useValue: mockSnackBar },
         { provide: Router, useValue: mockRouter },
         { provide: EventService, useValue: mockEventService }
       ]

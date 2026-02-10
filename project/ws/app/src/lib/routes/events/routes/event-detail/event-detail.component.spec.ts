@@ -95,8 +95,8 @@ jest.mock('@angular/material/snack-bar', () => ({
   }))
 }));
 
-jest.mock('@angular/material/legacy-dialog', () => ({
-  MatLegacyDialog: jest.fn().mockImplementation(() => ({
+jest.mock('@angular/material/dialog', () => ({
+  MatDialog: jest.fn().mockImplementation(() => ({
     open: jest.fn()
   }))
 }));

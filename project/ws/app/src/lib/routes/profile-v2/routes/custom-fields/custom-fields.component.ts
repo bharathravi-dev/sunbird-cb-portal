@@ -4,7 +4,7 @@ import { UserProfileService } from '../../../user-profile/services/user-profile.
 import _ from 'lodash'
 import { ConfigurationsService } from '@sunbird-cb/utils-v2';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatLegacyDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'ws-app-custom-fields',
   templateUrl: './custom-fields.component.html',
@@ -34,7 +34,7 @@ export class CustomFieldsComponent {
     private userProfileService: UserProfileService,
     private configService: ConfigurationsService,
     private matSnackBar: MatSnackBar,
-    private dialogRef: MatLegacyDialogRef<CustomFieldsComponent>,
+    private dialogRef: MatDialogRef<CustomFieldsComponent>,
   ) { }
 
   ngOnInit() {

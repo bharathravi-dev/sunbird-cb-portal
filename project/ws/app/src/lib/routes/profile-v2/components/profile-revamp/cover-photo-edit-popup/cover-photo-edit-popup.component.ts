@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_LEGACY_DIALOG_DATA, MatLegacyDialogRef } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { IMAGE_SIZE_1MB } from '../../../models/profile-revamp.model';
 
@@ -26,9 +26,9 @@ export class CoverPhotoEditPopupComponent implements OnInit {
   //#endregion (global variables)
 
   constructor(
-    private dialogRef: MatLegacyDialogRef<CoverPhotoEditPopupComponent>,
-    @Inject(MAT_LEGACY_DIALOG_DATA) public data: any,
-    private snackBar: MatLegacySnackBar,
+    private dialogRef: MatDialogRef<CoverPhotoEditPopupComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {

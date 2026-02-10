@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, throwError, Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
@@ -35,14 +35,14 @@ describe('ProfileVisibilitySettingsComponent', () => {
       providers: [
         { provide: SettingsService, useValue: mockSettingsService },
         { provide: ConfigurationsService, useValue: mockConfigurationsService },
-        { provide: MatLegacySnackBar, useValue: mockSnackBar }
+        { provide: MatSnackBar, useValue: mockSnackBar }
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProfileVisibilitySettingsComponent);
     component = fixture.componentInstance;
     settingsService = TestBed.inject(SettingsService);
-    snackBar = TestBed.inject(MatLegacySnackBar);
+    snackBar = TestBed.inject(MatSnackBar);
 
     // Reset mocks before each test
     jest.clearAllMocks();

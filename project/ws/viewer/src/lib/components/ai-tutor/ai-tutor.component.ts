@@ -6,8 +6,8 @@ import { environment } from 'src/environments/environment';
 import { WebSocketService } from './socket.service';
 import { Subscription } from 'rxjs';
 import { NonReleventFeedbackDialogComponent } from '@sunbird-cb/collection/src/lib/_common/non-relevent-feedback-dialog/non-relevent-feedback-dialog.component';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
-// import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
+import { MatDialog } from '@angular/material/dialog'
+// import { MatSnackBar } from '@angular/material/snack-bar'
 import cloneDeep from 'lodash/cloneDeep';
 import { MatSnackBar as MatSnackbarNew } from '@angular/material/snack-bar'
 

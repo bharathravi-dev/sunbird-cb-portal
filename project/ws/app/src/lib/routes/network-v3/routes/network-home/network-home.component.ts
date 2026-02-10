@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NetworkingService } from '../../services/networking.service';
 import { connectionUpdates } from '../../models/network-v3.model';
 
@@ -37,7 +37,7 @@ export class NetworkHomeComponent implements OnInit{
 
   constructor(
     private router: Router,
-    private snackBar: MatLegacySnackBar,
+    private snackBar: MatSnackBar,
     private networkingService: NetworkingService
     // private activatedRoute: ActivatedRoute
   ) { }

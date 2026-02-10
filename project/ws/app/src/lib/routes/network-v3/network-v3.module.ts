@@ -13,17 +13,17 @@ import { ProfileCardComponent } from './components/profile-card/profile-card.com
 import { ConnectionsCardComponent } from './components/connections-card/connections-card.component';
 import { UpdatesCardComponent } from './components/updates-card/updates-card.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyMenuModule } from '@angular/material/legacy-menu';
-import { MatLegacyTabsModule } from '@angular/material/legacy-tabs';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs';
 import { AvatarPhotoModule } from '@sunbird-cb/collection/src/lib/_common/avatar-photo/avatar-photo.module';
 import { ConnectionPeopleCardComponent } from './components/connection-people-card/connection-people-card.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AllRecommendationsComponent } from './components/all-recommendations/all-recommendations.component';
 import { CommunitySuggestionsModule, HorizontalScrollerV2Module, ConnectionNameModule, DialogComponentsModule, AvatarPhotoLibModule } from '@sunbird-cb/consumption';
 import { PaginationModule } from '@sunbird-cb/collection/src/lib/_common/pagination/pagination.module';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { SkeletonLoaderModule } from '@sunbird-cb/collection/src/lib/_common/skeleton-loader/skeleton-loader.module';
-import { MatLegacyDialogModule } from '@angular/material/legacy-dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { HttpLoaderFactory } from 'src/app/app.module';
 import { HttpClient } from '@angular/common/http';
 
@@ -48,16 +48,16 @@ import { HttpClient } from '@angular/common/http';
     CommonModule,
     NetworkV3RoutingModule,
     MatIconModule,
-    MatLegacyMenuModule,
+    MatMenuModule,
     AvatarPhotoModule,
     ConnectionNameModule,
     PaginationModule,
     HorizontalScrollerV2Module,
-    MatLegacyTabsModule,
-    MatLegacyButtonModule,
+    MatTabsModule,
+    MatButtonModule,
     CommunitySuggestionsModule,
     SkeletonLoaderModule,
-    MatLegacyDialogModule,
+    MatDialogModule,
     DialogComponentsModule,
     AvatarPhotoLibModule,
     TranslateModule.forRoot({

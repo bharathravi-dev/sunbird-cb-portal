@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { EventsCalendarComponent } from './events-calendar.component';
 import { EventService } from '../../services/events.service';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfigurationsService, WsEvents } from '@sunbird-cb/utils-v2';
 import { Router } from '@angular/router';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
@@ -13,7 +13,7 @@ describe('EventsCalendarComponent', () => {
   let component: EventsCalendarComponent;
   let datePipeMock: jest.Mocked<DatePipe>;
   let eventServiceMock: jest.Mocked<EventService>;
-  let matSnackBarMock: jest.Mocked<MatLegacySnackBar>;
+  let matSnackBarMock: jest.Mocked<MatSnackBar>;
   let configSvcMock: jest.Mocked<ConfigurationsService>;
   let routerMock: jest.Mocked<Router>;
   let bottomSheetRefMock: jest.Mocked<MatBottomSheetRef<any>>;

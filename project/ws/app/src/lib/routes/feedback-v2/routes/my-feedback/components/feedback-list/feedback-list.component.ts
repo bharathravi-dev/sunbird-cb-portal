@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { UntypedFormGroup, UntypedFormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
+import { MatDialog } from '@angular/material/dialog'
 import { noop, Subscription } from 'rxjs'
 
 import {

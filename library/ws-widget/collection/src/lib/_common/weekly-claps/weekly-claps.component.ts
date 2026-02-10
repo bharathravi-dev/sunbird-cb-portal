@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
+import { MatDialog } from '@angular/material/dialog'
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component'
 import { TranslateService } from '@ngx-translate/core'
 import { MultilingualTranslationsService, EventService, WsEvents  } from '@sunbird-cb/utils-v2'

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { connectionUpdates, PageChangeEmitter, tabDetails } from '../../models/network-v3.model';
 import * as _ from 'lodash';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NetworkingService } from '../../services/networking.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -34,7 +34,7 @@ export class ConnectionsComponent implements OnInit {
 
   constructor(
     private networkingSvc: NetworkingService,
-    private snackBar: MatLegacySnackBar,
+    private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute
   ) { }
 

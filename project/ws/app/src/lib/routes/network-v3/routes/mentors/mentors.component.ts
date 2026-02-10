@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageChangeEmitter } from '../../models/network-v3.model';
 import { NetworkingService } from '../../services/networking.service';
 import * as _ from 'lodash';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -22,7 +22,7 @@ export class MentorsComponent implements OnInit {
   mentorsGetSubscription: any
 
   constructor(
-    private snackBar: MatLegacySnackBar,
+    private snackBar: MatSnackBar,
     private networkingSvc: NetworkingService
   ) { }
 

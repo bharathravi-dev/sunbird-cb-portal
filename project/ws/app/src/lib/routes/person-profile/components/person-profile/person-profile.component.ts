@@ -6,7 +6,7 @@ import { ConfigurationsService, ValueService, TFetchStatus } from '@sunbird-cb/u
 import { IFollowerId } from '../../person-profile.model'
 import { ProfileService } from '../../../profile/services/profile.service'
 import { Subscription } from 'rxjs'
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Component({
   selector: 'ws-app-person-profile',

@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
 import { ProfileV2RevampService } from '../../../services/profile-v2-revamp.service';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { EventService, WsEvents } from '@sunbird-cb/utils-v2';
 
@@ -18,7 +18,7 @@ export class PeopleSuggestionsComponent implements OnChanges {
 
   constructor(
     private profileV2RevampSvc: ProfileV2RevampService,
-    private snackBar: MatLegacySnackBar,
+    private snackBar: MatSnackBar,
     private router: Router,
     private events: EventService,
   ) { }

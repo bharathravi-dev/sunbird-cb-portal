@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../settings.service';
 import { ConfigurationsService } from '@sunbird-cb/utils-v2';
 import * as _ from 'lodash';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { MultilingualTranslationsService } from '@sunbird-cb/utils-v2';
 
@@ -20,7 +20,7 @@ export class ProfileVisibilitySettingsComponent implements OnInit {
   constructor(
     private settingsService: SettingsService,
     private configSvc: ConfigurationsService,
-    private snackBar: MatLegacySnackBar,
+    private snackBar: MatSnackBar,
     private translateService: TranslateService,
     private langtranslations: MultilingualTranslationsService,
   ) { }

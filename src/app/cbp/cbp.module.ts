@@ -26,15 +26,15 @@ import { FilterSearchPipeModule } from '../pipes/filter-search/filter-search.mod
 import { TranslateModule } from '@ngx-translate/core'
 import { UserLeaderboardModule } from '@sunbird-cb/collection/src/lib/_common/user-leaderboard/user-leaderboard.module'
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card'
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox'
+import { MatCardModule } from '@angular/material/card'
+import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatIconModule } from '@angular/material/icon'
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu'
-import { MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy-radio'
-import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs'
-import { MatLegacySlideToggleModule } from '@angular/material/legacy-slide-toggle'
-import { MatLegacySliderModule } from '@angular/material/legacy-slider'
+import { MatMenuModule } from '@angular/material/menu'
+import { MatRadioModule } from '@angular/material/radio'
+import { MatTabsModule } from '@angular/material/tabs'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MatSliderModule } from '@angular/material/slider'
 
 @NgModule({
     declarations: [CbpPlanComponent, CbpPlanStatsComponent, MyCompetencyPassbookComponent,
@@ -69,7 +69,7 @@ import { MatLegacySliderModule } from '@angular/material/legacy-slider'
         FilterSearchPipeModule,
         MatMenuModule,
         MatRadioModule,
-        MatLegacySlideToggleModule,MatLegacySliderModule,
+        MatSlideToggleModule,MatSliderModule,
         TranslateModule,
     ],
     exports: [

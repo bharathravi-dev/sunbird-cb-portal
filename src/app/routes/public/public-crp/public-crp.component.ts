@@ -22,8 +22,8 @@ import {
 import { interval, Observable, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SignupService } from '../public-signup/signup.service';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 // import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';

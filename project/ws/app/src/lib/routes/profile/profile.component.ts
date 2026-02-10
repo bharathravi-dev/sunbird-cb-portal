@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
+import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute, Router, NavigationStart, Event } from '@angular/router'
 import { ConfigurationsService, LogoutComponent, NsPage, ValueService } from '@sunbird-cb/utils-v2'
 import { Subscription } from 'rxjs'

@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { MAT_LEGACY_DIALOG_DATA, MatLegacyDialogRef } from '@angular/material/legacy-dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProfileV2RevampService } from '../../../services/profile-v2-revamp.service';
 import * as _ from 'lodash';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'ws-app-service-history',
@@ -27,10 +27,10 @@ export class ServiceHistoryComponent implements OnInit, OnChanges {
 
   constructor(
     private datePipe: DatePipe,
-    private dialogRef: MatLegacyDialogRef<ServiceHistoryComponent>,
-        @Inject(MAT_LEGACY_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<ServiceHistoryComponent>,
+        @Inject(MAT_DIALOG_DATA) private data: any,
     private profileV2RevampSvc: ProfileV2RevampService,
-    private snackBar: MatLegacySnackBar,
+    private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef
   ) { 
     if (this.data && this.data.userId) {

@@ -6,8 +6,8 @@ import { TFetchStatus, ConfigurationsService } from '@sunbird-cb/utils-v2'
 import { debounceTime, distinctUntilChanged, switchMap, catchError, filter } from 'rxjs/operators'
 import { NsAutoComplete } from './user-autocomplete.model'
 import { of } from 'rxjs'
-import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete'
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
+import { MatAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/autocomplete'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Component({
   selector: 'ws-widget-user-autocomplete',

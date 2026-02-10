@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
+import { MatDialog } from '@angular/material/dialog'
 import { NsWidgetResolver } from '@sunbird-cb/resolver/src/public-api'
 import { BehaviorSubject } from 'rxjs'
 import { IWidgetAuthor } from '../interface/widget'

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MAT_LEGACY_DIALOG_DATA, MatLegacyDialogRef } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, throwError } from 'rxjs';
 import * as _ from 'lodash';
 import { educationalQualifications } from '../../../models/profile-revamp.model';
@@ -72,10 +72,10 @@ describe('EducationalQualificationsComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [EducationalQualificationsComponent],
       providers: [
-        { provide: MatLegacyDialogRef, useValue: mockDialogRef },
-        { provide: MAT_LEGACY_DIALOG_DATA, useValue: mockData },
+        { provide: MatDialogRef, useValue: mockDialogRef },
+        { provide: MAT_DIALOG_DATA, useValue: mockData },
         { provide: ProfileV2RevampService, useValue: mockProfileV2RevampService },
-        { provide: MatLegacySnackBar, useValue: mockSnackBar }
+        { provide: MatSnackBar, useValue: mockSnackBar }
       ]
     }).compileComponents();
 
@@ -97,10 +97,10 @@ describe('EducationalQualificationsComponent', () => {
       TestBed.configureTestingModule({
         declarations: [EducationalQualificationsComponent],
         providers: [
-          { provide: MatLegacyDialogRef, useValue: mockDialogRef },
-          { provide: MAT_LEGACY_DIALOG_DATA, useValue: null },
+          { provide: MatDialogRef, useValue: mockDialogRef },
+          { provide: MAT_DIALOG_DATA, useValue: null },
           { provide: ProfileV2RevampService, useValue: mockProfileV2RevampService },
-          { provide: MatLegacySnackBar, useValue: mockSnackBar }
+          { provide: MatSnackBar, useValue: mockSnackBar }
         ]
       });
       
@@ -126,10 +126,10 @@ describe('EducationalQualificationsComponent', () => {
       TestBed.configureTestingModule({
         declarations: [EducationalQualificationsComponent],
         providers: [
-          { provide: MatLegacyDialogRef, useValue: mockDialogRef },
-          { provide: MAT_LEGACY_DIALOG_DATA, useValue: dataWithoutCurrentUser },
+          { provide: MatDialogRef, useValue: mockDialogRef },
+          { provide: MAT_DIALOG_DATA, useValue: dataWithoutCurrentUser },
           { provide: ProfileV2RevampService, useValue: mockProfileV2RevampService },
-          { provide: MatLegacySnackBar, useValue: mockSnackBar }
+          { provide: MatSnackBar, useValue: mockSnackBar }
         ]
       });
       
@@ -376,10 +376,10 @@ describe('EducationalQualificationsComponent', () => {
       TestBed.configureTestingModule({
         declarations: [EducationalQualificationsComponent],
         providers: [
-          { provide: MatLegacyDialogRef, useValue: mockDialogRef },
-          { provide: MAT_LEGACY_DIALOG_DATA, useValue: fullMockData },
+          { provide: MatDialogRef, useValue: mockDialogRef },
+          { provide: MAT_DIALOG_DATA, useValue: fullMockData },
           { provide: ProfileV2RevampService, useValue: mockProfileV2RevampService },
-          { provide: MatLegacySnackBar, useValue: mockSnackBar }
+          { provide: MatSnackBar, useValue: mockSnackBar }
         ]
       });
 
