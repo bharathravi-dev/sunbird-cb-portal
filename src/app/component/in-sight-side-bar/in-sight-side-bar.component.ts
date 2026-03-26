@@ -1,5 +1,5 @@
 import { AUTO_STYLE, animate, state, transition, trigger, style } from '@angular/animations'
-import { Component, EventEmitter, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, OnInit, OnDestroy, Output } from '@angular/core'
 import { HomePageService } from '../../services/home-page.service'
 import { ConfigurationsService, EventService, WsEvents, MultilingualTranslationsService } from '@sunbird-cb/utils-v2'
 import { HttpErrorResponse } from '@angular/common/http'
@@ -61,7 +61,7 @@ const noData = {
   ],
 })
 
-export class InsightSideBarComponent implements OnInit {
+export class InsightSideBarComponent implements OnInit, OnDestroy {
   profileDataLoading = true
   homePageData: any
   noDataValue: {} | undefined
@@ -94,6 +94,8 @@ export class InsightSideBarComponent implements OnInit {
   canShowSlwCard = false
   totalDays = 0
   daysCompleted = 0
+  nlwFlipped = true
+  private nlwFlipInterval: any = null
   currentLang: any = ''
   updateDesignationCard: any
   selectDesignation: string = ''
@@ -160,6 +162,7 @@ export class InsightSideBarComponent implements OnInit {
 
       if (this.nwlConfiguration && this.nwlConfiguration.enabled) {
         this.getNlwConfig()
+        this.startNlwFlip()
       }
       if (this.updateDesignationCard && this.updateDesignationCard.enabled) {
         this.getMasterDesignation()
@@ -679,5 +682,19 @@ export class InsightSideBarComponent implements OnInit {
 
   raiseTelemetryInteratEvent(event: any) {
     this.telemetryRaisedLibrary.emit(event)
+  }
+
+  /** Start auto-flip for the NLW card */
+  private startNlwFlip(): void {
+    const interval = (this.nwlConfiguration?.flipInterval || 5) * 1000
+    this.nlwFlipInterval = setInterval(() => {
+      this.nlwFlipped = !this.nlwFlipped
+    }, interval)
+  }
+
+  ngOnDestroy(): void {
+    if (this.nlwFlipInterval) {
+      clearInterval(this.nlwFlipInterval)
+    }
   }
 }
