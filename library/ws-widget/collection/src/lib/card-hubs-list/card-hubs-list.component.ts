@@ -4,7 +4,6 @@ import { Router, NavigationEnd } from '@angular/router'
 import { NsWidgetResolver, WidgetBaseComponent } from '@sunbird-cb/resolver'
 import { ConfigurationsService, MultilingualTranslationsService, NsInstanceConfig, ValueService, EventService, WsEvents } from '@sunbird-cb/utils-v2'
 import { Subscription } from 'rxjs'
-import { DiscussUtilsService } from '@ws/app/src/lib/routes/discuss/services/discuss-utils.service'
 import { environment } from 'src/environments/environment'
 // tslint:disable
 import _ from 'lodash'
@@ -63,7 +62,6 @@ export class CardHubsListComponent extends WidgetBaseComponent
 
   constructor(
     private configSvc: ConfigurationsService,
-    private discussUtilitySvc: DiscussUtilsService,
     private router: Router,
     private valueSvc: ValueService,
     private langtranslations: MultilingualTranslationsService,
@@ -223,7 +221,6 @@ export class CardHubsListComponent extends WidgetBaseComponent
          ...this.configSvc.unMappedUser.profileDetails,
          nodebbid: this.configSvc.unMappedUser.nodebbid },
     }
-    this.discussUtilitySvc.setDiscussionConfig(config)
     localStorage.setItem('home', JSON.stringify(config))
     if (this.disableMenu) {
       return false

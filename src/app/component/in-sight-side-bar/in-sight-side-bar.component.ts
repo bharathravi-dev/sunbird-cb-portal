@@ -4,7 +4,6 @@ import { HomePageService } from '../../services/home-page.service'
 import { ConfigurationsService, EventService, WsEvents, MultilingualTranslationsService } from '@sunbird-cb/utils-v2'
 import { HttpErrorResponse } from '@angular/common/http'
 import { ActivatedRoute, Router } from '@angular/router'
-import { DiscussUtilsService } from '@ws/app/src/lib/routes/discuss/services/discuss-utils.service'
 import { TranslateService } from '@ngx-translate/core'
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
@@ -115,7 +114,6 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
     private homePageSvc: HomePageService,
     private configSvc: ConfigurationsService,
     private activatedRoute: ActivatedRoute,
-    private discussUtilitySvc: DiscussUtilsService,
     private translate: TranslateService,
     private events: EventService,
     private snackBar: MatSnackBar,
@@ -199,7 +197,6 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
     this.getInsights()
     this.getPendingRequestData()
     this.noDataValue = noData
-    // this.getDiscussionsData()
     // this.displayRandomlearnAdvisoryData()
 
     if (this.activatedRoute.snapshot.data.pageData && this.activatedRoute.snapshot.data.pageData.data.assessmentData) {
@@ -395,21 +392,6 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
     )
   }
 
-  getDiscussionsData(): void {
-    this.discussion.loadSkeleton = true
-    this.homePageSvc.getDiscussionsData(this.userData.userName).subscribe(
-      (res: any) => {
-        this.discussion.loadSkeleton = false
-        this.discussion.data = res && res.latestPosts
-      },
-      (error: HttpErrorResponse) => {
-        if (!error.ok) {
-          this.discussion.loadSkeleton = false
-          this.discussion.error = true
-        }
-      }
-    )
-  }
 
   getPendingRequestData() {
     this.pendingRequestSkeleton = false
@@ -487,7 +469,6 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
       headerOptions: false,
       bannerOption: true,
     }
-    this.discussUtilitySvc.setDiscussionConfig(config)
     localStorage.setItem('home', JSON.stringify(config))
     this.router.navigate(['/app/discussion-forum'], { queryParams: { page: 'home' }, queryParamsHandling: 'merge' })
   }

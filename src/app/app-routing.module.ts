@@ -166,21 +166,21 @@ const routes: Routes = [
       module: 'Learn',
     },
   },
-  {
-    path: 'app',
-    loadChildren: () =>
-      import('./routes/route-discuss.module').then(u => u.RouteDiscussModule),
-    canActivate: [GeneralGuard],
-    data: {
-      pageType: 'feature',
-      pageKey: 'discuss',
-      pageId: 'app',
-      module: 'Discuss',
-    },
-    resolve: {
-      pageData: PageResolve,
-    },
-  },
+  // {
+  //   path: 'app',
+  //   loadChildren: () =>
+  //     import('./routes/route-discuss.module').then(u => u.RouteDiscussModule),
+  //   canActivate: [GeneralGuard],
+  //   data: {
+  //     pageType: 'feature',
+  //     pageKey: 'discuss',
+  //     pageId: 'app',
+  //     module: 'Discuss',
+  //   },
+  //   resolve: {
+  //     pageData: PageResolve,
+  //   },
+  // },
   {
     path: 'app/knowledge-resource',
     loadChildren: () =>

@@ -70,9 +70,6 @@
 			<mat-card-content class="flex flex-2">
 				<div class="tags margin-bottom-s">
 					<ng-container *ngIf="discuss && discuss.tags && discuss.tags.length > 0">
-						<!-- <span *ngFor="let tag of discuss.tags" class="tag post_tag" [ngStyle]="getBgColor(tag.value)">
-						{{tag.value}}
-					  </span> -->	
 						<span *ngFor="let tag of discuss.tags" class="tag post_tag">
 							{{tag.value}}
 						</span>

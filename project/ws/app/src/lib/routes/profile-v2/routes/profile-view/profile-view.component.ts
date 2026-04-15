@@ -443,11 +443,6 @@ export class ProfileViewComponent implements OnInit, AfterViewInit, OnDestroy {
       this.cadre = this.selectedService.cadreList.map((cadre: any) => cadre.name)
     }
 
-    // if((this.selectedServiceName.trim() === 'Indian Administrative Office (IAS)') ||
-    //                 (this.selectedServiceName.trim() === "Indian Police Service (IPS)") ||
-    //                 (this.selectedServiceName.trim() === "Indian Forest Service (IFoS)") && !this.editDetails) {
-    //                 this.showBatchForNoCadre = false
-    // }
     if (this.selectedService && this.selectedService.cadreControllingAuthority) {
       this.cadreControllingAuthority = this.selectedService.cadreControllingAuthority
     } else {
@@ -512,30 +507,6 @@ export class ProfileViewComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  fetchDiscussionsData(): void {
-    this.discussion.loadSkeleton = true
-    this.homeService.getDiscussionsData(this.currentUser.userName)
-      .pipe(takeUntil(this.destroySubject$))
-      .subscribe(
-        (res: any) => {
-          this.discussion.loadSkeleton = false
-          this.updatesPosts.loadSkeleton = false
-          this.discussion.data = res && res.latestPosts
-          this.updatesPosts.data = res && res.latestPosts && res.latestPosts.sort((x: any, y: any) => {
-            return y.timestamp - x.timestamp
-          })
-        },
-        (error: HttpErrorResponse) => {
-          if (!error.ok) {
-            this.discussion.loadSkeleton = false
-            this.updatesPosts.loadSkeleton = false
-            this.discussion.error = true
-            this.updatesPosts.error = true
-            this.matSnackBar.open(this.handleTranslateTo('discussionsDataFail'))
-          }
-        }
-      )
-  }
 
   ngAfterViewInit(): void {
     if (this.params && this.params.tab) {

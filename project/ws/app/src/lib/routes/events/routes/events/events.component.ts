@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { NSDiscussData } from '../../../discuss/models/discuss.model'
 import { ActivatedRoute, Router } from '@angular/router'
 import { UntypedFormControl } from '@angular/forms'
 import { EventService } from '../../services/events.service'
@@ -18,7 +17,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
   styleUrls: ['./events.component.scss'],
 })
 export class EventsComponent implements OnInit {
-  data!: NSDiscussData.IDiscussionData
+  data!: any
   queryControl = new UntypedFormControl('')
   currentFilter = 'timestamp'
   pager = {}

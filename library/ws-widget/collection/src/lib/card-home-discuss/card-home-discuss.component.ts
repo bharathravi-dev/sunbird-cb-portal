@@ -70,11 +70,7 @@ export class CardHomeDiscussComponent extends WidgetBaseComponent implements OnI
     this.router.navigate([`/app/discussion-forum/topic/${_.trim(_.get(discuss, 'slug'))}`], { queryParams: { page: 'home' }, queryParamsHandling: 'merge' })
   }
 
-  public getBgColor(tagTitle: any) {
-    const bgColor = this.stringToColor(tagTitle.toLowerCase())
-    const color = this.getContrast()
-    return { color, 'background-color': bgColor }
-  }
+
 
   stringToColor(title: any) {
     let hash = 0

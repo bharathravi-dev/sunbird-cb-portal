@@ -28,7 +28,6 @@ import { PageContainerComponent } from '../component/page-container/page-contain
 import { ClientSliderComponent } from '../component/client-slider/client-slider.component'
 import { HomeOtherPortalModule } from '../component/home-other-portal/home-other-portal.module'
 import { HomeContainerComponent } from '../component/home-container/home-container.component'
-import { DiscussHubComponent } from './home/discuss-hub/discuss-hub.component'
 import { NetworkHubComponent } from './home/network-hub/network-hub.component'
 import { NotificationComponent } from './home/notification/notification.component'
 import { SurveyFormComponent } from '../component/app-survey/survey-form/survey-form.component'
@@ -55,7 +54,7 @@ import { InSightSideBarModule } from '../component/in-sight-side-bar/in-sight-si
     declarations: [
         HomeComponent,
         PageContainerComponent, DiscussionInfoComponent, ClientSliderComponent,
-        HomeContainerComponent, DiscussHubComponent,
+        HomeContainerComponent,
         NetworkHubComponent, NotificationComponent, SurveyFormComponent
     ],
     imports: [

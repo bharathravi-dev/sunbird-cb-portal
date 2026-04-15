@@ -17,7 +17,6 @@ import { WidgetResolverModule } from '@sunbird-cb/resolver'
 import { PipeFilterModule, PipeHtmlTagRemovalModule, PipeOrderByModule, PipeRelativeTimeModule, PipeCertificateImageURL } from '@sunbird-cb/utils-v2'
 import { AvatarPhotoModule, BtnPageBackModule } from '@sunbird-cb/collection'
 import { ProfileV2RoutingModule } from './profile-v2.rounting.module'
-import { DiscussModule } from '../discuss/discuss.module'
 import { EditorSharedModule } from '@ws/author/src/lib/routing/modules/editor/shared/shared.module'
 import { ProfileCertificateDialogModule } from './components/profile-certificate-dialog/profile-certificate-dialog.module'
 import { ProfileCardStatsModule } from '@sunbird-cb/collection/src/lib/_common/profile-card-stats/profile-card-stats.module'
@@ -113,7 +112,6 @@ import { ViewCustomFieldsComponent } from './routes/view-custom-fields/view-cust
         WidgetResolverModule,
         ReactiveFormsModule,
         ProfileV2RoutingModule,
-        DiscussModule,
         FormsModule,
         RouterModule,
         MatGridListModule,

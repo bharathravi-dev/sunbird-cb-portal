@@ -30,12 +30,7 @@
               "src/fusion-assets/icons/",
               "src/fusion-assets/images/",
               "src/dashboard-assets/",
-              "src/manifest.json",
-              {
-                "glob": "**/*.*",
-                "input": "./node_modules/@sunbird-cb/discussions-ui-v8/assets",
-                "output": "./assets/discussion-ui"
-              }
+              "src/manifest.json"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -59,7 +54,6 @@
               "node_modules/pdfjs-dist/web/pdf_viewer.css",
               "src/fusion-assets/fonts/lato/stylesheet.css",
               "src/fusion-assets/fonts/montserrat/stylesheet.css",
-              "node_modules/@sunbird-cb/discussions-ui-v8/assets/styles/global.scss",
               "src/dashboard-assets/fonts/lato/stylesheet.css",
               "src/dashboard-assets/fonts/montserrat/stylesheet.css",
               "node_modules/igot-cb-tour-guide/scss/guided-tour-base-theme.scss",
@@ -273,12 +267,7 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/fusion-assets",
-              {
-                "glob": "**/*.*",
-                "input": "./node_modules/@sunbird-cb/discussions-ui-v8/assets",
-                "output": "./assets/discussion-ui"
-              }
+              "src/fusion-assets"
             ],
             "styles": [
               "src/styles.scss"

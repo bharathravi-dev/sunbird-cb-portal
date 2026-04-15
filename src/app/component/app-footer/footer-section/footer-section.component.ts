@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core'
 import { ConfigurationsService, DomainConfService, MultilingualTranslationsService } from '@sunbird-cb/utils-v2'
 import { Router } from '@angular/router'
-import { DiscussUtilsService } from '@ws/app/src/lib/routes/discuss/services/discuss-utils.service'
 /* tslint:disable */
 import _ from 'lodash'
 /* tslint:enable */
@@ -17,7 +16,6 @@ export class FooterSectionComponent implements OnInit, OnChanges {
   isKbPortal: boolean = true
   constructor(
     private configSvc: ConfigurationsService,
-    private discussUtilitySvc: DiscussUtilsService,
     private router: Router,
     private langtranslations: MultilingualTranslationsService,
     private domainConfSvc:DomainConfService
@@ -120,7 +118,6 @@ export class FooterSectionComponent implements OnInit, OnChanges {
       headerOptions: false,
       bannerOption: true,
     }
-    this.discussUtilitySvc.setDiscussionConfig(config)
     localStorage.setItem('home', JSON.stringify(config))
     this.router.navigate(['/app/discussion-forum'], { queryParams: { page: 'home' }, queryParamsHandling: 'merge' })
   }

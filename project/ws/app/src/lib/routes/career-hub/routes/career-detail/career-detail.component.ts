@@ -1,9 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core'
-import { NSDiscussData } from '../../../discuss/models/discuss.model'
 import { ActivatedRoute } from '@angular/router'
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
-import { DiscussService } from '../../../discuss/services/discuss.service'
 /* tslint:disable */
 import _ from 'lodash'
 /* tslint:enable */
@@ -16,7 +13,7 @@ import _ from 'lodash'
 export class CareerDetailComponent implements OnInit {
   @ViewChild('toastSuccess', { static: true }) toastSuccess!: ElementRef<any>
   @ViewChild('toastError', { static: true }) toastError!: ElementRef<any>
-  data!: NSDiscussData.IDiscussionData
+  data!:any
   similarPosts!: any
   defaultError = 'Something went wrong, Please try again after sometime!'
   topicId!: number
@@ -26,8 +23,6 @@ export class CareerDetailComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private discussService: DiscussService,
-    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -38,37 +33,10 @@ export class CareerDetailComponent implements OnInit {
       // }
       this.data = this.route.snapshot.data.topic.data
     })
-    this.fetchSingleCategoryDetails(this.data.cid)
   }
 
-  fetchSingleCategoryDetails(cid: number) {
-    this.fetchSingleCategoryLoader = true
-    this.discussService.fetchSingleCategoryDetails(cid).subscribe(
-      (data: NSDiscussData.ICategoryData) => {
-        this.similarPosts = data.topics
-        this.fetchSingleCategoryLoader = false
-      },
-      (err: any) => {
-        this.openSnackbar(err.error.message.split('|')[1] || this.defaultError)
-        this.fetchSingleCategoryLoader = false
-      })
-  }
 
-  private openSnackbar(primaryMsg: string, duration: number = 5000) {
-    this.snackBar.open(primaryMsg, 'X', {
-      duration,
-    })
-  }
 
-  // getTIDData() {
-  //   this.fetchNewData = true
-  //   this.discussService.fetchTopicById(this.topicId).subscribe(
-  //     (data: NSDiscussData.IDiscussionData) => {
-  //       this.data = data
-  //     },
-  //     (err: any) => {
-  //       this.openSnackbar(err.error.message.split('|')[1] || this.defaultError)
-  //     })
-  // }
+
 
 }

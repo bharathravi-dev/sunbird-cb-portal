@@ -6,7 +6,6 @@ import { NsWidgetResolver, WidgetBaseComponent } from '@sunbird-cb/resolver'
 import { ConfigurationsService, MultilingualTranslationsService, NsInstanceConfig } from '@sunbird-cb/utils-v2'
 
 import { BtnPageBackService } from './btn-page-back.service'
-import { DiscussUtilsService } from '@ws/app/src/lib/routes/discuss/services/discuss-utils.service'
 import { environment } from 'src/environments/environment'
 // tslint:disable
 import _ from 'lodash'
@@ -48,7 +47,6 @@ export class BtnPageBackComponent extends WidgetBaseComponent
     private btnBackSvc: BtnPageBackService,
     public router: Router,
     private configSvc: ConfigurationsService,
-    private discussUtilitySvc: DiscussUtilsService,
     private translate: TranslateService,
     private langtranslations: MultilingualTranslationsService
   ) {
@@ -149,7 +147,6 @@ export class BtnPageBackComponent extends WidgetBaseComponent
       headerOptions: false,
       bannerOption: true,
     }
-    this.discussUtilitySvc.setDiscussionConfig(config)
     localStorage.setItem('home', JSON.stringify(config))
     this.router.navigate(['/app/discussion-forum'], { queryParams: { page: 'home' }, queryParamsHandling: 'merge' })
   }
