@@ -70,7 +70,7 @@ import { ProfilePrimaryDetailsComponent } from './components/profile-revamp/prof
 import { ProfileEntryEditComponent } from './revamp-dialogs/profile-entry-edit/profile-entry-edit.component'
 import { MatLegacyCheckboxModule } from '@angular/material/legacy-checkbox'
 import { DragDropModule } from '@angular/cdk/drag-drop'
-import { CertificateViewPopupComponent } from './components/profile-revamp/certificate-view-popup/certificate-view-popup.component'
+import { CertificateViewPopupModule } from './components/profile-revamp/certificate-view-popup/certificate-view-popup.module'
 import { SearchV3Module } from '../search-v3/search-v3.module'
 import { CommunitySuggestionsModule, DialogComponentsModule } from '@sunbird-cb/consumption'
 import { DescriptionComponent } from './components/profile-revamp/description/description.component'
@@ -101,8 +101,6 @@ import { ViewCustomFieldsComponent } from './routes/view-custom-fields/view-cust
         PrfileEditV2Component,
         ProfilePrimaryDetailsComponent,
         ProfileEntryEditComponent,
-        CertificateViewPopupComponent,
-        CertificateViewPopupComponent,
         DescriptionComponent,
         CustomFieldsComponent,
         ViewCustomFieldsComponent
@@ -159,6 +157,7 @@ import { ViewCustomFieldsComponent } from './routes/view-custom-fields/view-cust
         DragDropModule,
         SearchV3Module,
         CommunitySuggestionsModule,
+        CertificateViewPopupModule,
         DialogComponentsModule,
         TranslateModule.forRoot({
             loader: {

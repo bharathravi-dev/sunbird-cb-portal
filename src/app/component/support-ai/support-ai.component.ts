@@ -48,6 +48,7 @@ export class SupportAIComponent implements OnInit, OnChanges, AfterViewInit, Aft
   iGOTAISearchResultArr:any = []
   // public initials!: string
   resultFetch = false
+  searchAPIResponseInProgress = false
   private colors = [
     '#EB7181', // red
     '#306933', // green

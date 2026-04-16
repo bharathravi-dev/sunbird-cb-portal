@@ -27,7 +27,7 @@ import { BaseCompetencyListComponent } from './base-competency-list/base-compete
 import { CompetencyListComponent } from './competency-list/competency-list.component'
 import { BaseCompetencyCardDetailsComponent } from './base-competency-card-details/base-competency-card-details.component'
 import { CompetencyCardDetailsV2Component } from './competency-card-details-v2/competency-card-details-v2.component'
-import { CertificateViewPopupComponent } from '../../../project/ws/app/src/lib/routes/profile-v2/components/profile-revamp/certificate-view-popup/certificate-view-popup.component'
+import { CertificateViewPopupModule } from '../../../project/ws/app/src/lib/routes/profile-v2/components/profile-revamp/certificate-view-popup/certificate-view-popup.module'
 
 @NgModule({
   declarations: [
@@ -40,8 +40,7 @@ import { CertificateViewPopupComponent } from '../../../project/ws/app/src/lib/r
     BaseCompetencyListComponent,
     CompetencyListComponent,
     BaseCompetencyCardDetailsComponent,
-    CompetencyCardDetailsV2Component,
-    CertificateViewPopupComponent
+    CompetencyCardDetailsV2Component
   ],
   imports: [
     CommonModule,
@@ -59,6 +58,7 @@ import { CertificateViewPopupComponent } from '../../../project/ws/app/src/lib/r
     CbpFiltersModule,
     TranslateModule,
     DialogComponentsModule,
+    CertificateViewPopupModule,
   ],
   exports: [
     TranslateModule,

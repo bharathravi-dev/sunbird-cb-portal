@@ -28,6 +28,7 @@ export class CompetencyCardDetailsV2Component implements OnInit, OnDestroy {
   params: any
   detailsData: any
   viewMoreST = false
+  updatedTime: any = null
   destroySubject$ = new Subject<void>()
   myCompetencyList: any[] = []
   filteredSelfAchievements: any[] = []
