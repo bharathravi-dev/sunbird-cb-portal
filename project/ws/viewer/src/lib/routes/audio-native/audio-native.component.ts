@@ -2,9 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { ValueService, ConfigurationsService } from '@sunbird-cb/utils-v2'
 import { ActivatedRoute } from '@angular/router'
-import { NsContent, NsDiscussionForum } from '@sunbird-cb/collection'
+import { NsContent } from '@sunbird-cb/collection'
 import { ViewerUtilService } from '@sunbird-cb/toc'
-import { NsWidgetResolver } from '@sunbird-cb/resolver'
 import { WidgetContentService } from '@sunbird-cb/toc'
 
 @Component({
@@ -19,9 +18,7 @@ export class AudioNativeComponent implements OnInit, OnDestroy {
   isScreenSizeSmall = false
   isFetchingDataComplete = false
   audioData: NsContent.IContent | null = null
-  discussionForumWidget: NsWidgetResolver.IRenderConfigWithTypedData<
-    NsDiscussionForum.IDiscussionForumInput
-  > | null = null
+
   defaultThumbnail = ''
   isPreviewMode = false
   forPreview = window.location.href.includes('/author/')
@@ -45,7 +42,6 @@ export class AudioNativeComponent implements OnInit, OnDestroy {
       async data => {
         this.audioData = data.content.data
         if (this.audioData) {
-          this.formDiscussionForumWidget(this.audioData)
           this.audioData.artifactUrl = this.forPreview
             ? this.viewerSvc.getAuthoringUrl(this.audioData.artifactUrl)
             : this.audioData.artifactUrl
@@ -93,20 +89,7 @@ export class AudioNativeComponent implements OnInit, OnDestroy {
       .catch()
   }
 
-  formDiscussionForumWidget(content: NsContent.IContent) {
-    this.discussionForumWidget = {
-      widgetData: {
-        description: content.description,
-        id: content.identifier,
-        name: NsDiscussionForum.EDiscussionType.LEARNING,
-        title: content.name,
-        initialPostCount: 2,
-        isDisabled: this.forPreview,
-      },
-      widgetSubType: 'discussionForum',
-      widgetType: 'discussionForum',
-    }
-  }
+
 
   private async setS3Cookie(contentId: string) {
     await this.contentSvc

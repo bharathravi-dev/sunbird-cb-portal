@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { CertificateDialogComponent } from './certificate-dialog.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { EditorQuillModule } from '../../discussion-forum/editor-quill/editor-quill.module'
-
 import { PipeSafeSanitizerModule } from '@sunbird-cb/utils-v2'
 import { SvgToPdfComponent } from './svg-to-pdf.component'
 import { HttpClient } from '@angular/common/http'
@@ -25,7 +23,6 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        EditorQuillModule,
         MatButtonModule,
         MatCardModule,
         MatIconModule,

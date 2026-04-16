@@ -623,21 +623,6 @@ const routes: Routes = [
     },
   },
   {
-    path: 'app/person-profile2',
-    loadChildren: () =>
-      import('./routes/route-person-profile.module').then(u => u.RoutePersonProfileModule),
-    canActivate: [GeneralGuard],
-    data: {
-      pageId: 'app/person-profile',
-      module: 'profile',
-    },
-  },
-  // {
-  //   path: 'app/events',
-  //   loadChildren: () => import('./routes/route-app-event.module').then(m => m.AppEventsModule),
-  //   canActivate: [GeneralGuard],
-  // },
-  {
     path: 'app/event-hub',
     loadChildren: () => import('./routes/route-events.module').then(u => u.RouteEventsModule),
     canActivate: [GeneralGuard],
@@ -689,16 +674,6 @@ const routes: Routes = [
       module: 'Home',
     },
     resolve: { home: HomeResolverService },
-  },
-  {
-    path: 'app/social',
-    data: {
-      pageId: 'app/social',
-      module: 'social',
-    },
-    loadChildren: () =>
-      import('./routes/route-social-app.module').then(u => u.RouteSocialAppModule),
-    canActivate: [GeneralGuard],
   },
   {
     path: 'app/signup',

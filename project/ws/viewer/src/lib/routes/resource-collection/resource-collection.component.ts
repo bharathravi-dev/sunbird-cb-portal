@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Subscription } from 'rxjs'
-import { NsContent, NsDiscussionForum } from '@sunbird-cb/collection'
-import { NsWidgetResolver } from '@sunbird-cb/resolver'
+import { NsContent } from '@sunbird-cb/collection'
 import { ActivatedRoute } from '@angular/router'
 import { EventService, WsEvents } from '@sunbird-cb/utils-v2'
 import { ViewerUtilService, WidgetContentService } from '@sunbird-cb/toc'
@@ -21,9 +20,6 @@ export class ResourceCollectionComponent implements OnInit, OnDestroy {
   oldData: NsContent.IContent | null = null
   alreadyRaised = false
   resourceCollectionManifest: any
-  discussionForumWidget: NsWidgetResolver.IRenderConfigWithTypedData<
-    NsDiscussionForum.IDiscussionForumInput
-  > | null = null
   constructor(
     private activatedRoute: ActivatedRoute,
     private contentSvc: WidgetContentService,
@@ -38,9 +34,6 @@ export class ResourceCollectionComponent implements OnInit, OnDestroy {
         this.resourceCollectionData = data.content.data
         if (this.alreadyRaised && this.oldData) {
           this.raiseEvent(WsEvents.EnumTelemetrySubType.Unloaded, this.oldData)
-        }
-        if (this.resourceCollectionData) {
-          this.formDiscussionForumWidget(this.resourceCollectionData)
         }
         if (
           this.resourceCollectionData &&
@@ -102,20 +95,6 @@ export class ResourceCollectionComponent implements OnInit, OnDestroy {
     return manifestFile
   }
 
-  formDiscussionForumWidget(content: NsContent.IContent) {
-    this.discussionForumWidget = {
-      widgetData: {
-        description: content.description,
-        id: content.identifier,
-        name: NsDiscussionForum.EDiscussionType.LEARNING,
-        title: content.name,
-        initialPostCount: 2,
-        isDisabled: this.forPreview,
-      },
-      widgetSubType: 'discussionForum',
-      widgetType: 'discussionForum',
-    }
-  }
 
   raiseEvent(state: WsEvents.EnumTelemetrySubType, data: NsContent.IContent) {
     // if (this.forPreview) {

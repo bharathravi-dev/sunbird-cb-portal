@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs'
 import {
   NsContent,
   IWidgetsPlayerMediaData,
-  NsDiscussionForum,
 } from '@sunbird-cb/collection'
 import { NsWidgetResolver } from '@sunbird-cb/resolver'
 import { ConfigurationsService, ValueService } from '@sunbird-cb/utils-v2'
@@ -28,9 +27,6 @@ export class YoutubeComponent implements OnInit, OnDestroy {
   widgetResolverYoutubeData: NsWidgetResolver.IRenderConfigWithTypedData<
     IWidgetsPlayerMediaData
   > | null = null
-  discussionForumWidget: NsWidgetResolver.IRenderConfigWithTypedData<
-    NsDiscussionForum.IDiscussionForumInput
-  > | null = null
   isScreenSizeLtMedium = false
   batchId = this.activatedRoute.snapshot.queryParamMap.get('batchId')
 
@@ -52,9 +48,6 @@ export class YoutubeComponent implements OnInit, OnDestroy {
       async data => {
         this.widgetResolverYoutubeData = null
         this.youtubeData = data.content.data
-        if (this.youtubeData && !this.forPreview) {
-          this.formDiscussionForumWidget(this.youtubeData)
-        }
 
         this.widgetResolverYoutubeData = this.initWidgetResolverYoutubeData()
         if (this.youtubeData && this.youtubeData.identifier) {
@@ -219,21 +212,6 @@ export class YoutubeComponent implements OnInit, OnDestroy {
         identifier: '',
       },
       widgetHostClass: 'video-full',
-    }
-  }
-
-  formDiscussionForumWidget(content: NsContent.IContent) {
-    this.discussionForumWidget = {
-      widgetData: {
-        description: content.description,
-        id: content.identifier,
-        name: NsDiscussionForum.EDiscussionType.LEARNING,
-        title: content.name,
-        initialPostCount: 2,
-        isDisabled: this.forPreview,
-      },
-      widgetSubType: 'discussionForum',
-      widgetType: 'discussionForum',
     }
   }
 

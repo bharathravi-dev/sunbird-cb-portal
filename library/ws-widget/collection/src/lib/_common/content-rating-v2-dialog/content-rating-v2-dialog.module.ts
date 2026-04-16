@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ContentRatingV2DialogComponent } from './content-rating-v2-dialog.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { EditorQuillModule } from '../../discussion-forum/editor-quill/editor-quill.module'
 import { HttpClient } from '@angular/common/http'
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
 import { HttpLoaderFactory } from 'src/app/app.module'
@@ -22,7 +21,6 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        EditorQuillModule,
         MatButtonModule,
         MatIconModule,
         MatTooltipModule,
