@@ -6,6 +6,7 @@ import { SeeAllHomeComponent } from './components/see-all-home/see-all-home.comp
 import { SeeAllWithPillsComponent } from './components/see-all-with-pills/see-all-with-pills.component'
 import { SeeAllDynamicComponent } from './components/see-all-dynamic/see-all-dynamic.component'
 import { FormDataResolverService } from '../../../../../../../src/app/services/form-data-resolver.service'
+import { DynamicContentShowAllComponent } from './components/dynamic-content-show-all/dynamic-content-show-all.component'
 
 const routes: Routes = [
   {
@@ -60,6 +61,20 @@ const routes: Routes = [
       pageData: FormDataResolverService
     },
   },
+   {
+    path: 'dynamic-content',
+    pathMatch: 'full',
+    component:  DynamicContentShowAllComponent,
+    data: {
+      pageType: 'feature',
+      pageKey: 'see-all',
+      pageId: 'app/amrit-gyaan-kosh',
+    },
+    resolve: {
+      pageData: FormDataResolverService
+    },
+  },
+
 ]
 @NgModule({
   declarations: [],

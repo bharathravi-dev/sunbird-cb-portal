@@ -52,13 +52,15 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
 import { SeeAllDynamicComponent } from './components/see-all-dynamic/see-all-dynamic.component'
 import { HttpLoaderFactory } from 'src/app/shared/shared.module'
 import { HttpClient } from '@angular/common/http'
-import { BadgesModule } from '../../../../../../../src/app/badges/badges.module'
+import { BadgesModule } from '../../../../../../../src/app/badges/badges.module';
+import { DynamicContentShowAllComponent } from './components/dynamic-content-show-all/dynamic-content-show-all.component'
 
 @NgModule({
   declarations: [
     SeeAllHomeComponent,
     SeeAllWithPillsComponent,
     SeeAllDynamicComponent,
+    DynamicContentShowAllComponent,
   ],
   imports: [
     CommonModule,
