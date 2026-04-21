@@ -53,6 +53,8 @@ export class DocumentUploadComponent {
     if (input.files) {
       this.handleFiles(Array.from(input.files))
     }
+    // Reset so selecting the same file again triggers 'change'
+    input.value = ''
   }
 
   handleFiles(files: File[]) {

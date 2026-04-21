@@ -262,7 +262,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
 
   ngOnInit() {
     this.getProfileDetailsFromRoutes()
-    //this.getAchievements()
+    this.getAchievements()
     if (localStorage.getItem('websiteLanguage')) {
       this.translateService.setDefaultLang('en')
       const lang = localStorage.getItem('websiteLanguage')!
@@ -1530,13 +1530,9 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         }
         if (formBody) {
           if (isNew) {
-            // Moved this to Sprint 36
-            // header === 'Achievements' ? this.addAchievementEntry(formBody) : this.addProfileEntry(formBody)
-            this.addProfileEntry(formBody)
+            header === 'Achievements' ? this.addAchievementEntry(formBody) : this.addProfileEntry(formBody)
           } else {
-            //  Moved this to Sprint 35
-            // header === 'Achievements' ? this.updateAchievementEntry(formBody) : this.addProfileEntry(formBody)
-            this.updateProfileEntry(formBody)
+            header === 'Achievements' ? this.updateAchievementEntry(formBody) : this.addProfileEntry(formBody)
           }
         }
       }
@@ -1603,38 +1599,18 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
   }
 
   generateAchievementsFormBody(achievements: any, oldDetails: any): any {
-    const formBody: any = {
+    const requestBody: any = {
       request: {
-        userId: this.userId,
-        achievements: [achievements]
+        contextType: "achievements",
+        source: "igot",
+        contextData: achievements
       }
     }
-    if (_.get(oldDetails, 'uuid', '')) {
-      formBody.request['achievements'][0]['uuid'] = oldDetails.uuid
+    if (_.get(oldDetails, 'id', '')) {
+      requestBody.request['id'] = oldDetails.id
     }
-    return formBody
+    return requestBody
   }
-
-  // generateAchievementsFormBody(achievements: any, oldDetails: any): any {
-  //   if (achievements?.uploadedDocumentUrl) {
-  //     delete achievements['url']
-  //   }
-  //   if (achievements?.url) {
-  //     delete achievements['uploadedDocumentUrl']
-  //     delete achievements['fileName']
-  //   }
-  //   const requestBody: any = {
-  //     request: {
-  //       contextType: "achievements",
-  //       source: "igot",
-  //       contextData: achievements
-  //     }
-  //   }
-  //   if (_.get(oldDetails, 'id', '')) {
-  //     requestBody.request['id'] = oldDetails.id
-  //   }
-  //   return requestBody
-  // }
 
   //#region (service history, achievements, educational qualifications will edit based on the request)
   addProfileEntry(formBody: any) {
@@ -1660,7 +1636,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
           setTimeout(() => {
             this.getAchievements()
           }, 500)
-          this.openSnackbar('Updated Successfully')
+          this.openSnackbar('Added Successfully')
         }
       },
       error: (error: HttpErrorResponse) => {
@@ -2016,9 +1992,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
     })
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.deleteProfileEntryCall(requestData)
-        // Moved to sprint 36
-        // header === 'Achievements' ? this.deleteAchievement(requestData) : this.deleteProfileEntryCall(requestData)
+        header === 'Achievements' ? this.deleteAchievement(requestData) : this.deleteProfileEntryCall(requestData)
       }
     })
 
@@ -2030,10 +2004,8 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       case 'Achievements':
         requestData = {
           "request": {
-            "userId": this.userId,
-            "achievements": [{
-              "uuid": entryDetails.uuid
-            }]
+            "id": entryDetails.id,
+            contextType: "achievements",
           }
         }
         break
@@ -2042,24 +2014,6 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
     return requestData
 
   }
-
-  // Moved to sprint 36
-  // formDeleteRequest(header: string, entryDetails: any) {
-  //   let requestData: any = {}
-  //   switch (header) {
-  //     case 'Achievements':
-  //       requestData = {
-  //         "request": {
-  //           "id": entryDetails.id,
-  //           contextType: "achievements",
-  //         }
-  //       }
-  //       break
-  //   }
-
-  //   return requestData
-
-  // }
 
   deleteAchievement(request: any): void {
     this.profileV2RevampSvc.deleteAchievementEntry(request).subscribe({
@@ -2080,13 +2034,11 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
   }
 
   deleteProfileEntryCall(request: any): void {
-    this.profileV2RevampSvc.deleteAchievement(request).subscribe({
+    this.profileV2RevampSvc.deleteAchievementEntry(request).subscribe({
       next: (res: any) => {
         if (res && res.result && res.result.response) {
           this.openSnackbar('Achievement deleted successfully', 2000)
           this.fetchProfileEntries()
-          // Moved to sprint 36
-          //this.fetchProfileEntries()
         } else {
           this.openSnackbar('Something went wrong while deleting achievement, please try again later', 2000)
         }
@@ -2096,22 +2048,6 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       }
     })
   }
-
-  // deleteProfileEntryCall(request: any): void {
-  //   this.profileV2RevampSvc.deleteAchievementEntry(request).subscribe({
-  //     next: (res: any) => {
-  //       if (res && res.result && res.result.response) {
-  //         this.openSnackbar('Achievement deleted successfully', 2000)
-  //         this.fetchProfileEntries()
-  //       } else {
-  //         this.openSnackbar('Something went wrong while deleting achievement, please try again later', 2000)
-  //       }
-  //     },
-  //     error: (_err: any) => {
-  //       this.openSnackbar('Something went wrong while deleting achievement, please try again later', 2000)
-  //     }
-  //   })
-  // }
 
 
   // Update handleEditCustomDetails to build the form and populate values
@@ -2161,11 +2097,15 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       url: onClick.url,
       api: onClick.api,
     }
+    let dialogWidth = '700px'
+    if (onClick.type === 'PDF') {
+      dialogWidth = window.innerWidth <= 768 ? '90vw' : '80vw'
+    }
     this.dialog.open(NlwCertificateDialogComponent, {
       data: dialogData,
       panelClass: 'nlw-experience-dialog-container',
       maxWidth: '95vw',
-      width: '700px',
+      width: dialogWidth,
       autoFocus: false,
     })
   }

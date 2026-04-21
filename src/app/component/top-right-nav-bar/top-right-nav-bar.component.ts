@@ -239,11 +239,11 @@ export class TopRightNavBarComponent implements OnInit, OnChanges {
     const profile = this.configSvc.userProfile
     const learnerName = `${profile?.firstName || ''} ${profile?.lastName || ''}`.trim()
     const notifData = notification.message?.data?.[0] || {}
-    if (notifData.status === "SUBMITTED") {
+    if (notification.status === "SUBMITTED") {
       this.snackBar.open('You have already completed the survey.', 'X', { duration: 3000 })
       return
     }
-    if (notifData.status === "IGNORED") {
+    if (notification.status === "IGNORED") {
       this.snackBar.open('You have already submitted the response.', 'X', { duration: 3000 })
       return
     }
@@ -255,22 +255,27 @@ export class TopRightNavBarComponent implements OnInit, OnChanges {
       this.snackBar.open('Survey has ended.', 'X', { duration: 3000 })
       return
     }
-    this.matDialog.open(SurveyPopupComponent, {
+    const dialogRef = this.matDialog.open(SurveyPopupComponent, {
       width: '500px',
       disableClose: true,
       data: {
         learnerName: learnerName || '',
-        courseName: notifData.courseName || '',
+        courseName: notifData.courseName || notifData.course_name || '',
         completionDate: this.formatDate(notifData.completionDate || ''),
         formId: notifData.formId || '',
         isSurveySubmitted: notifData.isSurveySubmitted || false,
         surveyCreatedById: notifData.surveyCreatedById || '',
         notificationId: notification.notification_id || '',
         createdAt: notification.created_at || '',
-        contextOrgId: notifData.contextOrgId || '',
-        contextId: notifData.contextId || '',
+        contextOrgId: notifData.contextOrgId || notifData.org_id || '',
+        contextId: notifData.contextId || notifData.cource_id || '',
         thumbnail: notifData.thumbnail || '',
       },
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'ignored') {
+        notification.status = 'IGNORED'
+      }
     })
   }
 
@@ -292,23 +297,28 @@ export class TopRightNavBarComponent implements OnInit, OnChanges {
       this.snackBar.open('Survey has ended.', 'X', { duration: 3000 })
       return
     }
-    this.matDialog.open(VerificationRequestDialogComponent, {
+    const verificationDialogRef = this.matDialog.open(VerificationRequestDialogComponent, {
       width: '440px',
       maxWidth: '90vw',
       disableClose: true,
       data: {
         requestedName: notifData.requestedName || notifData.learnerName || '',
-        courseName: notifData.courseName || '',
+        courseName: notifData.courseName || notifData.course_name || '',
         formId: notifData.formId || '',
         isReviewSubmitted: notifData.isReviewSubmitted || false,
         surveyEndDate: notifData.surveyEndDate || notification.survey_end_date || '',
         notificationId: notification.notification_id || '',
         createdAt: notification.created_at || '',
-        contextOrgId: notifData.contextOrgId || '',
-        contextId: notifData.contextId || '',
+        contextOrgId: notifData.contextOrgId || notifData.org_id || '',
+        contextId: notifData.contextId || notifData.cource_id || '',
         submittedBy: notifData.learnerId || notifData.submittedBy || '',
         thumbnail: notifData.thumbnail || '',
       },
+    })
+    verificationDialogRef.afterClosed().subscribe(result => {
+      if (result === 'ignored') {
+        notification.status = 'IGNORED'
+      }
     })
   }
 

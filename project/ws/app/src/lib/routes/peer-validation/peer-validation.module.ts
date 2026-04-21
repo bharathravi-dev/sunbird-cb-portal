@@ -18,8 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
-import { PlayerVideoModule, PlayerPdfModule } from '@sunbird-cb/collection'
-import { WidgetResolverModule } from '@sunbird-cb/resolver'
+import { MatTooltipModule } from '@angular/material/tooltip'
 // Routing
 import { PeerValidationRoutingModule } from './peer-validation-routing.module'
 
@@ -75,9 +74,7 @@ import { UserSearchTableComponent } from './components/survey-dialog/components/
     MatTabsModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    PlayerVideoModule,
-    PlayerPdfModule,
-    WidgetResolverModule,
+    MatTooltipModule,
   ],
   providers: [
     PeerValidationService,
