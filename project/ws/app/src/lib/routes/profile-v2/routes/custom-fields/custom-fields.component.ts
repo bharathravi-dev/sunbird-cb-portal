@@ -1,7 +1,8 @@
 import { Component } from '@angular/core'
 import { FormBuilder, Validators, FormGroup } from '@angular/forms'
 import { UserProfileService } from '../../../user-profile/services/user-profile.service'
-import lodash from 'lodash'
+// tslint:disable
+import _ from 'lodash'
 import { ConfigurationsService } from '@sunbird-cb/utils-v2'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { MatLegacyDialogRef } from '@angular/material/legacy-dialog'

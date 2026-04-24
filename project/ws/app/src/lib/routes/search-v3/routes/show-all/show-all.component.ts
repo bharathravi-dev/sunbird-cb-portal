@@ -35,7 +35,7 @@ export class ShowAllComponent implements OnInit {
 
   ngOnInit() {
 
-    this.contentName = this.activatedRoute?.snapshot?.queryParams['name] || ''
+    this.contentName = this.activatedRoute?.snapshot?.queryParams['name'] || ''
     this.fetchCourses()
   }
 

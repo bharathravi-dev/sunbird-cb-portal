@@ -110,8 +110,7 @@ export class RootService {
     const headers = new HttpHeaders()
       .set('user-id', userID)
     return this.http.post<any>(`${API_END_POINTS.SUPPORT_AI_SEND_CHAT}`, requestBody, {
-      h, eaders,
-
+      headers,
     })
   }
 }

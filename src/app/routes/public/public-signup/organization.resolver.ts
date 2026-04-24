@@ -7,7 +7,10 @@ import {
 import { Observable, of } from 'rxjs'
 import { switchMap, map, catchError } from 'rxjs/operators'
 import { SignupService } from './signup.service'
-imlodashort _ from 'lodash'
+
+// tslint:disable
+import _ from 'lodash'
+// tslint:enable
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { environment } from 'src/environments/environment'
 

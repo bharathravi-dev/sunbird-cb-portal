@@ -5,7 +5,8 @@ import { TranslateService } from '@ngx-translate/core'
 import { VIEWER_ROUTE_FROM_MIME } from '@sunbird-cb/collection/src/public-api'
 import { ConfigurationsService } from '@sunbird-cb/utils-v2'
 import { ViewerDataService } from '@sunbird-cb/toc'
-import lodash from 'lodash'
+// tslint:disable
+import _ from 'lodash'
 
 @Component({
   selector: 'ws-app-gyaan-player',

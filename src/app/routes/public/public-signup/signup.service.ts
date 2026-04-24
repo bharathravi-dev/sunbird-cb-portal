@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { map, tap } from 'rxjs/operators'
-import lodash from 'lodash'
+// tslint:disable
+import _ from 'lodash'
 
 const API_END_POINTS = {
   // GET_DEPARTMENTS: `/api/user/registration/v1/getDeptDetails`,

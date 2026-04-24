@@ -78,7 +78,6 @@ import { MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy
 
 import { CustomFieldsComponent } from './routes/custom-fields/custom-fields.component'
 import { ViewCustomFieldsComponent } from './routes/view-custom-fields/view-custom-fields.component'
-import { CertificateViewPopupComponent } from './components/profile-revamp/certificate-view-popup/certificate-view-popup.component'
 @NgModule({
     declarations: [
         ProfileComponent,
@@ -102,7 +101,6 @@ import { CertificateViewPopupComponent } from './components/profile-revamp/certi
         PrfileEditV2Component,
         ProfilePrimaryDetailsComponent,
         ProfileEntryEditComponent,
-        CertificateViewPopupComponent,
         DescriptionComponent,
         CustomFieldsComponent,
         ViewCustomFieldsComponent,

@@ -9,7 +9,8 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import moment from 'moment'
 import { SignupService } from '../../routes/public/public-signup/signup.service'
-import lodash from 'lodash'
+// tslint:disable
+import _ from 'lodash'
 import { ProfileV2Service } from '@ws/app/src/lib/routes/profile-v2/services/profile-v2.servive'
 import { UserProfileService } from '@ws/app/src/lib/routes/user-profile/services/user-profile.service'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'

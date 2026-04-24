@@ -43,7 +43,7 @@ const API_END_POINTS = {
 })
 export class GbSearchService {
   private removeFilter = new Subject<any>()
-  searchConfig: any = nul
+  searchConfig: any = null
   /**
    * Observable string streams
    */

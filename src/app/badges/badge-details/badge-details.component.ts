@@ -2,7 +2,7 @@ import { Component, HostListener } from '@angular/core'
 import * as _ from 'lodash'
 import { BadgeService } from '../../services/badge.service'
 import { Router } from '@angular/router'
-import jspdf from 'jspdf'
+import {jsPDF} from 'jspdf'
 import { ConfigurationsService } from '@sunbird-cb/utils-v2'
 @Component({
   selector: 'app-badge-details',

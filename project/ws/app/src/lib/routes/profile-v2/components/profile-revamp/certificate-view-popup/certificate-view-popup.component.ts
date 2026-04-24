@@ -6,14 +6,14 @@ import { PipeCertificateImageURL } from '@sunbird-cb/utils-v2'
   selector: 'ws-app-certificate-view-popup',
   templateUrl: './certificate-view-popup.component.html',
   styleUrls: ['./certificate-view-popup.component.scss'],
-  providers: [PipeCertificateImageURL],
+  providers: [PipeCertificateImageURL]
 })
 export class CertificateViewPopupComponent implements OnInit {
-  certificateUrl = ''
+  certificateUrl = '';
 
   constructor(private dialogRef: MatLegacyDialogRef<CertificateViewPopupComponent>,
-              private pipeImgUrl: PipeCertificateImageURL,
-              @Inject(MAT_LEGACY_DIALOG_DATA) public data: any) {
+    private pipeImgUrl: PipeCertificateImageURL,
+    @Inject(MAT_LEGACY_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit(): void {

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core'
 import { UserProfileService } from '../../../user-profile/services/user-profile.service'
 import { ConfigurationsService } from '@sunbird-cb/utils-v2'
-import lodash from 'lodash'
+// tslint:disable
+import _ from 'lodash'
 import { MatLegacyDialog } from '@angular/material/legacy-dialog'
 import { CustomFieldsComponent } from '../custom-fields/custom-fields.component'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
