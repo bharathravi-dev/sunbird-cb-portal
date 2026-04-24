@@ -58,6 +58,6 @@ import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-t
     ],
     exports: [
         RdbmsHandsOnComponent,
-    ]
+    ],
 })
 export class RdbmsHandsOnModule { }

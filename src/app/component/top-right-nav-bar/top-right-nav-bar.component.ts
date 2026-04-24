@@ -59,13 +59,13 @@ export class TopRightNavBarComponent implements OnInit, OnChanges {
   roles: string[] = []
   enableSupportAI = false
   constructor(public dialog: MatDialog, public homePageService: HomePageService,
-    private configSvc: ConfigurationsService,
-    private langtranslations: MultilingualTranslationsService, private translate: TranslateService,
-    private http: HttpClient, private sanitizer: DomSanitizer,
-    private events: EventService, private snackBar: MatSnackBar,
-    private router: Router, private notificationsService: NotificationsService,
-    private rootService: RootService,
-    private matDialog: MatDialogNew) {
+              private configSvc: ConfigurationsService,
+              private langtranslations: MultilingualTranslationsService, private translate: TranslateService,
+              private http: HttpClient, private sanitizer: DomSanitizer,
+              private events: EventService, private snackBar: MatSnackBar,
+              private router: Router, private notificationsService: NotificationsService,
+              private rootService: RootService,
+              private matDialog: MatDialogNew) {
     if (localStorage.getItem('websiteLanguage')) {
       this.translate.setDefaultLang('en')
       let lang = JSON.stringify(localStorage.getItem('websiteLanguage'))
@@ -124,7 +124,7 @@ export class TopRightNavBarComponent implements OnInit, OnChanges {
         if (res.responseCode === 'OK') {
           this.notificationsCount = 0
         }
-      }, error => {
+      },                                                            error => {
         console.error('Error while fetching notifications count', error)
       })
     }
@@ -164,7 +164,7 @@ export class TopRightNavBarComponent implements OnInit, OnChanges {
     })
     setTimeout(() => {
       this.callXMLRequest()
-    }, 0)
+    },         0)
   }
 
   openDialog(): void {
@@ -239,11 +239,11 @@ export class TopRightNavBarComponent implements OnInit, OnChanges {
     const profile = this.configSvc.userProfile
     const learnerName = `${profile?.firstName || ''} ${profile?.lastName || ''}`.trim()
     const notifData = notification.message?.data?.[0] || {}
-    if (notification.status === "SUBMITTED") {
+    if (notification.status === 'SUBMITTED') {
       this.snackBar.open('You have already completed the survey.', 'X', { duration: 3000 })
       return
     }
-    if (notification.status === "IGNORED") {
+    if (notification.status === 'IGNORED') {
       this.snackBar.open('You have already submitted the response.', 'X', { duration: 3000 })
       return
     }
@@ -281,11 +281,11 @@ export class TopRightNavBarComponent implements OnInit, OnChanges {
 
   openVerificationPopup(notification: any) {
     const notifData = notification.message?.data?.[0] || {}
-    if (notification.status === "APPROVED" || notification.status === "REJECTED") {
+    if (notification.status === 'APPROVED' || notification.status === 'REJECTED') {
       this.snackBar.open('You have already submitted the review.', 'X', { duration: 3000 })
       return
     }
-    if (notification.status === "IGNORED") {
+    if (notification.status === 'IGNORED') {
       this.snackBar.open('You have already submitted the response.', 'X', { duration: 3000 })
       return
     }
@@ -327,7 +327,7 @@ export class TopRightNavBarComponent implements OnInit, OnChanges {
   }
 
   calculateCount(event: any) {
-    console.log("sds", event)
+    console.log('sds', event)
   }
 
   showDialog(data: any, url: string) {

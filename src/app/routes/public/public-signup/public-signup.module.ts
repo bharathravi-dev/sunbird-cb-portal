@@ -38,7 +38,7 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
 import { PublicCrpComponent } from '../public-crp/public-crp.component'
 import { AppPublicOrganizationResolver } from './organization.resolver'
 import { AppOtpReaderComponent } from 'src/app/component/app-otp-reader/app-otp-reader.component'
-import { MatStepperModule } from '@angular/material/stepper';
+import { MatStepperModule } from '@angular/material/stepper'
 @NgModule({
     declarations: [PublicSignupComponent, SignupSuccessDialogueComponent, TermsAndConditionComponent, PublicCrpComponent, AppOtpReaderComponent],
     imports: [
@@ -73,7 +73,7 @@ import { MatStepperModule } from '@angular/material/stepper';
         PipeOrderByModule,
         PipeDurationTransformModule,
         TranslateModule,
-        MatStepperModule
+        MatStepperModule,
     ],
     exports: [PublicSignupComponent, PublicCrpComponent],
     providers: [
@@ -86,6 +86,6 @@ import { MatStepperModule } from '@angular/material/stepper';
             useValue: environment.recaptchaKey,
         },
     ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PublicSignupModule { }

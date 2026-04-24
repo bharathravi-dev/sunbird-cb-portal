@@ -12,7 +12,7 @@ import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/lega
 import { MatRippleModule } from '@angular/material/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatIconModule } from '@angular/material/icon'
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar'
 import { MyNotificationsComponent } from './components/my-notifications/my-notifications.component'
 import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs'
 import { AllNotificationsModule, LibNotificationsService } from '@sunbird-cb/notification'
@@ -47,7 +47,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
-    ConfirmDialogModule
+    ConfirmDialogModule,
   ],
   providers: [NotificationApiService, NotificationService, NotificationsService, LibNotificationsService],
 })

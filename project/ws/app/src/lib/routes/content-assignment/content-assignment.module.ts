@@ -51,7 +51,7 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
         UserFilterDisplayComponent,
         DialogAssignComponent,
         DialogUserRoleSelectComponent,
-        AssignmentDetailsComponent
+        AssignmentDetailsComponent,
     ],
     imports: [
         CommonModule,
@@ -92,6 +92,6 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
         MatSelectModule,
         ContentAssignmentRoutingModule,
     ],
-    providers: [ContentAssignmentGuard]
+    providers: [ContentAssignmentGuard],
 })
 export class ContentAssignmentModule { }

@@ -44,6 +44,6 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
     ],
     exports: [
         QuizComponent,
-    ]
+    ],
 })
 export class QuizModule { }

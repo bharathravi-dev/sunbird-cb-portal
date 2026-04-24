@@ -9,7 +9,7 @@ import { SubmitQuizDialogComponent } from './components/submit-quiz-dialog/submi
 import { PipeDurationTransformModule, PipeLimitToModule } from '@sunbird-cb/utils-v2'
 import { SkeletonLoaderModule } from '@sunbird-cb/collection/src/lib/_common/skeleton-loader/skeleton-loader.module'
 import {
-    BtnFullscreenModule
+    BtnFullscreenModule,
 } from '@sunbird-cb/collection'
 import { ResultComponent } from './components/result/result.component'
 import { FillInTheBlankComponent } from './components/question/fitb/fitb.component'
@@ -101,7 +101,7 @@ import { MatLegacyTabsModule } from '@angular/material/legacy-tabs'
         MatMenuModule,
         MatSelectModule,
         MatLegacyTabsModule,
-        NbspModule
+        NbspModule,
 
     ],
     exports: [
@@ -113,6 +113,6 @@ import { MatLegacyTabsModule } from '@angular/material/legacy-tabs'
         AssessmentQuestionCountContainerComponent,
         AssessmentPerformanceSummaryComponent,
         AssessmentPerformanceInsightSummaryComponent,
-    ]
+    ],
 })
 export class PracticePlModule { }

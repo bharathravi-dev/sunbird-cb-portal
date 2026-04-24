@@ -190,6 +190,6 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
         NotificationService,
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} },
-    ]
+    ],
 })
 export class SharedModule { }

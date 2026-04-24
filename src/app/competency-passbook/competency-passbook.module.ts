@@ -40,7 +40,7 @@ import { CertificateViewPopupModule } from '../../../project/ws/app/src/lib/rout
     BaseCompetencyListComponent,
     CompetencyListComponent,
     BaseCompetencyCardDetailsComponent,
-    CompetencyCardDetailsV2Component
+    CompetencyCardDetailsV2Component,
   ],
   imports: [
     CommonModule,

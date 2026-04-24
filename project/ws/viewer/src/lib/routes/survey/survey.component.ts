@@ -151,8 +151,6 @@ export class SurveyComponent implements OnInit, OnDestroy {
     this.widgetResolverSurveyData.widgetData.courseName = content.result.content.name
   }
 
-
-
   raiseEvent(state: WsEvents.EnumTelemetrySubType, data: NsContent.IContent) {
     if (this.forPreview) {
       return

@@ -19,7 +19,7 @@ export class FooterSectionComponent implements OnInit, OnChanges {
     private router: Router,
     private langtranslations: MultilingualTranslationsService,
     private domainConfSvc:DomainConfService
-  ) { 
+  ) {
       this.isKbPortal = this.domainConfSvc.isKbPortal()
   }
   footerSectionConfig = [

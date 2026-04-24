@@ -62,11 +62,9 @@ export class CareersComponent implements OnInit {
     }
   }
 
-
-
   navigateWithPage(page: any) {
     if (page !== this.currentActivePage) {
-      this.router.navigate([`/app/careers/home`], { queryParams: { page } })
+      this.router.navigate(['/app/careers/home'], { queryParams: { page } })
       this.fetchNewData = true
     }
   }

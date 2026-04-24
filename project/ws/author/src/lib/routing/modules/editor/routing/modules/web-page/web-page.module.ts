@@ -29,6 +29,6 @@ import { WebStoreService } from './services/store.service'
         HorizontalScrollerModule,
     ],
     providers: [WebStoreService],
-    exports: [AddWebPagesComponent]
+    exports: [AddWebPagesComponent],
 })
 export class WebPageModule { }

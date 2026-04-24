@@ -15,7 +15,7 @@ export interface ProfileVerificationData {
   selector: 'ws-profile-verification-dialog',
   templateUrl: './profile-verification-dialog.component.html',
   styleUrls: ['./profile-verification-dialog.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProfileVerificationDialogComponent implements OnInit {
   userOrganization: any | undefined

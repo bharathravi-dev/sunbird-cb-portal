@@ -44,11 +44,11 @@ export class NetworkHubComponent implements OnInit {
   ngOnInit() {
     this.userInfo = this.configService && this.configService.userProfile
     if (this.networkConfig.recentRequests.active) {
-      //this.fetchRecentRequests()
+      // this.fetchRecentRequests()
     }
 
     if (this.networkConfig.networkSuggestions.active) {
-      //this.fetchNetworkRecommendations()
+      // this.fetchNetworkRecommendations()
     }
   }
 
@@ -93,7 +93,7 @@ export class NetworkHubComponent implements OnInit {
   fetchNetworkRecommendations(): void {
     const payload = {
       size: 2,
-      offset: 0
+      offset: 0,
     }
 
     this.network.suggestionsLoader = true

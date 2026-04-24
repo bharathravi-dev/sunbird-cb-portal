@@ -160,7 +160,7 @@ import { MatRadioModule } from '@angular/material/radio'
     ViewerResolve,
     EventResolve,
     DatePipe,
-    EventsEngagementComponent
+    EventsEngagementComponent,
   ],
 })
 export class EventsModule { }

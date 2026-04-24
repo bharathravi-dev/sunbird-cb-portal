@@ -105,7 +105,7 @@ import { CertificateViewPopupComponent } from './components/profile-revamp/certi
         CertificateViewPopupComponent,
         DescriptionComponent,
         CustomFieldsComponent,
-        ViewCustomFieldsComponent
+        ViewCustomFieldsComponent,
     ],
     imports: [
         CommonModule,
@@ -179,8 +179,8 @@ import { CertificateViewPopupComponent } from './components/profile-revamp/certi
         ServiceHistoryComponent,
         EducationalQualificationsComponent,
         AchievementsComponent,
-        DatePipe
-    ]
+        DatePipe,
+    ],
 })
 export class ProfileV2Module {
 

@@ -206,14 +206,14 @@ export class CardDetailComponent implements OnInit {
       },
       options: {
         scales: {
-          y: 
+          y:
             {
               beginAtZero: true,
               ticks: {
-                
+
               },
             },
-          
+
         },
       },
     })

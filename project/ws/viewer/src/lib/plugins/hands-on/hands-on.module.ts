@@ -33,6 +33,6 @@ import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@ang
     ],
     exports: [
         HandsOnComponent,
-    ]
+    ],
 })
 export class HandsOnModule { }

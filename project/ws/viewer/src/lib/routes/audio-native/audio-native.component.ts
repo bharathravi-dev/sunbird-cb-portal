@@ -89,8 +89,6 @@ export class AudioNativeComponent implements OnInit, OnDestroy {
       .catch()
   }
 
-
-
   private async setS3Cookie(contentId: string) {
     await this.contentSvc
       .setS3Cookie(contentId)

@@ -1,19 +1,19 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { ConfigurationsService, EventService, WsEvents } from '@sunbird-cb/utils-v2';
-import * as _ from 'lodash';
+import { Component, Input, OnChanges } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { TranslateService } from '@ngx-translate/core'
+import { ConfigurationsService, EventService, WsEvents } from '@sunbird-cb/utils-v2'
+import * as _ from 'lodash'
 import { SettingsService } from '../../settings.service'
 
 @Component({
   selector: 'ws-app-left-menu-item',
   templateUrl: './left-menu-item.component.html',
-  styleUrls: ['./left-menu-item.component.scss']
+  styleUrls: ['./left-menu-item.component.scss'],
 })
 export class LeftMenuItemComponent implements OnChanges {
   //#region (global variables)
   //#region (input and output )
-  @Input() item: any;
+  @Input() item: any
   //#endregion (input and output )
 
   disableMenu = false
@@ -30,20 +30,20 @@ export class LeftMenuItemComponent implements OnChanges {
   ) {
     if (localStorage.getItem('websiteLanguage')) {
       this.translate.setDefaultLang('en')
-      let lang = localStorage.getItem('websiteLanguage')!
+      const lang = localStorage.getItem('websiteLanguage')!
       this.translate.use(lang)
     }
   }
   //#endregion (constructor)
 
   ngOnChanges(): void {
-    const profileStatus = _.get(this.configSvc, 'unMappedUser.profileDetails.profileStatus', '').toLowerCase();
-    const departmentName = _.get(this.configSvc, 'unMappedUser.profileDetails.employmentDetails.departmentName', '').toLowerCase();
-    const isNotMyUser = profileStatus === 'not-my-user';
-    const isIgotOrg = departmentName === 'igot';
-    this.disableMenu = isNotMyUser && isIgotOrg;
+    const profileStatus = _.get(this.configSvc, 'unMappedUser.profileDetails.profileStatus', '').toLowerCase()
+    const departmentName = _.get(this.configSvc, 'unMappedUser.profileDetails.employmentDetails.departmentName', '').toLowerCase()
+    const isNotMyUser = profileStatus === 'not-my-user'
+    const isIgotOrg = departmentName === 'igot'
+    this.disableMenu = isNotMyUser && isIgotOrg
     if (this.disableMenu && _.get(this.item, 'name') === 'getStartedTour') {
-      this.item['enabled'] = false;
+      this.item['enabled'] = false
     }
   }
 
@@ -59,9 +59,9 @@ export class LeftMenuItemComponent implements OnChanges {
   }
 
   public toggleOpen(item: any, event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
-    item.open = !item.open;
+    event.preventDefault()
+    event.stopPropagation()
+    item.open = !item.open
   }
 
   public tourClick(tab: any) {
@@ -73,18 +73,18 @@ export class LeftMenuItemComponent implements OnChanges {
       },
       { },
     )
-    if (tab.name == "getStartedTour") {
+    if (tab.name == 'getStartedTour') {
       this.router.navigate(['/page/home'], { relativeTo: this.activatedRoute, queryParamsHandling: 'merge' })
       this.configSvc.updateTourGuideMethod(false)
     }
-    else if (tab.name == "resetPassword") {
+    else if (tab.name == 'resetPassword') {
       this.resetPassword()
     }
   }
 
   translateLetMenuName(menuName: string): string {
-    const translationKey = 'settingLeftMenu.' + menuName.replace(/\s/g, "")
-    return this.translate.instant(translationKey);
+    const translationKey = 'settingLeftMenu.' + menuName.replace(/\s/g, '')
+    return this.translate.instant(translationKey)
   }
 
   resetPassword() {
@@ -94,7 +94,7 @@ export class LeftMenuItemComponent implements OnChanges {
           const link = response?.result?.result?.link
           window.open(link, '_blank')
         }
-      }
+      },
     })
   }
 

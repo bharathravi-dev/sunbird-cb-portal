@@ -273,7 +273,7 @@ export class FilterComponent implements OnInit {
 
   bindFilter() {
     if (!this.checkFilterEmpty()) {
-      if(this.filterObj['isApar']){
+      if (this.filterObj['isApar']) {
         this.onAparChange(this.filterObj['isApar'])
       }
       if (this.filterObj['primaryCategory'].length) {

@@ -12,7 +12,6 @@ import {
   NetworkStripMultipleModule, ContentStripWithTabsModule, AvatarPhotoModule,
 } from '@sunbird-cb/collection'
 import { SkeletonLoaderModule } from '@sunbird-cb/collection/src/lib/_common/skeleton-loader/skeleton-loader.module'
-import { ProfileCardStatsModule } from '@sunbird-cb/collection/src/lib/_common/profile-card-stats/profile-card-stats.module'
 import { PipeRelativeTimeModule, ImageResponsiveModule } from '@sunbird-cb/utils-v2'
 import { WeeklyClapsModule } from '@sunbird-cb/collection/src/lib/_common/weekly-claps/weekly-claps.module'
 import { TipsForLearnerModule } from '@sunbird-cb/collection/src/lib/_common/tips-for-learner/tips-for-learner.module'
@@ -37,25 +36,18 @@ import { PendingRequestModule } from '@sunbird-cb/collection/src/lib/_common/pen
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { HttpLoaderFactory } from '../app.module'
 import { HttpClient } from '@angular/common/http'
-import { UserLeaderboardModule } from '@sunbird-cb/collection/src/lib/_common/user-leaderboard/user-leaderboard.module'
-import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip'
 import { ContentStripWithTabsLibModule, ContentStripWithTabsPillsModule } from '@sunbird-cb/consumption'
 import { SurveyFormModule } from '@sunbird-cb/collection/src/lib/_common/survey-form-left-section/survey-form/survey-form.module'
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field'
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select'
 import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button'
 import { SignupService } from '../routes/signup/signup.service'
-import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete'
-import { MatDialogModule } from '@angular/material/dialog'
 import { InSightSideBarModule } from '../component/in-sight-side-bar/in-sight-side-bar.module'
- 
 
 @NgModule({
     declarations: [
         HomeComponent,
         PageContainerComponent, DiscussionInfoComponent, ClientSliderComponent,
         HomeContainerComponent,
-        NetworkHubComponent, NotificationComponent, SurveyFormComponent
+        NetworkHubComponent, NotificationComponent, SurveyFormComponent,
     ],
     imports: [
         CommonModule,
@@ -69,9 +61,6 @@ import { InSightSideBarModule } from '../component/in-sight-side-bar/in-sight-si
         MatCardModule,
         MatIconModule,
         SharedModule,
-        ProfileCardStatsModule,
-        UserLeaderboardModule,
-        MatIconModule,
         WeeklyClapsModule,
         TipsForLearnerModule,
         UpdatePostsModule,
@@ -84,10 +73,7 @@ import { InSightSideBarModule } from '../component/in-sight-side-bar/in-sight-si
         PendingRequestModule,
         ContentStripWithTabsLibModule,
         ContentStripWithTabsPillsModule,
-        MatFormFieldModule,
-        MatSelectModule,
         MatButtonModule,
-        MatAutocompleteModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -95,12 +81,10 @@ import { InSightSideBarModule } from '../component/in-sight-side-bar/in-sight-si
                 deps: [HttpClient],
             },
         }),
-        MatTooltipModule,
         SurveyFormModule,
-        MatDialogModule,
         FeedListModule,
         InSightSideBarModule,
-        HomeOtherPortalModule
+        HomeOtherPortalModule,
     ],
     exports: [
         HeaderModule,
@@ -109,11 +93,11 @@ import { InSightSideBarModule } from '../component/in-sight-side-bar/in-sight-si
         TranslateModule,
         FeedListModule,
         InSightSideBarModule,
-        HomeOtherPortalModule
+        HomeOtherPortalModule,
     ],
     providers: [
         HomePageService,
         SignupService,
-    ]
+    ],
 })
 export class HomeModule { }

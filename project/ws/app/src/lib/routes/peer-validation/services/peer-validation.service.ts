@@ -26,7 +26,6 @@ export class PeerValidationService {
 
   constructor(private http: HttpClient, private configSvc: ConfigurationsService) { }
 
-
   getAllUsers(rootOrgId?: string, query: string = '') {
     const orgId = rootOrgId || this.configSvc.userProfile?.rootOrgId
     const reqBody = {

@@ -25,7 +25,7 @@ import {
   ContentStripNewMultipleModule,
   DiscussStripMultipleModule,
   NetworkStripMultipleModule,
-  UserImageModule
+  UserImageModule,
 } from '@sunbird-cb/collection'
 
 // Import WidgetResolverModule from the correct package
@@ -40,7 +40,7 @@ import {
   PipePartialContentModule,
   PipeDurationTransformModule,
   HorizontalScrollerModule,
-  HorizontalScrollerV2Module
+  HorizontalScrollerV2Module,
 } from '@sunbird-cb/utils-v2'
 
 // Import specific modules from collection (using full paths)
@@ -93,7 +93,7 @@ import { HomeOtherPortalModule } from '../home-other-portal/home-other-portal.mo
     NetworkStripMultipleModule,
     UserImageModule,
     WidgetResolverModule,
-    
+
     // Specific collection modules with full paths
     WeeklyClapsModule,
     UpdatePostsModule,
@@ -103,7 +103,7 @@ import { HomeOtherPortalModule } from '../home-other-portal/home-other-portal.mo
     UserLeaderboardModule,
     DiscussionsModule,
     TipsForLearnerModule,
-    
+
     // Consumption modules
     ContentStripWithTabsLibModule,
     ContentStripWithTabsPillsModule,
@@ -123,8 +123,8 @@ import { HomeOtherPortalModule } from '../home-other-portal/home-other-portal.mo
     TranslateModule,
 
     // Home other portal module
-    HomeOtherPortalModule
+    HomeOtherPortalModule,
   ],
-  exports: [InsightSideBarComponent]
+  exports: [InsightSideBarComponent],
 })
 export class InSightSideBarModule { }

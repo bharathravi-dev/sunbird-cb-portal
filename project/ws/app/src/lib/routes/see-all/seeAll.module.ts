@@ -122,6 +122,6 @@ import { BadgesModule } from '../../../../../../../src/app/badges/badges.module'
   ],
   exports: [SeeAllHomeComponent],
   providers: [],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SeeAllModule { }

@@ -225,8 +225,6 @@ export class AudioComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   async fetchContinueLearning(collectionId: string, audioId: string): Promise<boolean> {
     return new Promise(resolve => {
       this.contentSvc.fetchContentHistory(collectionId).subscribe(

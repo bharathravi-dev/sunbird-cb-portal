@@ -95,7 +95,7 @@ export class PdfComponent implements OnInit, OnDestroy {
             &&
             this.activatedRoute.snapshot.queryParams.from === 'globalSearch') {
             if (this.activatedRoute.snapshot.queryParams.pn) {
-              let pageNumber = this.activatedRoute.snapshot.queryParams.pn
+              const pageNumber = this.activatedRoute.snapshot.queryParams.pn
               this.widgetResolverPdfData.widgetData.resumePage = Number(pageNumber)
             }
           } else {
@@ -234,7 +234,7 @@ export class PdfComponent implements OnInit, OnDestroy {
                       &&
                       this.activatedRoute.snapshot.queryParams.from === 'globalSearch') {
                       if (this.activatedRoute.snapshot.queryParams.pn) {
-                        let pageNumber = this.activatedRoute.snapshot.queryParams.pn
+                        const pageNumber = this.activatedRoute.snapshot.queryParams.pn
                         this.widgetResolverPdfData.widgetData.resumePage = Number(pageNumber)
                       }
                     } else {

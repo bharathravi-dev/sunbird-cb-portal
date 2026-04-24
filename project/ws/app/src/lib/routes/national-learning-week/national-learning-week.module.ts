@@ -45,7 +45,7 @@ import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy
 import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip'
-import { KarmayogiSaptahComponent } from './karmayogi-saptah/karmayogi-saptah.component';
+import { KarmayogiSaptahComponent } from './karmayogi-saptah/karmayogi-saptah.component'
 import { SadhanaSaptahComponent } from './sadhana-saptah/sadhana-saptah.component'
 
 @NgModule({

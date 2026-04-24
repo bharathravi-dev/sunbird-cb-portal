@@ -33,6 +33,6 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
         BtnLinkedinShareModule,
         BtnFacebookShareModule,
         BtnTwitterShareModule,
-    ]
+    ],
 })
 export class BadgesModule { }

@@ -204,8 +204,7 @@ export class CompetencyListV2Component implements OnInit, OnDestroy {
     this.getAllCompetencyList()
     setTimeout(() => {
       this.getMyCompetencyList()
-    }, 1000)
-
+    },         1000)
 
   }
 
@@ -258,7 +257,7 @@ export class CompetencyListV2Component implements OnInit, OnDestroy {
         if (!themeEntry) {
           themeEntry = {
             id: themeId,
-            areaId: areaId,
+            areaId,
             areaName: area,
             name: this.allThemeData.find((t: any) => t.refId === themeId)?.name || '',
             subThemes: [],
@@ -322,7 +321,7 @@ export class CompetencyListV2Component implements OnInit, OnDestroy {
     this.totalCompetencySubThemeCount = 0
     this.totalContentConsumed = 0
 
-    this.myCompetencies.forEach((areaEntry) => {
+    this.myCompetencies.forEach(areaEntry => {
       const subThemeCount = areaEntry.subThemes ? areaEntry.subThemes.length : 0
       const consumedCourse = areaEntry.counts.total || 0
       const themName = this.allCompetencies.find((comp: any) => comp.refId === areaEntry.id)?.name || areaEntry.id
@@ -339,7 +338,7 @@ export class CompetencyListV2Component implements OnInit, OnDestroy {
   getAllCompetenciesCount(): number {
     return this.myCompetencies.reduce((sum, areaEntry) => {
       return sum + (areaEntry.themes?.length || 0)
-    }, 0)
+    },                                0)
   }
 
   getAllCompetencyList(): void {
@@ -373,8 +372,6 @@ export class CompetencyListV2Component implements OnInit, OnDestroy {
     }
     return enrollData
   }
-
-
 
   handleLeftFilter(months: string): void {
     // Do not delete, need to work on this...

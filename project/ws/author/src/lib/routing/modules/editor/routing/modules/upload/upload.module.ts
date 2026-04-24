@@ -14,6 +14,6 @@ import { ProfanityService } from './services/profanity.service'
     declarations: [UploadComponent, FileUploadComponent, ProfanityPopUpComponent],
     exports: [FileUploadComponent, ProfanityPopUpComponent],
     imports: [CommonModule, SharedModule, EditorSharedModule, UploadRoutingModule, AuthViewerModule, MatProgressBarModule],
-    providers: [ProfanityService]
+    providers: [ProfanityService],
 })
 export class UploadModule { }

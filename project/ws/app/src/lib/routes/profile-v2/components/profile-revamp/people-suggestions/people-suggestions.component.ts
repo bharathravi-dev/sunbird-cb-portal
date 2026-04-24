@@ -1,19 +1,19 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import * as _ from 'lodash';
-import { ProfileV2RevampService } from '../../../services/profile-v2-revamp.service';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
-import { Router } from '@angular/router';
-import { EventService, WsEvents } from '@sunbird-cb/utils-v2';
+import { Component, Input, OnChanges } from '@angular/core'
+import * as _ from 'lodash'
+import { ProfileV2RevampService } from '../../../services/profile-v2-revamp.service'
+import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar'
+import { Router } from '@angular/router'
+import { EventService, WsEvents } from '@sunbird-cb/utils-v2'
 
 @Component({
   selector: 'ws-app-people-suggestions',
   templateUrl: './people-suggestions.component.html',
-  styleUrls: ['./people-suggestions.component.scss']
+  styleUrls: ['./people-suggestions.component.scss'],
 })
 export class PeopleSuggestionsComponent implements OnChanges {
   //#region (global variables)
-  @Input() peopleSuggestionsList: any[] = [];
-  @Input() currentUser: any = '';
+  @Input() peopleSuggestionsList: any[] = []
+  @Input() currentUser: any = ''
   //#endregion
 
   constructor(
@@ -24,7 +24,7 @@ export class PeopleSuggestionsComponent implements OnChanges {
   ) { }
 
   ngOnChanges(): void {
-    if(this.peopleSuggestionsList && this.peopleSuggestionsList.length > 0) {
+    if (this.peopleSuggestionsList && this.peopleSuggestionsList.length > 0) {
       this.peopleSuggestionsList.forEach(person => {
         person['connectionStatus'] = 'connect'
         const userName = _.get(person, 'personalDetails.firstname', '')
@@ -36,16 +36,16 @@ export class PeopleSuggestionsComponent implements OnChanges {
                 person['nameInitials'] = userName.charAt(0)
               }
             }
-      });
+      })
     }
   }
 
   connect(person: any): void {
-    this.sendConnectionRequest(person);
+    this.sendConnectionRequest(person)
   }
 
   sendConnectionRequest(person: any): void {
-    if(person) {
+    if (person) {
       const formBody = {
         connectionId: person.id || person.identifier || person.wid,
         userIdFrom: _.get(this.currentUser, 'userId', ''),
@@ -58,13 +58,13 @@ export class PeopleSuggestionsComponent implements OnChanges {
 
       this.profileV2RevampSvc.connectToNetwork(formBody).subscribe({
         next: () => {
-          person.connectionStatus = 'pending';
-          this.openSnackbar('Connection request sent successfully');
+          person.connectionStatus = 'pending'
+          this.openSnackbar('Connection request sent successfully')
         },
         error: () => {
-          this.openSnackbar('Something went wrong while sending connection request');
-        }
-      });
+          this.openSnackbar('Something went wrong while sending connection request')
+        },
+      })
     }
   }
 
@@ -78,13 +78,13 @@ export class PeopleSuggestionsComponent implements OnChanges {
     this.events.raiseInteractTelemetry(
             { // edata
         type: WsEvents.EnumInteractTypes.CLICK,
-        id: 'profile-card'
+        id: 'profile-card',
       },
-      {
+            {
         id: userId,
-        type: 'User'
+        type: 'User',
       }, // object details
-      { // env
+            { // env
         module: WsEvents.EnumTelemetrymodules.NETWORK,
       })
   }

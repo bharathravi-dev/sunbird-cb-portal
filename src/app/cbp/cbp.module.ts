@@ -69,7 +69,7 @@ import { MatLegacySliderModule } from '@angular/material/legacy-slider'
         FilterSearchPipeModule,
         MatMenuModule,
         MatRadioModule,
-        MatLegacySlideToggleModule,MatLegacySliderModule,
+        MatLegacySlideToggleModule, MatLegacySliderModule,
         TranslateModule,
     ],
     exports: [
@@ -77,6 +77,6 @@ import { MatLegacySliderModule } from '@angular/material/legacy-slider'
         MatCardModule,
         SharedModule,
     ],
-    providers: []
+    providers: [],
 })
 export class CbpModule { }

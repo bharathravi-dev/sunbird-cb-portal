@@ -297,7 +297,7 @@ export class EventsComponent implements OnInit {
 
   navigateWithPage(page: any) {
     if (page !== this.currentActivePage) {
-      this.router.navigate([`/app/event-hub/home`], { queryParams: { page } })
+      this.router.navigate(['/app/event-hub/home'], { queryParams: { page } })
       this.fetchNewData = true
     }
   }
@@ -638,7 +638,7 @@ export class EventsComponent implements OnInit {
           break
         case 'rajyaKarmayogiSaptahEvents':
           this.rajyaKarmayogiSaptahEvents = rajyaKarmayogiSaptahEvents
-          break          
+          break
         case 'karmayogiTalksEvents':
           this.karmayogiTalksEvents = karmayogiTalksEvents
           break

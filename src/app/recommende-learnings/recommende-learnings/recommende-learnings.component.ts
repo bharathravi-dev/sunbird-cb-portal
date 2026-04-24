@@ -21,12 +21,12 @@ export class RecommendeLearningsComponent implements OnInit {
   completed: any = []
   results: any = []
   content: any = []
-  
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private widgetSvc: WidgetUserServiceLib,
     private translate: TranslateService,
-    //private configSvc: ConfigurationsService,
+    // private configSvc: ConfigurationsService,
     private langtranslations: MultilingualTranslationsService,
     private seeAllSvc: SeeAllService,
     private enrollSvc: WidgetEnrollService
@@ -58,53 +58,53 @@ export class RecommendeLearningsComponent implements OnInit {
   }
 
   async getRecommendeLeanings() {
-    let response = await this.seeAllSvc.fetchDesigantionsData(this.recommendedConfig.strip.request.designationsList.path).toPromise()
-    if(response) {
-      let request = {
-        "request": {
-            "courseId": response
-        }
+    const response = await this.seeAllSvc.fetchDesigantionsData(this.recommendedConfig.strip.request.designationsList.path).toPromise()
+    if (response) {
+      const request = {
+        'request': {
+            'courseId': response,
+        },
       }
-      let enollData =  await this.enrollSvc.fetchEnrollContentData(request).toPromise().then(async (res: any) => {
+      const enollData =  await this.enrollSvc.fetchEnrollContentData(request).toPromise().then(async (res: any) => {
         if (res && res.result && res.result.courses && res.result.courses.length) {
           return res.result.courses
-        } else {
-          return []
         }
+          return []
+
       }).catch((_err: any) => {
         return []
       })
       const sRequest: any = {
-        "request": {
-          "filters": {
-            "identifier": response
+        'request': {
+          'filters': {
+            'identifier': response,
           },
-          "offset": 0,
-          "query": "",
-          "sort_by": {
-              "lastUpdatedOn": "desc"
+          'offset': 0,
+          'query': '',
+          'sort_by': {
+              'lastUpdatedOn': 'desc',
           },
-        }
+        },
       }
       this.seeAllSvc.fetchSearchData(sRequest).subscribe((res: any) => {
         if (res && res.result && res.result.content) {
-          let courses = res.result.content
+          const courses = res.result.content
           this.getPilldata(courses, enollData, response)
         }
       })
     }
   }
 
-  getPilldata(courses: any, enollData: any, coursesArray: any){
-    let avaialable: any[] = []
-    let inprogress: any[] = []
-    let completed: any[] = []
+  getPilldata(courses: any, enollData: any, coursesArray: any) {
+    const avaialable: any[] = []
+    const inprogress: any[] = []
+    const completed: any[] = []
     let cbpData: any
     this.widgetSvc.getData('cbpData').subscribe((result => {
       cbpData = result
     }))
     coursesArray.forEach((courseId: any) => {
-      let course = courses.find((item: any) => item.identifier === courseId)
+      const course = courses.find((item: any) => item.identifier === courseId)
       if (course) {
         if (cbpData) {
           const cbpelem = cbpData.find((_course: any) => _course.identifier === course.identifier)
@@ -168,5 +168,5 @@ export class RecommendeLearningsComponent implements OnInit {
   translateLabels(label: string, type: any) {
     return this.langtranslations.translateLabel(label.toLowerCase(), type, '')
   }
-  
+
 }

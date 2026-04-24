@@ -526,11 +526,11 @@ const routes: Routes = [
       pageType: 'feature',
       pageKey: 'custom-home',
       pageId: 'app/custom-home',
-      module: 'CUSTOM_HOME'
+      module: 'CUSTOM_HOME',
     },
     resolve: {
     },
-    canActivate: [GeneralGuard]
+    canActivate: [GeneralGuard],
   },
   {
     path: 'app/my-learning',
@@ -661,7 +661,7 @@ const routes: Routes = [
       pageKey: 'globalsearch',
       pageId: 'app/globalsearch',
       module: 'Home',
-    }
+    },
   },
   {
     path: 'app/seeAll',
@@ -1161,7 +1161,7 @@ const routes: Routes = [
       hierarchyData: AppHierarchyResolverService,
       enrollmentData: AppEnrollmentResolverService,
       contentRead: AppContentResolverService,
-      preAssessmentRead: AppPreAssessmentContentResolverService
+      preAssessmentRead: AppPreAssessmentContentResolverService,
     },
     loadChildren: () => import('./routes/route-viewer.module').then(u => u.RouteViewerModule),
     canActivate: [GeneralGuard],

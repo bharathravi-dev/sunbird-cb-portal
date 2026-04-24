@@ -93,8 +93,8 @@ export class IapComponent implements OnInit, OnDestroy {
       this.activatedRoute.snapshot.queryParams.collectionType
       && this.iapData) {
       await this.contentSvc.continueLearning(this.iapData.identifier,
-        this.activatedRoute.snapshot.queryParams.collectionId,
-        this.activatedRoute.snapshot.queryParams.collectionType,
+                                             this.activatedRoute.snapshot.queryParams.collectionId,
+                                             this.activatedRoute.snapshot.queryParams.collectionType,
       )
     } else if (this.iapData) {
       await this.contentSvc.continueLearning(this.iapData.identifier)

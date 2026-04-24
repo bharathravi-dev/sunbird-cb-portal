@@ -67,6 +67,6 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
     ],
     exports: [PublicRequestComponent],
     providers: [RequestService],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PublicRequestModule { }

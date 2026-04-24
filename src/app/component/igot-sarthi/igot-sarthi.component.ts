@@ -1,25 +1,25 @@
-import { AfterViewChecked, AfterViewInit, Component,ElementRef,EventEmitter,Input, OnDestroy, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { ConfigurationsService, EventService, WsEvents } from '@sunbird-cb/utils-v2';
-import { RootService } from '../../component/root/root.service';
-import { environment } from '../../../environments/environment';  
-import { NonReleventFeedbackDialogComponent } from '@sunbird-cb/collection/src/lib/_common/non-relevent-feedback-dialog/non-relevent-feedback-dialog.component';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, ViewChild } from '@angular/core'
+import { Router, NavigationEnd } from '@angular/router'
+import { ConfigurationsService, EventService, WsEvents } from '@sunbird-cb/utils-v2'
+import { RootService } from '../../component/root/root.service'
+import { environment } from '../../../environments/environment'
+import { NonReleventFeedbackDialogComponent } from '@sunbird-cb/collection/src/lib/_common/non-relevent-feedback-dialog/non-relevent-feedback-dialog.component'
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { MatSnackBar as MatSnackbarNew } from '@angular/material/snack-bar'
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash/cloneDeep'
 // import { timeout, catchError } from 'rxjs/operators';
 // import { throwError } from 'rxjs';
 @Component({
   selector: 'ws-app-igot-sarthi',
   templateUrl: './igot-sarthi.component.html',
-  styleUrls: ['./igot-sarthi.component.scss']
+  styleUrls: ['./igot-sarthi.component.scss'],
 })
 export class IGotSarthiComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
   @Input() from = ''
   @Input() userJourney = []
   @Input() chatId = ''
   @Input() userId = ''
-  @Input() fullScreenChatFlag = false  
+  @Input() fullScreenChatFlag = false
   @Output() scrollToBottomEvent = new EventEmitter()
   showIcon = true
   categories: any[] = []

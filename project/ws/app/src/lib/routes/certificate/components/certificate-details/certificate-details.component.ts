@@ -82,16 +82,16 @@ export class CertificateDetailsComponent implements OnInit {
     //   this.loader = false
     //   this.viewCertificate = true
     // },         1000)
-    
+
     // Check if URL includes 'achievements' to determine which API to call
     const currentUrl = this.router.url
     const isAchievement = currentUrl.includes('achievements') || currentUrl.includes('achievement')
-    
+
     // Call the appropriate API based on the URL
-    const apiCall = isAchievement 
+    const apiCall = isAchievement
       ? this.certificateService.validateMileStoneCertificate(request)
       : this.certificateService.validateCertificate(request)
-    
+
     apiCall.subscribe(
       (data: any) => {
         // this.getCourseVideoUrl(_.get(data, 'result.response.related.courseId'))

@@ -9,7 +9,7 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import moment from 'moment'
 import { SignupService } from '../../routes/public/public-signup/signup.service'
-import _ from 'lodash';
+import lodash from 'lodash'
 import { ProfileV2Service } from '@ws/app/src/lib/routes/profile-v2/services/profile-v2.servive'
 import { UserProfileService } from '@ws/app/src/lib/routes/user-profile/services/user-profile.service'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
@@ -109,7 +109,7 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
   nlwExperience: any = null
   isNlw2026Certified = false
   @Output() telemetryRaisedLibrary = new EventEmitter()
-  
+
   constructor(
     private homePageSvc: HomePageService,
     private configSvc: ConfigurationsService,
@@ -154,16 +154,16 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
         this.isNlw2026Certified = status
       })
       this.updateDesignationCard = this.activatedRoute.snapshot.data.pageData.data.updateDesignation
-      let slwConfigurationLocal:any = this.activatedRoute.snapshot.data.pageData.data &&
+      const slwConfigurationLocal:any = this.activatedRoute.snapshot.data.pageData.data &&
       this.activatedRoute.snapshot.data.pageData.data.stateLearningWeek || []
 
-      if(slwConfigurationLocal && slwConfigurationLocal.length) {
-        let userData = this.configSvc.unMappedUser
-        if(userData && userData.profileDetails 
-          && userData.profileDetails.refRootOrg 
+      if (slwConfigurationLocal && slwConfigurationLocal.length) {
+        const userData = this.configSvc.unMappedUser
+        if (userData && userData.profileDetails
+          && userData.profileDetails.refRootOrg
           && userData.profileDetails.refRootOrg.orgId) {
-          for(let item of slwConfigurationLocal) {
-            if(item.orgId === userData.profileDetails.refRootOrg.orgId) {
+          for (const item of slwConfigurationLocal) {
+            if (item.orgId === userData.profileDetails.refRootOrg.orgId) {
               this.slwConfiguration = item
             }
           }
@@ -268,7 +268,7 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
               if (resp.result.data.length > 0) {
                 resp.result.data.forEach((user: any) => {
                   if (user['designation']) {
-                    let designationsArray = this.designationList.map((des: any) => des.name.toLowerCase())
+                    const designationsArray = this.designationList.map((des: any) => des.name.toLowerCase())
                     if (!designationsArray.includes(user['designation'].toLowerCase())) {
                       this.showUpdateDesignations = true
                       this.desigantionUnderApproval = user
@@ -278,9 +278,9 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
               } else {
                 if (this.configSvc.userProfile && this.configSvc.userProfile.professionalDetails &&
                     this.configSvc.userProfile.professionalDetails[0] && this.configSvc.userProfile.professionalDetails[0].designation) {
-                  let designation = this.configSvc.userProfile.professionalDetails[0].designation
+                  const designation = this.configSvc.userProfile.professionalDetails[0].designation
                   if (designation) {
-                    let designationsArray = this.designationList.map((des: any) => des.name.toLowerCase())
+                    const designationsArray = this.designationList.map((des: any) => des.name.toLowerCase())
                     if (!designationsArray.includes(designation.toLowerCase())) {
                       this.showUpdateDesignations = true
                     }
@@ -291,12 +291,12 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
               }
             }
           })
-        },(_error: any) => {
+        }, (_error: any) => {
           // tslint:disable-next-line
           console.error('Error occurred:', _error)
         })
       }
-    },(error: any) => {
+    }, (error: any) => {
       // tslint:disable-next-line
       console.error('Error occurred:', error)
     })
@@ -305,8 +305,8 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
   private getTermsByCode(categories: any[], code: string) {
     const selectedCategory = categories.filter(
       (category: any) => category.code === code
-    );
-    return _.get(selectedCategory, '[0].terms', []);
+    )
+    return _.get(selectedCategory, '[0].terms', [])
   }
 
   getInsights() {
@@ -392,7 +392,6 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
     )
   }
 
-
   getPendingRequestData() {
     this.pendingRequestSkeleton = false
     // this.homePageSvc.getRecentRequests().subscribe(
@@ -427,7 +426,7 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
   }
 
   goToActivity(_e: any) {
-    this.router.navigateByUrl(`app/person-profile/me?tab=1`)
+    this.router.navigateByUrl('app/person-profile/me?tab=1')
   }
 
   navigate() {
@@ -540,10 +539,10 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
         module: WsEvents.EnumTelemetrymodules.HOME,
       }
     )
-      if(this.slwConfiguration && this.slwConfiguration.orgName && this.slwConfiguration.orgId) {
+      if (this.slwConfiguration && this.slwConfiguration.orgName && this.slwConfiguration.orgId) {
         this.router.navigateByUrl(`app/learn/mdo-channels/${this.slwConfiguration.orgName}/${this.slwConfiguration.orgId}/micro-sites`)
       }
-    
+
   }
 
   updateDesignation() {
@@ -560,7 +559,7 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
       {
         type: WsEvents.EnumInteractTypes.CLICK,
         subType: this.selectDesignation,
-        id: "designation-master-import",
+        id: 'designation-master-import',
       },
       {},
       {
@@ -570,13 +569,13 @@ export class InsightSideBarComponent implements OnInit, OnDestroy {
   }
 
   submitProfile() {
-    let payload: any = {
+    const payload: any = {
       request: {
         userId: this.configSvc.unMappedUser.id,
         profileDetails: {
-          professionalDetails: [{designation: this.selectDesignation}]
-        }
-      }
+          professionalDetails: [{ designation: this.selectDesignation }],
+        },
+      },
     }
 
     this.userProfileService.editProfileDetails(payload).subscribe((res: any) => {

@@ -56,7 +56,7 @@ export class VideoComponent implements OnInit, OnDestroy {
     ) {
       this.viewerDataSubscription = this.activatedRoute.data.subscribe(data => {
         this.videoData = data.content.data
-     
+
         // tslint:disable-next-line
         this.widgetResolverVideoData = this.initWidgetResolverVideoData(this.videoData!)
         if (this.activatedRoute.snapshot.queryParams.collectionId) {
@@ -298,8 +298,7 @@ export class VideoComponent implements OnInit, OnDestroy {
               }
             }
             resolve(true) // Resolve when subscription completes successfully
-          },
-          (error) => {
+          }, error => {
             console.error('Error fetching continue learning data:', error)
             resolve(true) // Resolve even on error to prevent hanging
           }

@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core'
 import { VIEWER_ROUTE_FROM_MIME } from '@sunbird-cb/collection/src/public-api'
 import { ConfigurationsService } from '@sunbird-cb/utils-v2'
 import { ViewerDataService } from '@sunbird-cb/toc'
-import _ from 'lodash'
+import lodash from 'lodash'
 
 @Component({
   selector: 'ws-app-gyaan-player',
@@ -34,10 +34,10 @@ export class GyaanPlayerComponent implements OnInit {
   selectedSectorId = ''
 
   constructor(private viewerDataSvc: ViewerDataService,
-    private configSvc: ConfigurationsService,
-    private route: ActivatedRoute,
-    public titleCasePipe: TitleCasePipe,
-    public translate: TranslateService, private router: Router) {
+              private configSvc: ConfigurationsService,
+              private route: ActivatedRoute,
+              public titleCasePipe: TitleCasePipe,
+              public translate: TranslateService, private router: Router) {
     if (this.route.parent && this.route.parent.snapshot.data.pageData
       && this.route.parent.snapshot.data.pageData.data
       && this.route.parent.snapshot.data.pageData.data.stripConfig) {
@@ -75,9 +75,9 @@ export class GyaanPlayerComponent implements OnInit {
         { title: 'Gyaan Karmayogi', url: '/app/amrit-gyaan-kosh/all', icon: 'menu_book' },
         {
           title: 'TOC page', disableTranslate: true,
-          queryParams: {}, url: `/app/toc/${this.collectionId}/overview`, icon: ''
+          queryParams: {}, url: `/app/toc/${this.collectionId}/overview`, icon: '',
         },
-        { title: this.resourceData.name, url: `none`, icon: '' },
+        { title: this.resourceData.name, url: 'none', icon: '' },
       ]
     } else {
       const _queryParams = { ...this.route.snapshot.queryParams }
@@ -91,9 +91,9 @@ export class GyaanPlayerComponent implements OnInit {
         { title: 'Gyaan Karmayogi', url: '/app/amrit-gyaan-kosh/all', icon: 'menu_book' },
         {
           title: this.titleCasePipe.transform(this.resourceData.resourceCategory), disableTranslate: true,
-          queryParams: _queryParams, url: `/app/amrit-gyaan-kosh/view-all`, icon: ''
+          queryParams: _queryParams, url: '/app/amrit-gyaan-kosh/view-all', icon: '',
         },
-        { title: this.resourceData.name, url: `none`, icon: '' },
+        { title: this.resourceData.name, url: 'none', icon: '' },
       ]
     }
 
@@ -106,7 +106,7 @@ export class GyaanPlayerComponent implements OnInit {
     // Set up observer to check if instructions are long enough to require "View More"
     setTimeout(() => {
       this.checkInstructionsLength()
-    }, 100)
+    },         100)
 
     this.handleSubsector(this.resourceData?.sectorDetails_v1?.[0] || [])
   }
@@ -171,7 +171,7 @@ export class GyaanPlayerComponent implements OnInit {
             .filter((item: any) => item?.sectorName && item?.sectorId)
             .map((item: any) => ({
               sectorId: item.sectorId,
-              sectorName: item.sectorName
+              sectorName: item.sectorName,
             })),
           'sectorName'
         )
@@ -182,7 +182,7 @@ export class GyaanPlayerComponent implements OnInit {
             .filter((item: any) => item?.subSectorName && item?.subSectorId)
             .map((item: any) => ({
               subSectorId: item.subSectorId,
-              subSectorName: item.subSectorName
+              subSectorName: item.subSectorName,
             })),
           'subSectorName'
         )
@@ -229,28 +229,28 @@ export class GyaanPlayerComponent implements OnInit {
         sectorId: sector.sectorId,
         sectorName: sector.sectorName,
         key: sector.subSectorName,
-        value: [sector.subSectorName]
+        value: [sector.subSectorName],
       }))
 
       // Create card data for each subsector
       this.subSectorsList = this.getUniqueArray(relevantSubSectors).map((sector: any) => ({
-        widgetType: "card",
-        widgetSubType: "competencyCard",
-        widgetHostClass: "mr-4",
+        widgetType: 'card',
+        widgetSubType: 'competencyCard',
+        widgetHostClass: 'mr-4',
         widgetData: {
           content: {
             sectorId: this.selectedSectorId,
             sectorName: this.selectedSector,
             key: sector.subSectorName,
-            value: [sector.subSectorName]
+            value: [sector.subSectorName],
           },
-          competencyArea: "Behavioural",
-          cardCustomeClass: "",
+          competencyArea: 'Behavioural',
+          cardCustomeClass: '',
           context: {
-            pageSection: "blendedPrograms",
-            position: 0
-          }
-        }
+            pageSection: 'blendedPrograms',
+            position: 0,
+          },
+        },
       }))
     } else {
       this.subSectorsList = []

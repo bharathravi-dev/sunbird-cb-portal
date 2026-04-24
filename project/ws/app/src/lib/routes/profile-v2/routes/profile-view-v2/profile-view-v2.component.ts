@@ -31,21 +31,21 @@ import { NetCoreService } from '../../../../../../../../../src/app/services/netc
   selector: 'ws-app-profile-view-v2',
   templateUrl: './profile-view-v2.component.html',
   styleUrls: ['./profile-view-v2.component.scss'],
-  providers: [PipeCertificateImageURL]
+  providers: [PipeCertificateImageURL],
 })
 export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy {
 
   //#region (global variables)
   destroySubject$ = new Subject()
   @ViewChild('aboutMeElement') aboutMeElement !: ElementRef
-  isCurrentUser = false;
-  userId: string = '';
+  isCurrentUser = false
+  userId: string = ''
   profesionalDetails: any
   profileData: any
-  profileImageUrl = '';
-  profileBannerUrl = '';
-  profileCompletionPercentage: number = 0;
-  nameInitials: string = '';
+  profileImageUrl = ''
+  profileBannerUrl = ''
+  profileCompletionPercentage: number = 0
+  nameInitials: string = ''
   isIgotOrg = false
   isNotMyUser = false
   isNotMyUserAndIgotOrg = false
@@ -57,47 +57,47 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       iconUrl: './assets/icons/karma-point-logo.jpg',
       vewAllUrl: 'app/person-profile/karma-points',
       stateInfo: 'My Karma Points',
-      identifier: 'karmaPoints'
+      identifier: 'karmaPoints',
     },
     {
       state: 'NetworkV2Profile.myCertificates',
       totalPoints: '0',
       iconUrl: './assets/icons/certificate.svg',
       vewAllUrl: 'app/seeAll/new?key=continueLearning',
-      identifier: 'certificateCount'
+      identifier: 'certificateCount',
     },
     {
       state: 'My Badges',
       totalPoints: '0',
       iconUrl: './assets/icons/badges/Medal.svg',
       vewAllUrl: '/badges',
-      identifier: 'myBadges'
+      identifier: 'myBadges',
     },
     {
       state: 'NetworkV2Profile.myPosts',
       totalPoints: '0',
       iconUrl: './assets/icons/edit.svg',
       vewAllUrl: '/app/discussion-forum-v2',
-      identifier: 'postCount'
+      identifier: 'postCount',
     },
 
-  ];
+  ]
   profileRoutes: profileRoutes[] = [
     {
       name: 'NetworkV2Profile.aboutMe',
       url: '',
       icon: 'person',
-      id: 'about-me'
+      id: 'about-me',
     }, {
       name: 'NetworkV2Profile.basicDetails',
       url: './assets/icons/checklist.svg',
       icon: '',
-      id: 'basic-details'
+      id: 'basic-details',
     }, {
       name: 'NetworkV2Profile.serviceHistory',
       url: '',
       icon: 'history',
-      id: 'service-history'
+      id: 'service-history',
     }, {
       //   name: 'Competencies',
       //   url: '',
@@ -108,22 +108,22 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       name: 'NetworkV2Profile.educational',
       url: '',
       icon: 'school',
-      id: 'educational-qualifications'
+      id: 'educational-qualifications',
     }, {
       name: 'NetworkV2Profile.achievements',
       url: './assets/icons/trophy.svg',
       icon: '',
-      id: 'achievements'
+      id: 'achievements',
     },
   ]
-  activeRoutId: string = 'about-me';
+  activeRoutId: string = 'about-me'
   locationDetails: any = {}
   serviceHistoryDetails: {
     count: number,
     serviceHistoryList: any[]
   } = {
       count: 0,
-      serviceHistoryList: []
+      serviceHistoryList: [],
     }
 
   educationalQualificationDetails: {
@@ -131,7 +131,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
     educationalQualifications: educationalQualifications[]
   } = {
       count: 0,
-      educationalQualifications: []
+      educationalQualifications: [],
     }
   // competencies: Competency[] = [
   //   {
@@ -168,7 +168,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
     achievementsList: achievement[]
   } = {
       count: 0,
-      achievementsList: []
+      achievementsList: [],
     }
 
   peopleSuggestionsList: any[] = []
@@ -182,8 +182,8 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
 
   groupsList: any[] = []
   isMentor = false
-  enableWTR = false; // to enable withdraw transfer request
-  enableWR = false; // to enable withdraw request
+  enableWTR = false // to enable withdraw transfer request
+  enableWR = false // to enable withdraw request
   unVerifiedObj = {
     designation: '',
     group: '',
@@ -203,7 +203,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
   approvalPendingFields: any = []
 
   //#region (m web and activites varailbles)
-  selectedTabIndex: any = 0;
+  selectedTabIndex: any = 0
   insightsDataLoading = false
   insightsData: any
   orgId: any
@@ -214,9 +214,9 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
   //#endregion
 
   connectionStatus = 'Connect'
-  isMobile = false;
-  showProfileSection = true;
-  blockedMessage = '';
+  isMobile = false
+  showProfileSection = true
+  blockedMessage = ''
   private initCallCount = 0
   private readonly INIT_CALL_TOTAL = 4
 
@@ -273,7 +273,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
     if (lastSectionId) {
       setTimeout(() => {
         this.selectRoute(lastSectionId)
-      }, 100)
+      },         100)
     }
     this.getSendApprovalStatus()
     this.getRejectedStatus()
@@ -301,14 +301,14 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       error: () => {
         this.suggestionsLoading = false
         this.openSnackbar('Error while fetching communities')
-      }
+      },
     })
   }
 
   getRecommendedCommunitesList() {
     const formBody = {
-      field: "countOfPeopleJoined",
-      limit: 3
+      field: 'countOfPeopleJoined',
+      limit: 3,
     }
     this.communitySuggestionsLoading = true
     this.profileV2RevampSvc.getCommunities(formBody).subscribe({
@@ -319,7 +319,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       error: () => {
         this.communitySuggestionsLoading = false
         this.openSnackbar('Error while fetching communities')
-      }
+      },
     })
   }
 
@@ -329,7 +329,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       .subscribe((res: any) => {
         this.groupsList = res.result && res.result.response.filter((ele: any) => ele !== 'Others')
         this.checkMandatory()
-      }, (error: HttpErrorResponse) => {
+      },         (error: HttpErrorResponse) => {
         if (!error.ok) {
           this.openSnackbar(this.handleTranslateTo('groupDataFaile'))
         }
@@ -342,7 +342,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         setTimeout(() => {
           this.handleEditMandatoryDetails()
 
-        }, 500)
+        },         500)
       } else {
         this.commonSvc.mandatoryDetails(false)
       }
@@ -356,7 +356,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         this.achievementsDetails.achievementsList = allAchievements.slice(0, 2)
         this.achievementsDetails.count = _.get(response, 'result.search_results.totalCount', 0)
       }
-    }, error => {
+    },                                                   error => {
       this.openSnackbar('Error while fetching achievements')
       console.error('Error while fetching achievements', error)
     })
@@ -369,7 +369,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       this.isNotMyUser = _.get(this.configSvc, 'unMappedUser.profileDetails.profileStatus', '').toLowerCase() === 'not-my-user' ? true : false
       this.isNotMyUserAndIgotOrg = (this.isNotMyUser && this.isIgotOrg)
       if (!this.isNotMyUserAndIgotOrg) {
-        //this.getRecommendedUsers()
+        // this.getRecommendedUsers()
         this.getRecommendedCommunitesList()
       }
       if (this.configSvc.userProfile && this.configSvc.userProfile.userId) {
@@ -379,7 +379,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         }
       }
       this.profesionalDetails = _.merge(_.get(data, 'profile.data.profiledetails', _.get(data, 'profile.data.profileDetails', _.get(data, 'profile.data', {}))), {
-        professionalDetails: _.get(data, 'profile.data.professionalDetails', {})
+        professionalDetails: _.get(data, 'profile.data.professionalDetails', {}),
       })
       this.profileData = _.get(data, 'profile.data', {})
       this.profesionalDetails['userId'] = _.get(data, 'profile.userId', '')
@@ -451,7 +451,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       departmentName: _.get(this.profesionalDetails, 'employmentDetails.departmentName', ''),
       externalSystemId: _.get(this.profesionalDetails, 'additionalProperties.externalSystemId', ''),
       externalSystemDor: _.get(this.profesionalDetails, 'additionalProperties.externalSystemDor', ''),
-      isCadre: isCadre,
+      isCadre,
 
       aboutme: _.get(this.profesionalDetails, 'employmentDetails.aboutme', ''),
 
@@ -572,15 +572,15 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
   patchEntries(entries: any) {
     this.serviceHistoryDetails = {
       serviceHistoryList: [],
-      count: 0
+      count: 0,
     }
     this.educationalQualificationDetails = {
       educationalQualifications: [],
-      count: 0
+      count: 0,
     }
     this.achievementsDetails = {
       achievementsList: [],
-      count: 0
+      count: 0,
     }
     this.serviceHistoryDetails.serviceHistoryList = _.get(entries, 'serviceHistory.data', [])
     this.serviceHistoryDetails.count = _.get(entries, 'serviceHistory.count', 0)
@@ -613,7 +613,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         if (this.aboutMeElement && this.aboutMeElement.nativeElement && this.aboutMeElement.nativeElement.offsetHeight) {
           this.showViewMoreBtn = this.aboutMeElement.nativeElement.offsetHeight > 56
         }
-      }, 10)
+      },         10)
     }
   }
 
@@ -634,7 +634,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       // Smooth scroll to element
       element.scrollIntoView({
         behavior: 'smooth',
-        block: 'start'
+        block: 'start',
       })
     }
     this.activeRoutId = sectionId
@@ -647,7 +647,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       height: this.isMobile ? '100vh' : 'auto',
       panelClass: 'cover-photo-edit-popup',
       data: {
-        coverPhotoUrl: this.profileBannerUrl
+        coverPhotoUrl: this.profileBannerUrl,
       },
       disableClose: true,
       autoFocus: false,
@@ -674,9 +674,9 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
             request: {
               userId: this.userId,
               profileDetails: {
-                profileBannerUrl: uploadedFile
-              }
-            }
+                profileBannerUrl: uploadedFile,
+              },
+            },
           }
           return this.profileV2RevampSvc.updateProfileDetails(formBody)
 
@@ -691,16 +691,16 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
             const errorMessage = _.get(error, 'error.message', 'Something went wrong please try again')
             this.openSnackbar(errorMessage)
           }
-        }
+        },
       })
     } else if (this.profileBannerUrl) {
       const formBody = {
         request: {
           userId: this.userId,
           profileDetails: {
-            profileBannerUrl: ''
-          }
-        }
+            profileBannerUrl: '',
+          },
+        },
       }
       this.updateProfileDetails(formBody)
     }
@@ -734,7 +734,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
           const errorMessage = this.getErrorMessage(error, formBody)
           this.openSnackbar(errorMessage)
         }
-      }
+      },
     })
   }
 
@@ -753,7 +753,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       && this.configSvc.netcoreConfig.netcoreWebConfig.events.profile_update
       && this.configSvc.netcoreConfig.netcoreWebConfig.events.profile_update.isActive
     ) {
-      let payload: any = {}
+      const payload: any = {}
       if (this.configSvc && this.configSvc.unMappedUser && this.configSvc.unMappedUser.identifier) {
         payload['pk^userid'] = this.configSvc.unMappedUser.identifier.trim().toLowerCase()
       }
@@ -764,7 +764,6 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       this.netCoreService.netCoreUserProfilePhotoUpdate(payload)
       this.netCoreService.trackEvent('profile_update', this.configSvc.unMappedUser.identifier.trim().toLowerCase(), payload)
     }
-
 
   }
 
@@ -782,7 +781,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       && this.configSvc.netcoreConfig.netcoreWebConfig.events.profile_update
       && this.configSvc.netcoreConfig.netcoreWebConfig.events.profile_update.isActive
     ) {
-      let payload: any = {}
+      const payload: any = {}
       if (this.configSvc && this.configSvc.unMappedUser && this.configSvc.unMappedUser.identifier) {
         payload['pk^userid'] = this.configSvc.unMappedUser.identifier.trim().toLowerCase()
       }
@@ -803,23 +802,19 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
     //   'pk^userid': this.configSvc.unMappedUser.identifier.trim().toLowerCase(),
     //   'FULL_NAME' : this.profileName.trim().toLowerCase(),
     // })
-    //let formValueChanges:any
+    // let formValueChanges:any
     if (this.configSvc.netcoreConfig && this.configSvc.netcoreConfig.netcoreWebConfig
       && this.configSvc.netcoreConfig.netcoreWebConfig.isActive
       && this.configSvc.netcoreConfig.netcoreWebConfig.events
       && this.configSvc.netcoreConfig.netcoreWebConfig.events.profile_update
       && this.configSvc.netcoreConfig.netcoreWebConfig.events.profile_update.isActive
     ) {
-      let profileUpdateObj: any = {}
-      let profileUpdateEventObj: any = []
+      const profileUpdateObj: any = {}
+      const profileUpdateEventObj: any = []
       if (this.configSvc && this.configSvc.unMappedUser && this.configSvc.unMappedUser.identifier) {
         profileUpdateObj['pk^userid'] = this.configSvc.unMappedUser.identifier.trim().toLowerCase()
-        //profileUpdateEventObj['pk^userid'] = this.configSvc.unMappedUser.identifier.trim().toLowerCase()
+        // profileUpdateEventObj['pk^userid'] = this.configSvc.unMappedUser.identifier.trim().toLowerCase()
       }
-
-
-
-
 
       // if (this.profileName) {
       //   profileUpdateObj['FULL_NAME'] = this.toTitleCase(this.profileName.trim())
@@ -890,11 +885,6 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         //   profileUpdateEventObj['PIN_CODE'] = this.portalProfile.personalDetails.pincode.trim()
         // }
 
-
-
-
-
-
         // if (this.portalProfile.id) {
         //   // profileUpdateEventObj['EMPLOYEE_ID'] = this.portalProfile.employmentDetails?.employeeCode.trim()
 
@@ -918,16 +908,15 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
 
       if (this.profesionalDetails && this.profesionalDetails.profileDetails) {
         profileUpdateObj['PROFILE_GROUP'] = this.toTitleCase(this.profesionalDetails.profileDetails.professionalDetails.group.trim().toLowerCase())
-        //profileUpdateEventObj['PROFILE_GROUP'] = this.toTitleCase(this.portalProfile.profileDetails.professionalDetails.group.trim().toLowerCase())
+        // profileUpdateEventObj['PROFILE_GROUP'] = this.toTitleCase(this.portalProfile.profileDetails.professionalDetails.group.trim().toLowerCase())
         // profileUpdateEventObj.push('PROFILE_GROUP')
       }
 
       if (this.profesionalDetails && this.profesionalDetails.profileDetails) {
         profileUpdateObj['PROFILE_DESIGNATION'] = this.toTitleCase(this.profesionalDetails.profileDetails.profileDesignationStatus.group.trim().toLowerCase())
-        //profileUpdateEventObj['PROFILE_DESIGNATION'] = this.toTitleCase(this.profesionalDetails.profileDetails.profileDesignationStatus.group.trim().toLowerCase())
+        // profileUpdateEventObj['PROFILE_DESIGNATION'] = this.toTitleCase(this.profesionalDetails.profileDetails.profileDesignationStatus.group.trim().toLowerCase())
         // profileUpdateEventObj.push('PROFILE_DESIGNATION')
       }
-
 
       if (this.profesionalDetails &&
         this.profesionalDetails.cadreDetails) {
@@ -956,7 +945,6 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         //   profileUpdateEventObj['DOR'] = this.profesionalDetails.additionalProperties.externalSystemDor.trim()
         // }
       }
-
 
       // profileUpdateEventObj = profileUpdateEventObj.toString()
       console.log('profileUpdateEventObj', profileUpdateEventObj)
@@ -1009,13 +997,13 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         if (error) {
           this.openSnackbar('Something went wrong please try again')
         }
-      }
+      },
     })
   }
 
   openProfileEditDialog(header: string) {
     const dialogDetails: any = {
-      header: header,
+      header,
       profileDetails: this.primaryDetails,
     }
     if (header === 'Profile') {
@@ -1042,7 +1030,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         enableWTR: this.enableWTR,
         enableWR: this.enableWR,
         isCurrentUser: this.isCurrentUser,
-        primaryDetails: this.primaryDetails
+        primaryDetails: this.primaryDetails,
       }
     } else {
       dialogData = dialogDetails
@@ -1052,7 +1040,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       data: dialogData,
       disableClose: true,
       panelClass: 'dialog_sidenav',
-      autoFocus: false
+      autoFocus: false,
     })
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -1067,8 +1055,8 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
             const formBody: any = {
               request: {
                 userId: this.userId,
-                locationDetails: [this.locationDetails]
-              }
+                locationDetails: [this.locationDetails],
+              },
             }
             if (_.get(this.locationDetails, 'uuid')) {
               this.updateProfileEntry(formBody)
@@ -1086,8 +1074,8 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       const formBody: any = {
         request: {
           userId: this.userId,
-          profileDetails: {}
-        }
+          profileDetails: {},
+        },
       }
 
       // Define field mappings with their paths in the API response and form body
@@ -1100,78 +1088,78 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
           {
             formField: 'profileImageUrl',
             resultPath: 'profileImageUrl',
-            formBodyPath: 'profileDetails.profileImageUrl'
+            formBodyPath: 'profileDetails.profileImageUrl',
           },
           {
             formField: 'firstname',
             resultPath: 'firstname',
-            formBodyPath: 'profileDetails.personalDetails.firstname'
+            formBodyPath: 'profileDetails.personalDetails.firstname',
           },
           {
             formField: 'primaryEmail',
             resultPath: 'primaryEmail',
-            formBodyPath: 'profileDetails.personalDetails.primaryEmail'
+            formBodyPath: 'profileDetails.personalDetails.primaryEmail',
           },
           {
             formField: 'mobile',
             resultPath: 'mobile',
-            formBodyPath: 'profileDetails.personalDetails.mobile'
+            formBodyPath: 'profileDetails.personalDetails.mobile',
           },
           {
             formField: 'gender',
             resultPath: 'gender',
-            formBodyPath: 'profileDetails.personalDetails.gender'
+            formBodyPath: 'profileDetails.personalDetails.gender',
           },
           {
             formField: 'dob',
             resultPath: 'dob',
-            formBodyPath: 'profileDetails.personalDetails.dob'
+            formBodyPath: 'profileDetails.personalDetails.dob',
           },
           {
             formField: 'domicileMedium',
             resultPath: 'domicileMedium',
-            formBodyPath: 'profileDetails.personalDetails.domicileMedium'
+            formBodyPath: 'profileDetails.personalDetails.domicileMedium',
           },
           {
             formField: 'category',
             resultPath: 'category',
-            formBodyPath: 'profileDetails.personalDetails.category'
+            formBodyPath: 'profileDetails.personalDetails.category',
           },
           {
             formField: 'isCadre',
             resultPath: 'isCadre',
-            formBodyPath: 'profileDetails.personalDetails.isCadre'
+            formBodyPath: 'profileDetails.personalDetails.isCadre',
           },
           {
             formField: 'group',
             resultPath: 'group',
-            formBodyPath: 'profileDetails.professionalDetails[0].group'
+            formBodyPath: 'profileDetails.professionalDetails[0].group',
           },
           {
             formField: 'designation',
             resultPath: 'designation',
-            formBodyPath: 'profileDetails.professionalDetails[0].designation'
+            formBodyPath: 'profileDetails.professionalDetails[0].designation',
           },
           {
             formField: 'osid',
             resultPath: 'osid',
-            formBodyPath: 'profileDetails.professionalDetails[0].osid'
+            formBodyPath: 'profileDetails.professionalDetails[0].osid',
           },
           {
             formField: 'employeeCode',
             resultPath: 'employeeCode',
-            formBodyPath: 'profileDetails.employmentDetails.employeeCode'
+            formBodyPath: 'profileDetails.employmentDetails.employeeCode',
           },
           {
             formField: 'pinCode',
             resultPath: 'pinCode',
-            formBodyPath: 'profileDetails.employmentDetails.pinCode'
+            formBodyPath: 'profileDetails.employmentDetails.pinCode',
           },
           {
             formField: 'aboutme',
             resultPath: 'aboutme',
-            formBodyPath: 'profileDetails.employmentDetails.aboutme'
-          }
+            formBodyPath: 'profileDetails.employmentDetails.aboutme',
+          },
         ]
 
       if (result && result.isCadre) {
@@ -1180,55 +1168,55 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
             formField: 'civilServiceTypeId',
             resultPath: 'civilServiceTypeId',
             formBodyPath: 'profileDetails.cadreDetails.civilServiceTypeId',
-            isCader: true
+            isCader: true,
           }, {
             formField: 'civilServiceType',
             resultPath: 'civilServiceType',
             formBodyPath: 'profileDetails.cadreDetails.civilServiceType',
-            isCader: true
+            isCader: true,
           },
           {
             formField: 'civilServiceId',
             resultPath: 'civilServiceId',
             formBodyPath: 'profileDetails.cadreDetails.civilServiceId',
-            isCader: true
+            isCader: true,
           },
           {
             formField: 'civilServiceName',
             resultPath: 'civilServiceName',
             formBodyPath: 'profileDetails.cadreDetails.civilServiceName',
-            isCader: true
+            isCader: true,
           },
           {
             formField: 'cadreId',
             resultPath: 'cadreId',
             formBodyPath: 'profileDetails.cadreDetails.cadreId',
-            isCader: true
+            isCader: true,
           },
           {
             formField: 'cadreName',
             resultPath: 'cadreName',
             formBodyPath: 'profileDetails.cadreDetails.cadreName',
-            isCader: true
+            isCader: true,
           },
           {
             formField: 'cadreBatch',
             resultPath: 'cadreBatch',
             formBodyPath: 'profileDetails.cadreDetails.cadreBatch',
-            isCader: true
+            isCader: true,
           },
           {
             formField: 'cadreControllingAuthorityName',
             resultPath: 'cadreControllingAuthorityName',
             formBodyPath: 'profileDetails.cadreDetails.cadreControllingAuthorityName',
-            isCader: true
+            isCader: true,
           },
           {
             formField: 'isOnCentralDeputation',
             resultPath: 'isOnCentralDeputation',
             formBodyPath: 'profileDetails.cadreDetails.isOnCentralDeputation',
-            isCader: true
-          }
+            isCader: true,
+          },
         ]
         fieldMappings.push(...cadreDetailsFieldMappings)
       }
@@ -1286,7 +1274,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         this.updateProfileDetails(formBody)
       }
       else {
-        if (this.profesionalDetails.profileDesignationStatus === "NOT-VERIFIED" || this.profesionalDetails.profileDesignationStatus === "NOT-VERIFIED") {
+        if (this.profesionalDetails.profileDesignationStatus === 'NOT-VERIFIED' || this.profesionalDetails.profileDesignationStatus === 'NOT-VERIFIED') {
           if (result.group || result.designation) {
             formBody.request.profileDetails = { 'professionalDetails': [result.group && result.designation ? { group: result.group, designation: result.designation } : result.group ? { group: result.group } : { designation: result.designation }] }
             this.updateProfileDetails(formBody)
@@ -1334,7 +1322,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
           this.enableWR = true
         }
         this.onInitCallComplete()
-      }, (error: HttpErrorResponse) => {
+      },         (error: HttpErrorResponse) => {
         if (!error.ok) {
           this.openSnackbar(this.handleTranslateTo('approvalStatusFailed'))
         }
@@ -1372,7 +1360,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
           })
         }
         this.onInitCallComplete()
-      }, (error: HttpErrorResponse) => {
+      },         (error: HttpErrorResponse) => {
         if (!error.ok) {
           this.openSnackbar(this.handleTranslateTo('rejectedStatusFailed'))
         }
@@ -1385,7 +1373,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
     const dialogRef = this.dialog.open(TransferRequestComponent, {
       data: {
         portalProfile,
-        groupData: this.groupsList
+        groupData: this.groupsList,
       },
       disableClose: true,
       panelClass: 'common-modal',
@@ -1424,9 +1412,9 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
   }
   openProfileEntryListDialog(header: string) {
     const dialogDetails = {
-      header: header,
+      header,
       userId: this.userId,
-      isCurrentUser: this.isCurrentUser || false
+      isCurrentUser: this.isCurrentUser || false,
     }
     switch (header) {
       case 'Service History':
@@ -1452,7 +1440,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       disableClose: true,
       panelClass: 'dialog_sidenav',
       autoFocus: false,
-      width: this.isMobile ? '100vw' : '795px'
+      width: this.isMobile ? '100vw' : '795px',
     })
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
@@ -1467,7 +1455,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       disableClose: true,
       panelClass: 'dialog_sidenav',
       autoFocus: false,
-      width: this.isMobile ? '100vw' : '795px'
+      width: this.isMobile ? '100vw' : '795px',
     })
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
@@ -1482,12 +1470,12 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       disableClose: true,
       panelClass: 'dialog_sidenav',
       autoFocus: false,
-      width: this.isMobile ? '100vw' : '795px'
+      width: this.isMobile ? '100vw' : '795px',
     })
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         if (result && result.action && result.action === 'delete') {
-          let achievement = result.achievement || {}
+          const achievement = result.achievement || {}
           this.openProfileEntryDeleteDialog('Achievements', achievement)
         } else {
           this.openProfileEntryEditDialog('Achievements', result)
@@ -1496,19 +1484,18 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
     })
   }
 
-
   //#region (profile entry edit)
   async openProfileEntryEditDialog(header: string, entryDetails?: any) {
     const dialogDetails = {
-      header: header,
-      entryDetails: entryDetails
+      header,
+      entryDetails,
     }
     const isNew = entryDetails ? false : true
     const dialogRef = this.dialog.open(ProfileEntryEditComponent, {
       data: dialogDetails,
       disableClose: true,
       panelClass: 'dialog_sidenav',
-      autoFocus: false
+      autoFocus: false,
     })
 
     dialogRef.afterClosed().subscribe(async (result: any) => {
@@ -1546,8 +1533,8 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
     const formBody: any = {
       request: {
         userId: this.userId,
-        serviceHistory: [serviceHistory]
-      }
+        serviceHistory: [serviceHistory],
+      },
     }
     if (_.get(oldDetails, 'uuid', '')) {
       formBody.request['serviceHistory'][0]['uuid'] = oldDetails.uuid
@@ -1567,8 +1554,8 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
           institutionName: isOtherInstitute ? _.get(educationalQualifications, 'otherInstituteName', '') : _.get(educationalQualifications, 'institutionName', ''),
           endYear: _.get(educationalQualifications, 'endYear', ''),
           startYear: _.get(educationalQualifications, 'startYear', ''),
-        }]
-      }
+        }],
+      },
     }
     if (_.get(oldDetails, 'uuid', '')) {
       formBody.request['educationalQualifications'][0]['uuid'] = oldDetails.uuid
@@ -1601,10 +1588,10 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
   generateAchievementsFormBody(achievements: any, oldDetails: any): any {
     const requestBody: any = {
       request: {
-        contextType: "achievements",
-        source: "igot",
-        contextData: achievements
-      }
+        contextType: 'achievements',
+        source: 'igot',
+        contextData: achievements,
+      },
     }
     if (_.get(oldDetails, 'id', '')) {
       requestBody.request['id'] = oldDetails.id
@@ -1625,7 +1612,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         if (error) {
           this.openSnackbar('Something went wrong please try again')
         }
-      }
+      },
     })
   }
 
@@ -1635,7 +1622,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         if (response) {
           setTimeout(() => {
             this.getAchievements()
-          }, 500)
+          },         500)
           this.openSnackbar('Added Successfully')
         }
       },
@@ -1643,7 +1630,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         if (error) {
           this.openSnackbar('Something went wrong please try again')
         }
-      }
+      },
     })
   }
 
@@ -1653,7 +1640,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         if (response) {
           setTimeout(() => {
             this.getAchievements()
-          }, 500)
+          },         500)
           this.openSnackbar('Updated Successfully')
         }
       },
@@ -1661,7 +1648,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         if (error) {
           this.openSnackbar('Something went wrong please try again')
         }
-      }
+      },
     })
   }
 
@@ -1677,7 +1664,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         if (error) {
           this.openSnackbar('Something went wrong please try again')
         }
-      }
+      },
     })
   }
   //#endregion (service history, achievements, educational qualifications will edit based on the request)
@@ -1693,7 +1680,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         if (error) {
           this.openSnackbar('Something went wrong please try again')
         }
-      }
+      },
     })
   }
 
@@ -1734,20 +1721,20 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         {
           classes: 'btn-out-line',
           text: this.handleTranslateTo('no'),
-          response: false
+          response: false,
         },
         {
           classes: 'succes-button',
           text: this.handleTranslateTo('yes'),
-          response: true
-        }
-      ]
+          response: true,
+        },
+      ],
     }
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: dialgoData,
       disableClose: true,
       width: '400px',
-      maxWidth: '90vw'
+      maxWidth: '90vw',
     })
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
@@ -1780,7 +1767,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         },
         error: () => {
           this.openSnackbar('Something went wrong please try again')
-        }
+        },
       })
     }
   }
@@ -1819,7 +1806,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         userIdTo: this.userId,
         userNameTo: this.primaryDetails.firstname || '',
         userDepartmentTo: this.primaryDetails.departmentName || '',
-        status
+        status,
       }
       this.profileV2RevampSvc.updateConnectionRequest(formBody).subscribe({
         next: (response: any) => {
@@ -1830,7 +1817,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         },
         error: () => {
           this.openSnackbar('Something went wrong please try again')
-        }
+        },
       })
     }
   }
@@ -1867,7 +1854,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         },
         error: () => {
           this.openSnackbar('Something went wrong while sending connection request')
-        }
+        },
       })
     }
   }
@@ -1899,7 +1886,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         } else {
           this.insightsDataLoading = false
         }
-      }, (_error: HttpErrorResponse) => {
+      },         (_error: HttpErrorResponse) => {
         this.insightsDataLoading = false
       })
   }
@@ -1937,11 +1924,11 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
   raiseTelemetry(userId: string, eDataId: string, subType?: string) {
     const edata: any = {
       type: WsEvents.EnumInteractTypes.CLICK,
-      id: eDataId
+      id: eDataId,
     }
     const objDetails = {
       id: userId,
-      type: 'User'
+      type: 'User',
     }
     const env = {
       module: WsEvents.EnumTelemetrymodules.NETWORK,
@@ -1975,22 +1962,22 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         {
           classes: 'btn-out-line',
           text: 'No',
-          response: false
+          response: false,
         },
         {
           classes: 'succes-button',
           text: 'Yes',
-          response: true
-        }
-      ]
+          response: true,
+        },
+      ],
     }
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: dialogData,
       disableClose: true,
       width: '400px',
-      maxWidth: '90vw'
+      maxWidth: '90vw',
     })
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
         header === 'Achievements' ? this.deleteAchievement(requestData) : this.deleteProfileEntryCall(requestData)
       }
@@ -2003,10 +1990,10 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
     switch (header) {
       case 'Achievements':
         requestData = {
-          "request": {
-            "id": entryDetails.id,
-            contextType: "achievements",
-          }
+          'request': {
+            'id': entryDetails.id,
+            contextType: 'achievements',
+          },
         }
         break
     }
@@ -2022,14 +2009,14 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
           this.openSnackbar('Achievement deleted successfully', 2000)
           setTimeout(() => {
             this.getAchievements()
-          }, 500)
+          },         500)
         } else {
           this.openSnackbar('Something went wrong while deleting achievement, please try again later', 2000)
         }
       },
       error: (_err: any) => {
         this.openSnackbar('Something went wrong while deleting achievement, please try again later', 2000)
-      }
+      },
     })
   }
 
@@ -2045,17 +2032,16 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
       },
       error: (_err: any) => {
         this.openSnackbar('Something went wrong while deleting achievement, please try again later', 2000)
-      }
+      },
     })
   }
-
 
   // Update handleEditCustomDetails to build the form and populate values
   handleEditMandatoryDetails() {
     const dialogDetails: any = {
       header: 'Mandatory Section',
       profileDetails: this.primaryDetails,
-      groupsList: this.groupsList
+      groupsList: this.groupsList,
     }
     const dialogRef = this.dialog.open(PrfileEditV2Component, {
       data: {
@@ -2065,11 +2051,11 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
         approvalPendingFields: this.approvalPendingFields,
         enableWTR: this.enableWTR,
         isCurrentUser: this.isCurrentUser,
-        primaryDetails: this.primaryDetails
+        primaryDetails: this.primaryDetails,
       },
       disableClose: true,
       panelClass: 'dialog_sidenav',
-      autoFocus: false
+      autoFocus: false,
     })
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {

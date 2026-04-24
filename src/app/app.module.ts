@@ -10,7 +10,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { WidgetResolverModule } from '@sunbird-cb/resolver'
 import { SbUiResolverModule } from '@sunbird-cb/resolver-v2'
 import { LoggerService, PipeSafeSanitizerModule, ConfigurationsService, PipeOrderByModule, NPSGridService, DomainConfService } from '@sunbird-cb/utils-v2'
-import { SearchModule } from '@ws/app/src/public-api'
 import 'hammerjs'
 // import { KeycloakAngularModule } from 'keycloak-angular'
 import { AppRoutingModule } from './app-routing.module'
@@ -66,7 +65,7 @@ import { DialogBoxComponent } from './component/dialog-box/dialog-box.component'
 import { SocialLinkComponent } from './component/social-link/social-link.component'
 import { FooterSectionComponent } from './component/app-footer/footer-section/footer-section.component'
 import { AppLogoComponent } from './component/app-logo/app-logo.component'
-import { ProfileV3Module } from '@ws/app/src/lib/routes/profile-v3/profile-v3.module'
+
 import { NoDataComponent } from './component/no-data/no-data.component'
 import { SurveyShikshaComponent } from './component/survey-shiksha/survey-shiksha.component'
 import {
@@ -78,26 +77,14 @@ import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/lega
 import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card'
 import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox'
 import { PublicExtTocModule } from './routes/public/public-ext-toc/public-ext-toc.module'
-import { MatRippleModule } from '@angular/material/core'
 import { MatDialogModule } from '@angular/material/dialog'
-import { MatDividerModule } from '@angular/material/divider'
 import { MatExpansionModule } from '@angular/material/expansion'
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field'
 import { MatIconModule } from '@angular/material/icon'
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input'
 import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu'
 import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar'
 import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule, MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS as MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS } from '@angular/material/legacy-progress-spinner'
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select'
-import { MatSidenavModule } from '@angular/material/sidenav'
-import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider'
 import { MAT_LEGACY_SNACK_BAR_DEFAULT_OPTIONS as MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/legacy-snack-bar'
-import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table'
-import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs'
 import { MatToolbarModule } from '@angular/material/toolbar'
-import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip'
-import { PickerModule } from '@ctrl/ngx-emoji-mart'
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular'
 import { AppPreAssessmentContentResolverService } from './services/app-pre-assessment-content-read-resolver.service'
 import { ResourceDownloadHelperService } from './services/resource-download-helper.service'
 import { ProfileVerificationDialogComponent } from './profile-verification-dialog/profile-verification-dialog.component'
@@ -158,7 +145,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PrivacyPolicyComponent,
     LearnerAdvisoryComponent,
     ProfileVerificationDialogComponent,
-    MandatoryNotificationModalComponent
+    MandatoryNotificationModalComponent,
   ],
   imports: [
     FormsModule,
@@ -168,7 +155,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
 
@@ -176,24 +162,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     WidgetResolverModule.forRoot([...WIDGET_REGISTRATION_CONFIG, ...WIDGET_REGISTRATION_LIB_CONFIG, ...WIDGET_REGISTRATION_TOC_LIB_CONFIG]),
     SbUiResolverModule.forRoot([...WIDGET_REGISTRATION_LIB_CONFIG, ...WIDGET_REGISTRATION_TOC_LIB_CONFIG]),
     // Material Imports
-    MatSliderModule,
-    MatFormFieldModule,
-    MatSelectModule,
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
     MatMenuModule,
-    MatDividerModule,
     MatProgressBarModule,
     MatExpansionModule,
-    MatRippleModule,
     MatDialogModule,
-    MatInputModule,
-    MatTooltipModule,
-    MatTableModule,
     MatProgressSpinnerModule,
-    SearchModule,
     PipeOrderByModule,
     PublicAboutModule,
     PublicContactModule,
@@ -205,7 +182,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     PublicExtTocModule,
     MobileAppModule,
     PipeSafeSanitizerModule,
-    MatTabsModule,
     GuidedTourModule,
     AppChatbotModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
@@ -217,10 +193,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
-    ProfileV3Module,
-    MatSidenavModule,
-    PickerModule,
-    CKEditorModule
+
   ],
   exports: [
     TncComponent,

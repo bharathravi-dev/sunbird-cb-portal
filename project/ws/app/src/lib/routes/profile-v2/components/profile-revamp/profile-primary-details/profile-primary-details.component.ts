@@ -12,13 +12,13 @@ import { ActivatedRoute, Router } from '@angular/router'
 @Component({
   selector: 'ws-app-profile-primary-details',
   templateUrl: './profile-primary-details.component.html',
-  styleUrls: ['./profile-primary-details.component.scss']
+  styleUrls: ['./profile-primary-details.component.scss'],
 })
 export class ProfilePrimaryDetailsComponent implements OnInit {
   @Input() primaryDetails: any
-  @Input() isCurrentUser = false;
-  @Input() enableWTR = false;
-  @Input() enableWR = false;
+  @Input() isCurrentUser = false
+  @Input() enableWTR = false
+  @Input() enableWR = false
   @Input() unVerifiedObj = {
     designation: '',
     group: '',
@@ -37,17 +37,16 @@ export class ProfilePrimaryDetailsComponent implements OnInit {
   }
   @Input() approvalPendingFields: any = []
 
-  @Output() openProfileEditDialog = new EventEmitter();
-  @Output() getApprovalStatus = new EventEmitter();
-  @Output() updateWithdrawalStatus = new EventEmitter();
-  @Output() designationApprovedTimeChange = new EventEmitter();
-
+  @Output() openProfileEditDialog = new EventEmitter()
+  @Output() getApprovalStatus = new EventEmitter()
+  @Output() updateWithdrawalStatus = new EventEmitter()
+  @Output() designationApprovedTimeChange = new EventEmitter()
 
   groupApprovedTime = 0
   designationApprovedTime = 0
   panelOpenState = false
-  isIgotOrg = false;
-  isNotMyUser = false;
+  isIgotOrg = false
+  isNotMyUser = false
 
   constructor(
     private profileV2RevampSvc: ProfileV2RevampService,
@@ -66,7 +65,7 @@ export class ProfilePrimaryDetailsComponent implements OnInit {
       if (fragment === 'primaryDetails' && this.showPrimaryDetailsEdit) {
         setTimeout(() => {
           this.editPrimaryDetails('Primary Details')
-        }, 500)
+        },         500)
       }
     })
   }
@@ -88,7 +87,7 @@ export class ProfilePrimaryDetailsComponent implements OnInit {
           })
         }
         this.designationApprovedTimeChange.emit(this.designationApprovedTime)
-      }, (error: HttpErrorResponse) => {
+      },         (error: HttpErrorResponse) => {
         if (!error.ok) {
           this.openSnackbar(this.handleTranslateTo('somethingWentWrongPleaseTryAgain'))
         }
@@ -230,7 +229,7 @@ export class ProfilePrimaryDetailsComponent implements OnInit {
       const payload = {
         action: 'WITHDRAW',
         state: 'SEND_FOR_APPROVAL',
-        userId: userId,
+        userId,
         applicationId: userId,
         actorUserId: userId,
         wfId: _obj.wfId,
@@ -246,7 +245,7 @@ export class ProfilePrimaryDetailsComponent implements OnInit {
           this.openSnackbar(this.handleTranslateTo('withdrawRequestSuccess'))
           this.enableWR = false
           this.updateWithdrawalStatus.emit(false)
-        }, (error: HttpErrorResponse) => {
+        },         (error: HttpErrorResponse) => {
           if (!error.ok) {
             this.openSnackbar(this.handleTranslateTo('unableWithdrawRequest'))
           }

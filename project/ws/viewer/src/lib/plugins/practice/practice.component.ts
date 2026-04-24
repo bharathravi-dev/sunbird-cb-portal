@@ -154,12 +154,12 @@ export class PracticeComponent implements OnInit, OnChanges, OnDestroy {
   questionParagraph = ''
   resCollectionId = ''
   resBatchId = ''
-  url = new URL(window.location.href);
+  url = new URL(window.location.href)
   forPreview =
     ['public', 'author', 'editMode'].some(segment =>
       this.url.pathname.split('/').includes(segment)
     ) ||
-    this.url.searchParams.get('preview') === 'true';
+    this.url.searchParams.get('preview') === 'true'
 
   forCreatorMode = window.location.href.includes('editMode=true')
 
@@ -273,7 +273,7 @@ export class PracticeComponent implements OnInit, OnChanges, OnDestroy {
       email: [
         '', [
           Validators.required,
-          Validators.pattern(`^[\\w\-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$`),
+          Validators.pattern('^[\\w\-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'),
         ],
       ],
     })
@@ -326,7 +326,7 @@ export class PracticeComponent implements OnInit, OnChanges, OnDestroy {
   @HostListener('window:beforeunload', ['$event'])
   beforeUnloadHander(e: any) {
     // or directly false
-    const confirmationMessage = `\o/`
+    const confirmationMessage = '\o/'
     if (this.viewState !== 'initial' && !this.isSubmitted) {
       e.returnValue = confirmationMessage
       return confirmationMessage
@@ -589,7 +589,7 @@ export class PracticeComponent implements OnInit, OnChanges, OnDestroy {
       if (this.selectedAssessmentCompatibilityLevel < 7) {
 
         this.quizSvc.getSectionV4(this.identifier, this.forPreview,
-          this.getPublicContentRequestData(), this.collectionId).subscribe((section: NSPractice.ISectionResponse) => {
+                                  this.getPublicContentRequestData(), this.collectionId).subscribe((section: NSPractice.ISectionResponse) => {
             // console.log(section)
             if (section && section.result && section.result.response) {
               if ((this.forPreview && !this.forCreatorMode)) {
@@ -634,7 +634,7 @@ export class PracticeComponent implements OnInit, OnChanges, OnDestroy {
               }
             }
           },
-            (error: any) => {
+                                                                                                   (error: any) => {
               this.fetchingSectionsStatus = 'error'
               // Only show specific message for 400 status code errors
               if (error.status === 400) {
@@ -648,7 +648,7 @@ export class PracticeComponent implements OnInit, OnChanges, OnDestroy {
             })
       } else {
         this.quizSvc.getSection(this.identifier, this.forPreview,
-          this.getPublicContentRequestData(), this.collectionId).subscribe((section: NSPractice.ISectionResponse) => {
+                                this.getPublicContentRequestData(), this.collectionId).subscribe((section: NSPractice.ISectionResponse) => {
             // console.log(section)
             if (section && section.result && section.result.response) {
               if ((this.forPreview && !this.forCreatorMode)) {
@@ -692,7 +692,7 @@ export class PracticeComponent implements OnInit, OnChanges, OnDestroy {
               }
             }
           },
-            (error: any) => {
+                                                                                                 (error: any) => {
               this.fetchingSectionsStatus = 'error'
               // Only show specific message for 400 status code errors
               if (error.status === 400) {
@@ -896,10 +896,10 @@ export class PracticeComponent implements OnInit, OnChanges, OnDestroy {
   getMultiQuestions(ids: string[]) {
     if (this.selectedAssessmentCompatibilityLevel < 7) {
       return this.quizSvc.getQuestionsV4(ids, this.identifier, this.forPreview,
-        this.viewerSvc.publicUserDetails, this.collectionId).toPromise()
+                                         this.viewerSvc.publicUserDetails, this.collectionId).toPromise()
     }
     return this.quizSvc.getQuestions(ids, this.identifier, this.forPreview,
-      this.viewerSvc.publicUserDetails, this.collectionId).toPromise()
+                                     this.viewerSvc.publicUserDetails, this.collectionId).toPromise()
   }
   getRhsValue(question: NSPractice.IQuestionV2) {
     if (question && question.qType) {
@@ -1196,7 +1196,7 @@ export class PracticeComponent implements OnInit, OnChanges, OnDestroy {
     // status = 1 indicates started
     // status = 2 indicates completed
     const resData = this.viewerSvc.getBatchIdAndCourseId(this.activatedRoute.snapshot.queryParams.collectionId,
-      this.activatedRoute.snapshot.queryParams.batchId, this.identifier)
+                                                         this.activatedRoute.snapshot.queryParams.batchId, this.identifier)
     const collectionId = (resData && resData.courseId) ? resData.courseId : ''
     const batchId = (resData && resData.batchId) ? resData.batchId : ''
     // const collectionId = this.activatedRoute.snapshot.queryParams.collectionId ?
@@ -1216,16 +1216,16 @@ export class PracticeComponent implements OnInit, OnChanges, OnDestroy {
 
     const isPreAssessment = this.activatedRoute.snapshot.queryParams.preAssessment
     if (isPreAssessment) {
-      if (this.identifier) { const MIME_TYPE = "application/vnd.ekstep.content-collection"
+      if (this.identifier) { const MIME_TYPE = 'application/vnd.ekstep.content-collection'
           this.viewerSvc.realTimeProgressUpdateForPreAssessmentQuiz(this.widgetContentService.currentMetaData?.content?.data?.parent, status, MIME_TYPE)
         // Also update the local hashmap and trigger milestone lock update
         setTimeout(() => {
-         
+
           setTimeout(() => {
               this.tocSvc.hashmap[this.widgetContentService.currentMetaData?.content?.data?.parent]['completionPercentage'] = 100
               this.tocSvc.hashmap[this.widgetContentService.currentMetaData?.content?.data?.parent]['completionStatus'] = 2
-          }, 700)
-        }, 700)
+          },         700)
+        },         700)
       }
     }
   }
@@ -1444,8 +1444,8 @@ export class PracticeComponent implements OnInit, OnChanges, OnDestroy {
       this.questionAnswerHash,
       this.quizSvc.mtfSrc.getValue() as any,
     )
-    let language: string = this.viewerSvc.getResourceContentLanguage(this.identifier)
-    let assessmentChildren: any = _.map(this.paperSections, (ps: NSPractice.IPaperSection) => {
+    const language: string = this.viewerSvc.getResourceContentLanguage(this.identifier)
+    const assessmentChildren: any = _.map(this.paperSections, (ps: NSPractice.IPaperSection) => {
       return {
         identifier: ps.identifier,
         objectType: ps.objectType,

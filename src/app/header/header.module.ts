@@ -60,7 +60,7 @@ import { ConfirmDialogModule } from '@sunbird-cb/collection/src/lib/_common/conf
       },
     }),
     SkeletonLoaderModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
   ],
   exports: [
     HeaderComponent,

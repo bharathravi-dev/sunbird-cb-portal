@@ -176,7 +176,7 @@ export class CompetencyListComponent implements OnInit, OnDestroy {
 
     let enrollmentMapData: any = {}
     const userId: any = this.configService && this.configService.userProfile && this.configService.userProfile.userId
-    const req = {"request":{"retiredCoursesEnabled":true,"status":"Completed"}}
+    const req = { 'request':{ 'retiredCoursesEnabled':true, 'status':'Completed' } }
     this.widgetEnrollService.fetchInternalEnrollmentData(userId, req)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe(

@@ -100,6 +100,6 @@ import { DraggableModule } from '../../../../../../modules/shared/directives/dra
         PickerContentModule,
         DraggableModule,
     ],
-    providers: [ChannelResolverService]
+    providers: [ChannelResolverService],
 })
 export class ChannelModule { }

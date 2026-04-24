@@ -27,7 +27,7 @@ export class FinalAssessmentPopupComponent implements OnInit, OnDestroy {
     if (data && data.tableDetails && data.tableDetails.tableData) {
       this.setTableDataSource(data.tableDetails.tableData)
     }
-    
+
     // Start countdown timer if auto-redirect is enabled
     if (data && data.autoRedirect && data.redirectSeconds) {
       this.countdown = data.redirectSeconds
@@ -54,7 +54,7 @@ export class FinalAssessmentPopupComponent implements OnInit, OnDestroy {
         clearInterval(this.countdownInterval)
         // Auto-close will be handled by parent component
       }
-    }, 1000)
+    },                                   1000)
   }
 
   setTableColumns(columns: any) {

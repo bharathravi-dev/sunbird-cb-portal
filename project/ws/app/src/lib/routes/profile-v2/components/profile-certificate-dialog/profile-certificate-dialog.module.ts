@@ -25,6 +25,6 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
     ],
     exports: [
         ProfileCertificateDialogComponent,
-    ]
+    ],
 })
 export class ProfileCertificateDialogModule { }

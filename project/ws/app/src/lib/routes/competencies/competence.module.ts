@@ -110,7 +110,7 @@ import { MatSidenavModule } from '@angular/material/sidenav'
         InitResolver,
         CompetenceAssessmentService,
     ],
-    exports: []
+    exports: [],
 })
 export class CompetencieModule {
 

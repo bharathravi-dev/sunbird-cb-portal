@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http'
 import { Observable, throwError, timer } from 'rxjs'
 import { retryWhen, mergeMap } from 'rxjs/operators'
-import {EXCLUDED_APIS_FROM_RETRY} from '../constants/excluded-apis.constant'
+import { EXCLUDED_APIS_FROM_RETRY } from '../constants/excluded-apis.constant'
 
 const EXCLUDE_RETRY = EXCLUDED_APIS_FROM_RETRY
 
@@ -26,9 +26,9 @@ export class AppRetryInterceptorService implements HttpInterceptor {
   }
   // private shouldRetry = (error: HttpErrorResponse) => error.status > 499
   private shouldRetry = (error: HttpErrorResponse) => {
-    const isExcludedEndpoint = EXCLUDE_RETRY.some((endpoint) => error.url?.includes(endpoint));
-    return error.status > 499 && !isExcludedEndpoint;
-  };
+    const isExcludedEndpoint = EXCLUDE_RETRY.some(endpoint => error.url?.includes(endpoint))
+    return error.status > 499 && !isExcludedEndpoint
+  }
 
   private genericRetryStrategy = () => (attempts: Observable<any>) =>
     attempts.pipe(

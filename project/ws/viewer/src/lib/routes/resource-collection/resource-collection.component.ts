@@ -67,8 +67,8 @@ export class ResourceCollectionComponent implements OnInit, OnDestroy {
       this.activatedRoute.snapshot.queryParams.collectionType
       && this.resourceCollectionData) {
       await this.contentSvc.continueLearning(this.resourceCollectionData.identifier,
-        this.activatedRoute.snapshot.queryParams.collectionId,
-        this.activatedRoute.snapshot.queryParams.collectionType,
+                                             this.activatedRoute.snapshot.queryParams.collectionId,
+                                             this.activatedRoute.snapshot.queryParams.collectionType,
       )
     } else if (this.resourceCollectionData) {
       await this.contentSvc.continueLearning(this.resourceCollectionData.identifier)
@@ -94,7 +94,6 @@ export class ResourceCollectionComponent implements OnInit, OnDestroy {
     }
     return manifestFile
   }
-
 
   raiseEvent(state: WsEvents.EnumTelemetrySubType, data: NsContent.IContent) {
     // if (this.forPreview) {

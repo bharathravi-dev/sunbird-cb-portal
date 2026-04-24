@@ -1,18 +1,17 @@
-import { AfterViewChecked, AfterViewInit, Component,ElementRef,EventEmitter,Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { ConfigurationsService, EventService, WsEvents } from '@sunbird-cb/utils-v2';
-import { RootService } from '../root/root.service';
-import { environment } from '../../../environments/environment';  
-import { NonReleventFeedbackDialogComponent } from '@sunbird-cb/collection/src/lib/_common/non-relevent-feedback-dialog/non-relevent-feedback-dialog.component';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core'
+import { Router, NavigationEnd } from '@angular/router'
+import { ConfigurationsService, EventService, WsEvents } from '@sunbird-cb/utils-v2'
+import { RootService } from '../root/root.service'
+import { environment } from '../../../environments/environment'
+import { NonReleventFeedbackDialogComponent } from '@sunbird-cb/collection/src/lib/_common/non-relevent-feedback-dialog/non-relevent-feedback-dialog.component'
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { MatSnackBar as MatSnackbarNew } from '@angular/material/snack-bar'
-import cloneDeep from 'lodash/cloneDeep';
-
+import cloneDeep from 'lodash/cloneDeep'
 
 @Component({
   selector: 'ws-app-support-ai',
   templateUrl: './support-ai.component.html',
-  styleUrls: ['./support-ai.component.scss']
+  styleUrls: ['./support-ai.component.scss'],
 })
 export class SupportAIComponent implements OnInit, OnChanges, AfterViewInit, AfterViewChecked, OnDestroy {
   @Input() from = ''
@@ -20,7 +19,7 @@ export class SupportAIComponent implements OnInit, OnChanges, AfterViewInit, Aft
   @Input() chatId = ''
   @Input() userId = ''
   @Input() fullScreenChatFlag = false
-  @Input() activeLaguage= 'en'
+  @Input() activeLaguage = 'en'
   @Output() scrollToBottomEvent = new EventEmitter()
   showIcon = true
   categories: any[] = []

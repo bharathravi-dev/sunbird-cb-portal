@@ -296,7 +296,6 @@ export class HtmlComponent implements OnInit, OnDestroy {
     // }
   }
 
-
   private async setS3Cookie(contentId: string) {
     await this.contentSvc
       .setS3Cookie(contentId)

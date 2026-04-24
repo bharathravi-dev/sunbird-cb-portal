@@ -90,8 +90,8 @@ export function forbiddenNamesValidatorPosition(optionsArray: any): ValidatorFn 
 
 export class PublicWelcomeComponent implements OnInit, OnDestroy {
     registrationForm!: UntypedFormGroup
-    namePatern = `^[a-zA-Z\\s\\']{1,32}$`
-    emailWhitelistPattern = `^[a-zA-Z0-9._-]{3,}\\b@\\b[a-zA-Z0-9]*|\\b(.gov|.nic)\b\\.\\b(in)\\b$`
+    namePatern = "^[a-zA-Z\\s\\']{1,32}$"
+    emailWhitelistPattern = '^[a-zA-Z0-9._-]{3,}\\b@\\b[a-zA-Z0-9]*|\\b(.gov|.nic)\b\\.\\b(in)\\b$'
     telemetryConfig: NsInstanceConfig.ITelemetryConfig | null = null
     portalID = ''
     confirm = false
@@ -105,7 +105,7 @@ export class PublicWelcomeComponent implements OnInit, OnDestroy {
     private subscriptionContact: Subscription | null = null
     groupsOriginal: any = []
     masterGroup!: Observable<any> | undefined
-    customCharsPattern = `^[a-zA-Z0-9 \\w\-\&\(\)]*$`
+    customCharsPattern = '^[a-zA-Z0-9 \\w\-\&\(\)]*$'
     phoneNumberPattern = '^((\\+91-?)|0)?[0-9]{10}$'
     timeLeftforOTP = 0
     OTP_TIMER = environment.resendOTPTIme
@@ -187,7 +187,7 @@ export class PublicWelcomeComponent implements OnInit, OnDestroy {
     ngOnInit() {
         if (this.registrationForm) {
             const instanceConfig = this.configSvc.instanceConfig
-            if (this.activatedRoute && this.activatedRoute.snapshot &&  this.activatedRoute.snapshot.data && 
+            if (this.activatedRoute && this.activatedRoute.snapshot &&  this.activatedRoute.snapshot.data &&
               this.activatedRoute.snapshot.data.group.data &&  this.activatedRoute.snapshot.data.group.data) {
               this.groupsOriginal = this.activatedRoute.snapshot.data.group.data.filter((ele: any) => ele !== 'Others')
               this.masterGroup = this.groupsOriginal

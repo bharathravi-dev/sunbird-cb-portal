@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { IResolveResponse } from '@sunbird-cb/utils-v2';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { FormExtService } from 'src/app/services/form-ext.service';
+import { Injectable } from '@angular/core'
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router'
+import { IResolveResponse } from '@sunbird-cb/utils-v2'
+import { Observable, of } from 'rxjs'
+import { catchError, map } from 'rxjs/operators'
+import { FormExtService } from 'src/app/services/form-ext.service'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CustomHomeFormResolverService {
 
@@ -19,13 +19,13 @@ export class CustomHomeFormResolverService {
     _state: RouterStateSnapshot,
 ): Observable<IResolveResponse<any>> {
     let deptId = route.paramMap.get('id')
-    if(deptId === 'ec') {
+    if (deptId === 'ec') {
       deptId = 'iiidem'
     }
     const requestData: any = {
       'request': {
-        "type": "custom-home",
-        "subType": deptId,
+        'type': 'custom-home',
+        'subType': deptId,
         'action': 'page-configuration',
         'component': 'portal',
         'rootOrgId': '*',
@@ -44,4 +44,3 @@ export class CustomHomeFormResolverService {
       )
   }
 }
-

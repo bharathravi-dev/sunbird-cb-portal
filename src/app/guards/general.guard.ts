@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, 
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot,
 // RouterStateSnapshot,
 UrlTree } from '@angular/router'
 import { ConfigurationsService, AuthKeycloakService } from '@sunbird-cb/utils-v2'
@@ -61,7 +61,7 @@ export class GeneralGuard  {
       // } else {
       //   redirectUrl = document.baseURI
       // }
-      try { //NOSONAR
+      try { // NOSONAR
         Promise.resolve(this.authSvc.loginV2('S', refAppend))
         // return true
       } catch (e) {
@@ -112,7 +112,7 @@ export class GeneralGuard  {
     }
     // Check if the user has roles & activities and topic in the profile
     if (!this.checkWelcome()) {
-      return this.router.parseUrl(`/app/setup`)
+      return this.router.parseUrl('/app/setup')
     }
 
     if (!this.configSvc.isActive) {

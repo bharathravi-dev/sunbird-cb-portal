@@ -8,7 +8,6 @@ import { SuppotSectionComponent } from './help-center/suppot-section/suppot-sect
 import { MatIconModule } from '@angular/material/icon'
 import { HttpClientModule } from '@angular/common/http'
 
-
 @NgModule({
   declarations: [HelpCenterComponent, SuppotSectionComponent],
   imports: [
@@ -18,6 +17,6 @@ import { HttpClientModule } from '@angular/common/http'
     MatIconModule,
     HttpClientModule,
 
-  ]
+  ],
 })
 export class HelpCenterModule { }

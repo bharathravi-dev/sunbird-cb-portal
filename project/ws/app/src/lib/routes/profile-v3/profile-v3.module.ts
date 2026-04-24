@@ -90,6 +90,6 @@ import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/
         TopicService,
         RolesAndActivityService,
         CompLocalService,
-    ]
+    ],
 })
 export class ProfileV3Module { }

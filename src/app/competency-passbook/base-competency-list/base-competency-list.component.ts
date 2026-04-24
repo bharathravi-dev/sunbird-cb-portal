@@ -4,7 +4,7 @@ import { ConfigurationsService } from '@sunbird-cb/utils-v2'
 @Component({
   selector: 'ws-base-competency-list',
   templateUrl: './base-competency-list.component.html',
-  styleUrls: ['./base-competency-list.component.scss']
+  styleUrls: ['./base-competency-list.component.scss'],
 })
 export class BaseCompetencyListComponent {
 

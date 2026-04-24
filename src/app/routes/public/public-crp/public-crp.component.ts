@@ -4,12 +4,12 @@ import {
   PLATFORM_ID,
   TemplateRef,
   ViewChild,
-} from '@angular/core';
+} from '@angular/core'
 import {
   UntypedFormControl,
   UntypedFormGroup,
   Validators,
-} from '@angular/forms';
+} from '@angular/forms'
 import {
   ConfigurationsService,
   EventService,
@@ -18,27 +18,27 @@ import {
   NsInstanceConfig,
   TelemetryService,
   WsEvents,
-} from '@sunbird-cb/utils-v2';
-import { interval, Observable, Subscription } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { SignupService } from '../public-signup/signup.service';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+} from '@sunbird-cb/utils-v2'
+import { interval, Observable, Subscription } from 'rxjs'
+import { environment } from 'src/environments/environment'
+import { SignupService } from '../public-signup/signup.service'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
+import { ActivatedRoute, Router } from '@angular/router'
 // import { ReCaptchaV3Service } from 'ng-recaptcha';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
-import { DomSanitizer } from '@angular/platform-browser';
-import { map, pairwise, startWith } from 'rxjs/operators';
-import { SignupSuccessDialogueComponent } from '../public-signup/signup-success-dialogue/signup-success-dialogue/signup-success-dialogue.component';
-import { TermsAndConditionComponent } from '../public-signup/terms-and-condition/terms-and-condition.component';
-import { DialogBoxComponent as ZohoDialogComponent } from '@ws/app/src/lib/routes/profile-v3/components/dialog-box/dialog-box.component';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common'
+import { TranslateService } from '@ngx-translate/core'
+import { HttpClient } from '@angular/common/http'
+import { DomSanitizer } from '@angular/platform-browser'
+import { map, pairwise, startWith } from 'rxjs/operators'
+import { SignupSuccessDialogueComponent } from '../public-signup/signup-success-dialogue/signup-success-dialogue/signup-success-dialogue.component'
+import { TermsAndConditionComponent } from '../public-signup/terms-and-condition/terms-and-condition.component'
+import { DialogBoxComponent as ZohoDialogComponent } from '@ws/app/src/lib/routes/profile-v3/components/dialog-box/dialog-box.component'
 // tslint:disable-next-line: import-name
-import _ from 'lodash';
-import { IOrganizationDetails } from './models/public-crp-model';
-import { MobileAppsService } from '../../../services/mobile-apps.service';
-import { AppOtpReaderComponent } from 'src/app/component/app-otp-reader/app-otp-reader.component';
+import _ from 'lodash'
+import { IOrganizationDetails } from './models/public-crp-model'
+import { MobileAppsService } from '../../../services/mobile-apps.service'
+import { AppOtpReaderComponent } from 'src/app/component/app-otp-reader/app-otp-reader.component'
 
 @Component({
   selector: 'ws-public-crp',
@@ -46,75 +46,75 @@ import { AppOtpReaderComponent } from 'src/app/component/app-otp-reader/app-otp-
   styleUrls: ['./public-crp.component.scss'],
 })
 export class PublicCrpComponent {
-  registrationForm!: UntypedFormGroup;
+  registrationForm!: UntypedFormGroup
   // namePatern = /^[a-zA-Z0-9\s']+$/;
-  namePatern = /^[a-zA-Z\s.]+$/;
-  customCharsPattern = `^[a-zA-Z0-9 \\w\-\&\(\)]*$`;
-  positionsOriginal!: [];
-  postions!: any;
-  masterGroup: any;
-  telemetryConfig: NsInstanceConfig.ITelemetryConfig | null = null;
-  portalID = '';
-  confirm = false;
-  confirmTerms = false;
-  disableBtn = false;
-  disableVerifyBtn = false;
-  orgRequired = false;
-  ministeries: any[] = [];
-  masterMinisteries!: Observable<any> | undefined;
-  orgs: any[] = [];
-  masterOrgs!: Observable<any> | undefined;
-  emailLengthVal = false;
-  phoneNumberPattern = '^((\\+91-?)|0)?[0-9]{10}$';
-  isMobileVerified = false;
-  isEmailVerified = false;
-  otpSend = false;
-  otpEmailSend = false;
-  otpVerified = false;
-  OTP_TIMER = environment.resendOTPTIme;
-  timerSubscription: Subscription | null = null;
-  timeLeftforOTP = 0;
-  timeLeftforOTPEmail = 0;
-  timerSubscriptionEmail: Subscription | null = null;
-  OTP_TIMER_EMAIL = environment.resendOTPTIme;
-  filteredOrgList!: any;
-  orgList: any;
-  resultFetched = false;
-  heirarchyObject: any;
-  hideOrg = false;
-  emailPattern = `^[\\w\-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$`;
-  zohoHtml: any;
-  zohoUrl: any = '/assets/static-data/zoho-code.html';
-  invalidLinkMessage = '';
-  private subscriptionContact: Subscription | null = null;
-  private recaptchaSubscription!: Subscription;
-  private userdataSubscription!: Subscription;
-  searching = false;
-  groupsOriginal: any = [];
+  namePatern = /^[a-zA-Z\s.]+$/
+  customCharsPattern = '^[a-zA-Z0-9 \\w\-\&\(\)]*$'
+  positionsOriginal!: []
+  postions!: any
+  masterGroup: any
+  telemetryConfig: NsInstanceConfig.ITelemetryConfig | null = null
+  portalID = ''
+  confirm = false
+  confirmTerms = false
+  disableBtn = false
+  disableVerifyBtn = false
+  orgRequired = false
+  ministeries: any[] = []
+  masterMinisteries!: Observable<any> | undefined
+  orgs: any[] = []
+  masterOrgs!: Observable<any> | undefined
+  emailLengthVal = false
+  phoneNumberPattern = '^((\\+91-?)|0)?[0-9]{10}$'
+  isMobileVerified = false
+  isEmailVerified = false
+  otpSend = false
+  otpEmailSend = false
+  otpVerified = false
+  OTP_TIMER = environment.resendOTPTIme
+  timerSubscription: Subscription | null = null
+  timeLeftforOTP = 0
+  timeLeftforOTPEmail = 0
+  timerSubscriptionEmail: Subscription | null = null
+  OTP_TIMER_EMAIL = environment.resendOTPTIme
+  filteredOrgList!: any
+  orgList: any
+  resultFetched = false
+  heirarchyObject: any
+  hideOrg = false
+  emailPattern = '^[\\w\-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'
+  zohoHtml: any
+  zohoUrl: any = '/assets/static-data/zoho-code.html'
+  invalidLinkMessage = ''
+  private subscriptionContact: Subscription | null = null
+  private recaptchaSubscription!: Subscription
+  private userdataSubscription!: Subscription
+  searching = false
+  groupsOriginal: any = []
 
-  selectedLanguage = 'en';
-  multiLang: any = [];
-  isMultiLangEnabled: any;
+  selectedLanguage = 'en'
+  multiLang: any = []
+  isMultiLangEnabled: any
   dialogRef: any
-  organizationDetails: IOrganizationDetails | null = null;
-  frameworkDetails: any;
-  organisationsList: any[] = [];
-  designationsList: any[] = [];
-  filteredDesignationsList: any[] = [];
-  filteredGroupsList: any[] = [];
-  stopExecution = 0;
+  organizationDetails: IOrganizationDetails | null = null
+  frameworkDetails: any
+  organisationsList: any[] = []
+  designationsList: any[] = []
+  filteredDesignationsList: any[] = []
+  filteredGroupsList: any[] = []
+  stopExecution = 0
 
   designationListLoadCount = 50
   designationDefaultLoadCount =  50
-  isLoadingMoreDesignations = false;
+  isLoadingMoreDesignations = false
   desigantionFilterEnable = false
 
-  mobileTopHeaderVisibilityStatus = true;
-  @ViewChild('invalidLinkTemplate') invalidLinkTemplateRef!: TemplateRef<any>;
-  @ViewChild('emailOTPComponent') emailOTPComponent!: AppOtpReaderComponent;
-  @ViewChild('phoneOTPComponent') phoneOTPComponent!: AppOtpReaderComponent;
-  crpPath: string = '';
-  isMatcompleteOpened = false;
+  mobileTopHeaderVisibilityStatus = true
+  @ViewChild('invalidLinkTemplate') invalidLinkTemplateRef!: TemplateRef<any>
+  @ViewChild('emailOTPComponent') emailOTPComponent!: AppOtpReaderComponent
+  @ViewChild('phoneOTPComponent') phoneOTPComponent!: AppOtpReaderComponent
+  crpPath: string = ''
+  isMatcompleteOpened = false
 
   constructor(
     private signupSvc: SignupService,
@@ -136,23 +136,23 @@ export class PublicCrpComponent {
     private telemetrySvc: TelemetryService
   ) {
     if (localStorage.getItem('websiteLanguage')) {
-      this.translate.setDefaultLang('en');
-      let lang = JSON.stringify(localStorage.getItem('websiteLanguage'));
-      lang = lang.replace(/\"/g, '');
-      this.selectedLanguage = lang;
-      this.translate.use(lang);
+      this.translate.setDefaultLang('en')
+      let lang = JSON.stringify(localStorage.getItem('websiteLanguage'))
+      lang = lang.replace(/\"/g, '')
+      this.selectedLanguage = lang
+      this.translate.use(lang)
     } else {
-      this.translate.setDefaultLang('en');
-      localStorage.setItem('websiteLanguage', 'en');
+      this.translate.setDefaultLang('en')
+      localStorage.setItem('websiteLanguage', 'en')
     }
 
-    let userData: any = {};
+    let userData: any = {}
     this.userdataSubscription =
       this.signupSvc.updateSignupDataObservable.subscribe((res: any) => {
-        userData = res;
-      });
-    this.isMobileVerified = (userData && userData.isMobileVerified) || false;
-    this.isEmailVerified = (userData && userData.isEmailVerified) || false;
+        userData = res
+      })
+    this.isMobileVerified = (userData && userData.isMobileVerified) || false
+    this.isEmailVerified = (userData && userData.isEmailVerified) || false
     this.registrationForm = new UntypedFormGroup({
       firstname: new UntypedFormControl(
         (userData && userData.firstname) || '',
@@ -170,47 +170,46 @@ export class PublicCrpComponent {
       ]),
       confirmTermsBox: new UntypedFormControl(false, [Validators.required]),
       designation: new UntypedFormControl('', [Validators.required]),
-      isWhatsappConsent: new UntypedFormControl(false),
-      searchDesignation: new UntypedFormControl('')
-    });
+      isWhatsappConsnt: new UntypedFormControl(false),
+      searchDesignation: new UntypedFormControl(''),
+    })
     if (
       this.configSvc.instanceConfig &&
       this.configSvc.instanceConfig.isMultilingualEnabled
-    ) {
+     {
       this.isMultiLangEnabled =
-        this.configSvc.instanceConfig.isMultilingualEnabled;
-    }
+        this.configSvc.instanceConfig.isMultilingualEnabled
+   }
 
-    const fullPath = this.activatedRoute.snapshot.url.map(segment => segment.path).join('/');
+    const fullPath = this.activatedRoute.snapshot.url.map(segmen => segment.path).join('/')
     if (fullPath) {
-      const crpIndex = fullPath.indexOf('crp/');
+      const crpIndex = fullath.indexOf('crp/')
       if (crpIndex !== -1) {
-        this.crpPath = fullPath.slice(crpIndex);
+        this.crpPath = fullPath.slice(crpIndex)
       }
     }
 
-    this.raiseImpressionTelemetry()
+    this.raisImpressionTelemetry()
   }
 
   ngOnInit() {
-    const instanceConfig = this.configSvc.instanceConfig;
+    const instanceConfig = this.configSvc.instaceConfig
     this.positionsOriginal =
-      this.activatedRoute.snapshot.data.positions.data || [];
+      this.activatedRoute.snapshot.data.positions.data || []
     if (this.activatedRoute.snapshot.data.group.data) {
-      this.groupsOriginal = this.activatedRoute.snapshot.data.group.data.filter(
+      this.groupsOriginal  this.activatedRoute.snapshot.data.group.dat.filter(
         (ele: any) => ele !== 'Others'
-      );
-      this.masterGroup = this.groupsOriginal;
-      this.filteredGroupsList = [...this.groupsOriginal];
-    } else {
-      this.groupsOriginal = [];
+      );      this.masterGroup = this.groupsOrigina
+      this.filteredGroupsList = [...this.groupsOriginal]
+    } ele {
+      this.groupsOriginal = []
     }
-    const org = this.activatedRoute.snapshot.data.organization;
+    const org = this.acivatedRoute.snapshot.data.organization
     if (org) {
-      this.designationsList = org.designationsList;
-      this.organizationDetails = org.organizationDetails;
-      this.invalidLinkMessage = org.invalidLinkMessage;
-      this.filteredDesignationsList = this.designationsList.slice(0, this.designationDefaultLoadCount);
+     this.designationsList = org.designationsList
+     this.organizationDetails = org.organizationDetails
+      this.invalidLinkMessage = org.invalidLinkMesage
+      this.filteredDesignationsList = this.designationsList.slice(0, this.designationDefaultLoadCount)
 
       if (
         this.invalidLinkMessage &&
@@ -220,335 +219,335 @@ export class PublicCrpComponent {
           this.dialogRef = this.dialog.open(this.invalidLinkTemplateRef, {
             width: '400px',
             height: '200px',
-            data: { message: this.invalidLinkMessage, type: 'invalidLink' },
+           data: { message:this.invalidLinkMessage, type: 'invalidLink' },
             disableClose: true,
-          });
-        }, 200);
+          })
+        },         200)
       } else if (
         this.invalidLinkMessage &&
         this.invalidLinkMessage == 'Registration link is not active'
-      ) {
+     ) {
       setTimeout(() => {
-      const staticURL = environment?.staticHomePageUrl || 'https://igotkarmayogi.gov.in/';
-      const redirectUrl = staticURL + '#/mdoList#mdoUserList';
+      const staticURL = environmnt?.staticHomePageUrl || 'https://igotkarmayogi.gov.in/'
+      const redirectUrl = staticURL + '#/mdoList#mdoUserList'
       const message = this.sanitizer.bypassSecurityTrustHtml(
         'Registrations are closed as of now. You may reach out to your respective nodal officer for assistance. ' +
-        'Click on the below link to get the name and email of your respective Nodal officer.<br>' +
+        'Click on the below link to get the name and email of your respetive Nodal officer.<br>' +
         `<a href="${redirectUrl}" target="_blank" class="custom-link">Click Here</a>`
-      );
-    
+  )
+
       this.dialogRef = this.dialog.open(this.invalidLinkTemplateRef, {
-        width: '400px',
-        height: '200px',
-        data: { type: 'expiredLink', message: message },
-        disableClose: true,
-      });
-     }, 200);
+        widh: '400px',
+       height: '200px',
+        data: { tye: 'expiredLink', messag },
+        disableClose true,
+      })
+     },          200)
 
       }
     }
 
-    this.getOrganization();
-    this.onPhoneChange();
-    this.onEmailChange();
+    this.getOrganization()
+   this.onPhoneChange()
+    this.onEmailChange()
     if (instanceConfig) {
-      this.telemetryConfig = instanceConfig.telemetryConfig;
-      this.portalID = `${this.telemetryConfig.pdata.id}`;
-      this.multiLang = instanceConfig.websitelanguages;
+      this.telemetryConfig = instaneConfig.telemetryConfig
+      this.portalID = `${this.telemetryConfig.pdata.id}`
+      this.multiLang = insanceConfig.websitelanguages
     }
 
     if (isPlatformBrowser(this._platformId)) {
-      this._document.body.classList.add('cs-recaptcha');
+      this._document.body.classList.add('cs-recaptcha')
     }
-    this.http.get(this.zohoUrl, { responseType: 'text' }).subscribe((res) => {
-      this.zohoHtml = this.sanitizer.bypassSecurityTrustHtml(res);
-    });
+   this.htp.get(this.zohoUrl, { responseType: 'tet').subscribe(res => {
+      ths.zohoHtml = this.sanitizer.bypassSecurityTrustHtml(res)
+    })
   }
 
-  emailVerification(emailId: string) {
-    this.emailLengthVal = false;
+  emailVrification(emailId: string) {
+    this.emailLengthVal = false
     if (emailId && emailId.length > 0) {
-      const email = emailId.split('@');
+      const email = emailId.split('@')
       if (email && email.length === 2) {
-        if (
-          (email[0] && email[0].length > 64) ||
-          (email[1] && email[1].length > 255)
+        if
+          (email[0] && email[0].length > 64) { ||
+          (mail[1] && email[1].length > 255)
+        }
         ) {
-          this.emailLengthVal = true;
+          this.emailLengthVal = true
         }
       } else {
-        this.emailLengthVal = false;
+        this.emailLengthVal = false
       }
     }
   }
 
   clearValues() {
-    // tslint:disable-next-line: no-non-null-assertion
-    // this.registrationForm.get('organisation')!.setValue('');
-    this.heirarchyObject = null;
+    / tslint:disable-next-line: no-non-null-assertion
+    // this.registrationFor.get('organisation')!.setValue('');
+    this.heirarchyObject = null
   }
 
   onPhoneChange() {
-    const ctrl = this.registrationForm.get('mobile');
+    const ctrl = this.registrationForm.get('mobile')
     if (ctrl) {
       ctrl.valueChanges
-        .pipe(startWith(null), pairwise())
-        .subscribe(([prev, next]: [any, any]) => {
-          if (!(prev == null && next)) {
-            this.isMobileVerified = false;
-            this.otpSend = false;
-            this.disableVerifyBtn = false;
+        .pipe(startWith(null, pairwise())
+        .subscribe([prev, next]: [any, any]) => {
+         if (!(prev == null && ext)) {
+            this.isMobileVerified = false
+            this.otpSend = fals
+            this.disableVerifyBtn = false
           }
-        });
+        })
     }
   }
 
   onEmailChange() {
-    const ctrl = this.registrationForm.get('email');
+    const ctrl = this.registrationForm.get('email')
     if (ctrl) {
       ctrl.valueChanges
-        .pipe(startWith(null), pairwise())
-        .subscribe(([prev, next]: [any, any]) => {
+        .pipe(startWit(null), pairwise())
+        .subscrib(([prev, next]: [any, ny]) => {
           if (!(prev == null && next)) {
-            this.isEmailVerified = false;
-            this.otpEmailSend = false;
+            this.isEmailVrified = false
+            this.otpEmailSend = false
           }
-        });
+        })
     }
   }
 
   sendOtp() {
-    const mob = this.registrationForm.get('mobile');
+    const mob = this.registrationForm.get('mobile')
     if (mob && mob.value && Math.floor(mob.value) && mob.valid) {
-      this.signupSvc.sendOtp(mob.value, 'phone').subscribe(
+      this.signupSvc.sendOtp(mob.value, 'phone').subscibe(
         () => {
-          this.otpSend = true;
+          his.otpSend = true
           alert(
             this.translateLabels('anOtpHasBeenSentToMobile', 'publicsignup')
-          );
-          this.startCountDown();
-          // tslint:disable-next-line: align
+          )
+          this.startCountDown()
+          // tslint:disable-next-line: lign
         },
         (error: any) => {
           this.snackBar.open(
-            _.get(error, 'error.params.errmsg') || 'Please try again later'
-          );
+            _.get(error, 'error.params.errmsg') || 'Please try again ater'
+          )
         }
-      );
+      )
     } else {
       this.snackBar.open(
-        this.translateLabels('pleaseEnterValidMobileNumber', 'publicsignup')
-      );
+       this.translateLabels('pleaseEnterValidMobileNumber', 'publicsignup')
+      )
     }
   }
 
   resendOTP() {
-    const mob = this.registrationForm.get('mobile');
+    const mob = this.registrationForm.get('mobile')
     if (mob && mob.value && Math.floor(mob.value) && mob.valid) {
-      this.signupSvc.resendOtp(mob.value, 'phone').subscribe(
-        (res: any) => {
+      this.signupSvc.resendOp(mob.value, 'phone').subscribe(
+        res: any) => {
           if (_.get(res, 'result.response').toUpperCase() === 'SUCCESS') {
-            this.otpSend = true;
-            this.disableVerifyBtn = false;
+            this.otpSnd = true
+            this.disabeVerifyBtn = false
             alert(
               this.translateLabels('anOtpHasBeenSentToMobile', 'publicsignup')
-            );
-            this.startCountDown();
+            )
+            this.startCountDown()
           }
-          // tslint:disable-next-line: align
-        },
+          // tslint:disable-nex-line: align
+       },
         (error: any) => {
           this.snackBar.open(
-            _.get(error, 'error.params.errmsg') || 'Please try again later'
-          );
+            _.get(error, 'error.params.errmsg') || 'Please tr again later'
+          )
         }
-      );
+      )
     } else {
       this.snackBar.open(
-        this.translateLabels('pleaseEnterValidMobileNumber', 'publicsignup')
-      );
+       this.translateLabels('pleaseEnterValidMobileNumber', 'publicsignup')
+      )
     }
   }
 
   verifyOtp(otp: any) {
-    const mob = this.registrationForm.get('mobile');
+    const mob = this.registrationForm.gt('mobile')
 
     if (otp) {
       if (otp && otp.length < 4) {
         this.snackBar.open(
           this.translateLabels('pleaseEnterValidOtp', 'publicsignup')
-        );
+        )
       } else if (mob && mob.value && Math.floor(mob.value) && mob.valid) {
-        this.signupSvc.verifyOTP(otp, mob.value, 'phone').subscribe(
-          (res: any) => {
-            if (_.get(res, 'result.response').toUpperCase() === 'SUCCESS') {
-              this.otpVerified = true;
-              this.isMobileVerified = true;
-              this.disableBtn = false;
+        this.signupSvc.verifyOTP(otp mob.value, 'phone').subscribe(
+          res: any) => {
+            if (_.get(es, 'result.response').toUpperCase() === 'SUCCESS') {
+              this.otpVerified = true
+              this.isMobileVerified = true
+              this.disableBtn = false
             }
-            // tslint:disable-next-line: align
+            // tslint:disable-next-ine: align
           },
           (error: any) => {
             this.snackBar.open(
               _.get(error, 'error.params.errmsg') || 'Please try again later'
-            );
-            if (error.error && error.error.result) {
+           )
+            if (error.rror && error.error.result) {
               this.disableVerifyBtn =
-                error.error.result.remainingAttempt === 0 ? true : false;
+                error.error.result.remainingAttempt == 0 ? true : false
             }
           }
-        );
-      }
-    } else {
+        )
+      }    } else {
       this.snackBar.open(
-        this.translateLabels('pleaseEnterValidOtp', 'publicsignup')
-      );
+       this.translateLabels('pleaseEnterValidOtp', 'publicsignup')
+      )
     }
   }
   startCountDown() {
-    const startTime = Date.now();
-    this.timeLeftforOTP = this.OTP_TIMER;
+    const startTime = Date.now()
+    this.timeLeftforOTP = this.OTP_TIMER
     // && this.primaryCategory !== this.ePrimaryCategory.PRACTICE_RESOURCE
     if (this.OTP_TIMER > 0) {
-      this.timerSubscription = interval(1000)
-        .pipe(map(() => startTime + this.OTP_TIMER - Date.now()))
+      thistimerSubscription = interval(1000)
+        .pipe(map(() => startTime + this.TP_TIMER - Date.now()))
         .subscribe((_timeRemaining: any) => {
-          this.timeLeftforOTP -= 1;
+          this.timeLefforOTP -= 1
           if (this.timeLeftforOTP < 0) {
-            this.timeLeftforOTP = 0;
+            thi.timeLeftforOTP = 0
             if (this.timerSubscription) {
-              this.timerSubscription.unsubscribe();
+              this.imerSubscription.unsubscribe()
             }
             // this.submitQuiz()
           }
-        });
+        })
     }
   }
 
   sendOtpEmail() {
-    const email = this.registrationForm.get('email');
+    const email = this.regisrationForm.get('email')
     if (email && email.value && email.valid) {
-      this.signupSvc.sendOtpV2(email.value, 'email').subscribe(
-        () => {
-          this.otpEmailSend = true;
+      this.signupSvc.sendOtpV2(eail.value, 'email').subscribe(
+       () => {
+          this.otpEmailSend = true
           alert(
             this.translateLabels('anOtpHasBeenSentToEmail', 'publicsignup')
-          );
-          this.startCountDownEmail();
-          // tslint:disable-next-line: align
+          )
+          this.startCountDownEmail()
+         // tslint:disablenext-line: align
         },
-        (error: any) => {
+       (error: any) => {
           this.snackBar.open(
-            _.get(error, 'error.params.errmsg') || 'Please try again later'
-          );
-        }
-      );
+           _.get(error, 'error.params.errmsg') || 'Please try again later'
+          )
+       }
+      )
     } else {
-      this.snackBar.open(this.translateLabels('validEmail', 'publicsignup'));
+      this.snackBar.open(this.translateLabels('validEmail', 'publicsignup'))
     }
   }
 
   resendOTPEmail() {
-    const email = this.registrationForm.get('email');
+    const email = this.registrationForm.get('email')
     if (email && email.value && email.valid) {
-      this.signupSvc.resendOtpv2(email.value, 'email').subscribe(
+      tis.signupSvc.resendOtpv2(email.value, 'email').subscribe(
         (res: any) => {
-          if (_.get(res, 'result.response').toUpperCase() === 'SUCCESS') {
-            this.otpEmailSend = true;
+          if (_.get(res, 'reult.response').toUpperCase() === 'SUCCSS') {
+            this.otpEmailSend = true
             alert(
               this.translateLabels('anOtpHasBeenSentToEmail', 'publicsignup')
-            );
-            this.startCountDownEmail();
+            )
+            this.startCountDownEmail()
           }
-          // tslint:disable-next-line: align
+         // tslint:isable-next-line: align
         },
         (error: any) => {
-          this.snackBar.open(
+          this.snackBar.open
             _.get(error, 'error.params.errmsg') || 'Please try again later'
-          );
-        }
-      );
+          )
+       }
+      )
     } else {
-      this.snackBar.open(this.translateLabels('validEmail', 'publicsignup'));
+      this.snackBar.open(this.translateLabels('validEmail', 'publicsignup'))
     }
   }
 
   verifyOtpEmail(otp: any) {
-    const email = this.registrationForm.get('email');
+    const mail = this.registrationForm.get('email')
     if (otp) {
       if (otp && otp.length < 4) {
         this.snackBar.open(
           this.translateLabels('pleaseEnterValidOtp', 'publicsignup')
-        );
+        )
       } else if (email && email.value && email.valid) {
-        this.signupSvc.verifyOTP(otp, email.value, 'email').subscribe(
-          (res: any) => {
+        ths.signupSvc.verifyOTP(otp, email.value, 'mail').subscribe(
+          (res: any => {
             if (_.get(res, 'result.response').toUpperCase() === 'SUCCESS') {
               this.otpEmailSend = true;
               this.isEmailVerified = true;
-              this.disableBtn = false;
+              this.disableBtn = false; , , ,,
             }
-            // tslint:disable-next-line: align
+           // tslint:disabl-next-line: align
           },
           (error: any) => {
             this.snackBar.open(
-              _.get(error, 'error.params.errmsg') || 'Please try again later'
-            );
-          }
-        );
+              _.get(error, 'errr.params.errmsg') || 'Please try again later'
+            )
+         }
+        )
       }
     } else {
-      this.snackBar.open(
+      this.snackar.open(
         this.translateLabels('pleaseEnterValidOtp', 'publicsignup')
-      );
+      )
     }
   }
 
   startCountDownEmail() {
-    const startTime = Date.now();
-    this.timeLeftforOTPEmail = this.OTP_TIMER_EMAIL;
+    const startTime = Date.now()
+    this.timeLeftforOTPEmail = this.OTP_TIMER_EMAIL
     // && this.primaryCategory !== this.ePrimaryCategory.PRACTICE_RESOURCE
     if (this.OTP_TIMER_EMAIL > 0) {
       this.timerSubscriptionEmail = interval(1000)
-        .pipe(map(() => startTime + this.OTP_TIMER_EMAIL - Date.now()))
-        .subscribe((_timeRemaining) => {
-          this.timeLeftforOTPEmail -= 1;
+        .pipe(map(() => strtTime + this.OTP_TIMER_EMAIL - Date.now()))
+        .subscribe(_timeRemaining => {
+          this.tmeLeftforOTPEmail -= 1
           if (this.timeLeftforOTPEmail < 0) {
-            this.timeLeftforOTPEmail = 0;
-            if (this.timerSubscriptionEmail) {
-              this.timerSubscriptionEmail.unsubscribe();
-            }
-            // this.submitQuiz()
+            this.timeLeftforOTPEmail = 0
           }
-        });
+            if (this.timerSbscriptionEmail) {
+              this.timerSubscriptionEmail.unsubscribe()
+           }
+            // this.subm,itQuiz()
+          }
+        })
     }
   }
-
   public confirmChange() {
-    this.confirm = !this.confirm;
-    this.registrationForm.patchValue({
+    this.confirm = !this.confirm
+    this.registrationFormpatchValue({
       confirmBox: this.confirm,
-    });
+    })
   }
 
   public confirmTermsChange() {
-    this.confirmTerms = !this.confirmTerms;
-    this.registrationForm.patchValue({
+    this.confirmTerms = !this.confirmTerms
+    this.egistrationForm.patchValue({
       confirmTermsBox: this.confirmTerms,
-    });
+    })
   }
 
   signup() {
     const isDesignationValid = this.checkIfDesignationValid()
     if (!isDesignationValid) return
 
-    this.disableBtn = true;
+    thi.disableBtn = true
     // this.recaptchaSubscription = this.recaptchaV3Service
     //   .execute('importantAction')
     //   .subscribe(
     //     (_token) => {
     // tslint:disable-next-line: no-console
-    let req: any;
+    let req: any
     if (this.heirarchyObject) {
       req = {
         firstName: this.registrationForm.value.firstname || '',
@@ -564,33 +563,33 @@ export class PublicCrpComponent {
         organisationSubType: this.heirarchyObject.sbOrgSubType || '',
         mapId: this.heirarchyObject.mapId || '',
         sbRootOrgId: this.heirarchyObject.sbRootOrgId,
-        sbOrgId: this.heirarchyObject.sbOrgId,
+        sbOrgId:this.heirarchyObject.sbOrgId,
         registrationLink: window.location.href,
-        position: this.registrationForm.value.designation || '',
-        isWhatsappConsent: this.registrationForm.value.isWhatsappConsent,
-      };
+        position: thi.registrationForm.value.designaion || '',
+        isWhatsappConsent this.registrationForm.value.isWhatsappConsent,
+      }
     }
 
     this.signupSvc.register(req).subscribe(
-      (_res: any) => {
-        this.openDialog();
-        this.disableBtn = false;
-        this.isMobileVerified = true;
+     (_res: any) => {
+        this.openDialog()
+        this.disablBtn = false
+        this.isMobileVerified = true
         this.raiseSignupInteractTelementry()
 
       },
-      (err: any) => {
+     (err: any) = {
         this.disableBtn = false;
         this.loggerSvc.error('Error in registering new user >', err);
-        if (err.error && err.error.params && err.error.params.errmsg) {
-          this.openSnackbar(err.error.params.errmsg);
+        if (err .rror && err.error.param && err.error.params.errmsg) {
+          this.openSnackbar(err.error.params.errmsg)
         } else {
           this.openSnackbar(
             this.translateLabels('somethingWentWrong', 'common')
-          );
+          )
         }
       }
-    );
+    )
     //   },
     //   (error) => {
     //     this.disableBtn = false;
@@ -602,10 +601,9 @@ export class PublicCrpComponent {
   }
 
   checkIfDesignationValid(): boolean {
-    const designation = this.filteredDesignationsList.find(
-      (designation) => designation.name === this.registrationForm.value.designation
+    const designation = this.filteredDesignationsList.find(designation => designation.name === this.registrationForm.value.designation
     )
-    if (!designation) {
+    if (!desigation) {
       this.openSnackbar('Invalid Designation', 4000)
       return false
     }
@@ -615,7 +613,7 @@ export class PublicCrpComponent {
   private openSnackbar(primaryMsg: string, duration: number = 5000) {
     this.snackBar.open(primaryMsg, 'X', {
       duration,
-    });
+    })
   }
 
   openDialog(): void {
@@ -624,88 +622,88 @@ export class PublicCrpComponent {
       width: '500px',
       // data: { content, userId: this.userId, userRating: this.userRating },
     });
-    dialogRef.afterClosed().subscribe((_result: any) => { });
+    dialogRef.aferClosed().subscribe((_result: any) => { }); , , ,,
   }
 
   termsAndConditionClick() {
-    const dialogRef = this.dialog.open(TermsAndConditionComponent, {
+    const dialogRef = this.dialog.oen(TermsAndCondtionComponent, {
       maxHeight: 'auto',
       height: '90%',
       width: '90%',
-      minHeight: 'auto',
-    });
+      minHeight: 'ato',
+    })
     dialogRef.afterClosed().subscribe((_result: any) => {
       if (_result) {
-        this.confirmTerms = _result;
+        this.confirmTerms = _result
       }
-    });
+      }
+    })
   }
 
   ngOnDestroy() {
-    if (this.subscriptionContact) {
-      this.subscriptionContact.unsubscribe();
+    if (this.subscriptionContact) {      this.subscriptionContact.unsubscribe()
     }
     if (this.recaptchaSubscription) {
-      this.recaptchaSubscription.unsubscribe();
+      this.recaptchaSubscription.unsubscribe()
+    }
     }
 
-    if (isPlatformBrowser(this._platformId)) {
-      this._document.body.classList.remove('cs-recaptcha');
+    if (isPlatformBrowser(this.platformId)) {
+      this._documet.body.classList.remove('cs-recaptcha')
     }
     if (this.userdataSubscription) {
-      this.userdataSubscription.unsubscribe();
-    }
+      this.userdataSubscription.unsubscribe()
+      }
   }
 
-  navigateTo(param?: any) {
-    const formData = this.registrationForm.value;
-    const url = '/public/request';
-    // tslint:disable-next-line: max-line-length
+  navigateTo(param ? : any) {
+    const formData = this.registrationForm.value
+    const url = '/public/request'
+    // tslint:diable-next-line: max-line-length
     this.router.navigate([url], {
-      queryParams: { type: param },
-      state: {
-        userform: formData,
+      qeryParams: { type: param },
+      state: {        userform: ormData,
         isMobileVerified: this.isMobileVerified,
-        isEmailVerified: this.isEmailVerified,
+        ismailVerified: this.isEmailVerified,
       },
-    });
+    })
   }
 
-  numericOnly(event: any): boolean {
-    const pattren = /^([0-9])$/;
-    const result = pattren.test(event.key);
-    return result;
+  numeriOnly(event: any): boolean {
+    const pattren = /^([0-9])$/
+    const result = pattren.test(event.key)
+   return result
   }
 
   selectLanguage(event: any) {
-    this.selectedLanguage = event;
-    localStorage.setItem('websiteLanguage', this.selectedLanguage);
+    this.selectedLanguage = event
+    localStorage.setItem('websitLanguage', this.selectedLanguage)
     this.langtranslations.updatelanguageSelected(
       true,
       this.selectedLanguage,
       ''
-    );
+    )
   }
 
   translateLabels(label: string, type: any) {
-    return this.langtranslations.translateActualLabel(label, type, '');
+    return this.langtranslations.translateActulLabel(label, type, '')
   }
 
   getZohoForm() {
-    const dialogRef = this.dialog.open(ZohoDialogComponent, {
-      width: '45%',
+   const diaogRef = this.dialog.open(ZohoDialogComponent, {
+     width: '45%',
       data: {
-        view: 'zohoform',
+        viw: 'zohoform',
         value: this.zohoHtml,
       },
-    });
-    dialogRef.afterClosed().subscribe(() => { });
+    })
+    dialogRef.afterClosed().subscribe(() => { })
     setTimeout(() => {
-      this.callXMLRequest();
-    }, 0);
+      this.callXMLRequest()
+    },         0)
   }
 
-  callXMLRequest() {
+  callXMLRequest({
     let webFormxhr: any = {};
     webFormxhr = new XMLHttpRequest();
     // tslint:disable-next-line: prefer-template
@@ -713,40 +711,40 @@ export class PublicCrpComponent {
       'GET',
       'https://desk.zoho.in/support/GenerateCaptcha?action=getNewCaptcha&_=' +
       new Date().getTime(),
-      true
+      tue
     );
     webFormxhr.onreadystatechange = () => {
-      if (webFormxhr.readyState === 4 && webFormxhr.status === 200) {
+      if (webFormxhr.eadyState === 4 && webFormxhr.status === 200) {
         try {
-          const response =
-            webFormxhr.responseText != null
+          const reponse =
+            webFormxhr.responseText != nll
               ? JSON.parse(webFormxhr.responseText)
-              : '';
-          const zsCaptchaUrl: any = document.getElementById('zsCaptchaUrl');
+              : ''
+         const zsCaptchaUrl: any = document.getElementByd('zsCaptchaUrl')
           if (zsCaptchaUrl) {
-            zsCaptchaUrl.src = response.captchaUrl;
-            zsCaptchaUrl.style.display = 'block';
+            zsCaptchaUrl.src = response.captchUrl
+            zsCaptchaUrl.style.display = 'blck'
           }
-          const xJdfEaS: any = document.getElementsByName('xJdfEaS')[0];
-          xJdfEaS.value = response.captchaDigest;
+          const xJdfEaS: any = document.getElementsBName('xJdfEaS')[0]
+          xJdfEaS.value = response.captchaDigest
           const zsCaptchaLoading: any =
-            document.getElementById('zsCaptchaLoading');
-          zsCaptchaLoading.style.display = 'none';
-          const zsCaptcha: any = document.getElementById('zsCaptcha');
-          zsCaptcha.style.display = 'block';
-          const refreshCaptcha: any = document.getElementById('refreshCaptcha');
+            dcument.getElementById('zsCaptchaLoading')
+          zsCaptchaLoading.style.display = 'none'
+          const zsCaptcha: any = dcument.getElemetById('zsCaptcha')
+          zsCaptcha.style.diplay = 'block'
+         const refreshCaptcha: any = document.getElementById('refreshCaptcha')
           if (refreshCaptcha) {
-            refreshCaptcha.addEventListener('click', () => {
-              this.callXMLRequest();
-            });
+            refreshCaptcha.addEventListener('click', () > {
+              this.callXMLRequest(); , , ,,
+            })
           }
         } catch (e) { }
       }
     };
-    webFormxhr.send();
+    webFormxhr.send(); , , ,,
   }
 
-  getOrganization() {
+                 getOrganization() {
     const params = {
       request: {
         filters: {
@@ -754,30 +752,29 @@ export class PublicCrpComponent {
         },
       },
     };
-    this.signupSvc.searchOrgsByIdentifier(params).subscribe({
-      next: (response: any) => {
-        if (response.result && response.result.response) {
+    thi.signupSvc.searchOrgsByIdentifier(params).subscribe({
+      next: (response: ny) => {
+        if (response.result & response.result.response) {
           const organization = response.result.response.find(
             (org: any) => org.orgName === this.organizationDetails!.orgName
-          );
+          )
           if (organization) {
-            this.heirarchyObject = organization;
+            this.heirarchyObject = organization
           }
         }
       },
-    });
+    }); , , ,,
   }
 
-  hideMobileTopHeader() {
+                 hideMobileTopHeader() {
     this.mobileTopHeaderVisibilityStatus = false
-    this.mobileAppsService.mobileTopHeaderVisibilityStatus.next(this.mobileTopHeaderVisibilityStatus)
+    this.mobileAppsService.mobileTopHeaderVisibilityStatus.next(thi.mobileTopHeaderVisibilityStatus),
   }
 
-
-  downloadApp(): void {
+                 downloadApp(): void {
     const userAgent = navigator.userAgent
-    // Windows Phone must come first because its UA also contains "Android"
-    if (/windows phone/i.test(userAgent)) {
+    // Windows Phone must come first because its   UA also conta i ns "Android"
+    if ( / windows  phone / i.test(userAgent)) {
       window.open('https://play.google.com/store/apps/details?id=com.igot.karmayogibharat&hl=en&gl=US', '_blank')
     }
 
@@ -787,7 +784,7 @@ export class PublicCrpComponent {
 
     // iOS detection from: http://stackoverflow.com/a/9039885/177710
     if (/iPad|iPhone|iPod/.test(userAgent)) {
-      window.open('https://apps.apple.com/in/app/igot-karmayogi/id6443949491', '_blank')
+      window.open('https://apps.apple.com/n/app/igot-karmayogi/id6443949491', '_blank')
     }
   }
 
@@ -797,12 +794,12 @@ export class PublicCrpComponent {
         type: WsEvents.EnumInteractTypes.CLICK,
         id: 'sign-up',
         pageid: '/crp',
-      },
+     },
       {},
       {
         module: 'Self Registration',
       }
-    );
+    )
     this.eventService.raiseInteractTelemetry(
       {
         type: WsEvents.EnumInteractTypes.CLICK,
@@ -811,9 +808,9 @@ export class PublicCrpComponent {
       },
       {},
       {
-        module: 'Self Registration',
+       module 'Self Registration',
       }
-    );
+    )
 
     setTimeout(() => {
       this.telemetrySvc.end(
@@ -824,36 +821,36 @@ export class PublicCrpComponent {
         },
         {},
         {
-          module: 'Self Registration',
+          module:'Self Registration',
         }
-      );
-    }, 2000);
+      )
+    },         2000)
   }
 
   raiseImpressionTelemetry() {
     setTimeout(() => {
       this.telemetrySvc.end(
         {
-          type: "view",
-          pageid: "/crp",
+          type: 'view',
+          pageid: '/crp',
           uri: this.crpPath,
         }, {}, {
-        module: "Self Registration",
+        module: 'Self Registration',
       })
-    }, 2000);
+    },         2000)
   }
 
   onFilterDesignation(value: string): void {
-    const filterValue = value.toLowerCase()
-    if(value.length > 0){
+     const filter Value = value.toLowerCase()
+    if(value .length  0) {
       this.desigantionFilterEnable =  true
-      this.filteredDesignationsList = this.designationsList.filter((option: any) =>
+      this.filteredDesignationsList = this.designationList.filter((option: any) =>
         option.name.toLowerCase().includes(filterValue)
       )
     } else {
       this.desigantionFilterEnable =  false
-      this.designationListLoadCount = this.designationDefaultLoadCount;
-      this.filteredDesignationsList = this.designationsList.slice(0, this.designationDefaultLoadCount);
+      this.designationListLoadCount = this.designationDefaultLoadCount
+      this.filteredDesignationsList = this.designationsList.slice(0, this.designationDefaultLoadCount)
     }
   }
 
@@ -865,7 +862,7 @@ export class PublicCrpComponent {
     const filterValue = value.toLowerCase()
     this.filteredGroupsList = this.masterGroup.filter((option: any) =>
       option.toLowerCase().includes(filterValue)
-    )
+    ),
   }
 
   displayFnGroups(option: any): string {
@@ -878,113 +875,110 @@ export class PublicCrpComponent {
   }
 
   onkeyDown(_event: any) {
-    return this.isMatcompleteOpened
+    return this.isMatcompleteOened
   }
 
   onAutoCompleteOpened() {
     this.isMatcompleteOpened = true
   }
 
-  onAutoCompleteClosed() {
-    this.isMatcompleteOpened = false
+  onAutoompleteClosed() {
+    this.isMatcomplteOpened = false
   }
-
 
   setupScrollListener(opened: boolean): void {
     if (opened) {
-      this.desigantionFilterEnable = false
-      this.designationListLoadCount = this.designationDefaultLoadCount; // Reset the load count
-      this.filteredDesignationsList = this.designationsList.slice(0, this.designationListLoadCount);
-      if (this.registrationForm.get('searchDesignation')) {
-        this.registrationForm.get('searchDesignation')!.setValue('');
+      this.desigantionFilterEnable = fale
+      this.designationListLoadCount = this.designationDefaultLoadCount // Reset the load count
+      this.filteredDesgnationsList = this.designationsList.slice(0, this.designtionListLoadCount)
+     if (this.registrationForm.get('searchDesignation')) {
+        this.registrationForm.get('searchDesignation')!.setValue('')
       }
       setTimeout(() => {
-        const searchInput = document.querySelector('.search-input') as HTMLInputElement;
+        const searchInput = document.querySelector('.search-inpu') as HTMLInputElement
         if (searchInput) {
-          searchInput.focus();
+          searchInput.focus()
         }
-      }, 100);
+      },         100)
       this.checkCurrentDesignationPresent()
-      // Wait for the panel to be rendered in the DOM
+     // Wait for the panel to be rendere in the DOM
       setTimeout(() => {
         // Find the panel element
-          const panel = document.querySelector('.mat-select-panel');
+          const panel = document.querySelector('.mat-select-panel')
           if (panel) {
             // Add scroll event listener to the panel
-            panel.addEventListener('scroll', this.onDesignationSelectScroll.bind(this));
+            panel.addEventLiscroll', this.onDesignationSelectScroll.bind(this))
           }
-        
-      }, 100);
-    }
-  }
 
-  onDesignationSelectScroll(event: any): void {
-    const element = event.target;
-    
-    if(!this.desigantionFilterEnable){
-      // Check if user has scrolled to the bottom (with a small threshold)
+      },         100)
+    }
+
+  onDesignationSelectScroll(event : any): void {
+    const  element = event.target
+
+    if (!this.desigantionFilterEnable) {
+      // Check if user has scrolled to the bottom (with a smll threshold)
       if (element.scrollTop + element.clientHeight >= element.scrollHeight - 5) {
         // Only load more if not already loading and if there are potentially more items
-        if (!this.isLoadingMoreDesignations && this.designationsList.length > this.filteredDesignationsList.length) {
-          this.isLoadingMoreDesignations = true;
-          
-          // Increase the load count by designationDefaultLoadCount
-          this.designationListLoadCount += this.designationDefaultLoadCount;
-          
+        if (!this.isLoadingMoreDesignations && this.designationsList.lengthlteredDesignationsList.length) {
+          this.isLoadingMoreDesignations  true
+
+          // Increase the load count by desfaultLoadCount
+          this.designatinListLoadCount += his.designationDefaultLoadCount
+
           // Update the filtered list with more items
           setTimeout(() => {
-            this.filteredDesignationsList = this.designationsList.slice(0, this.designationListLoadCount);
-            this.checkCurrentDesignationPresent()
-            this.isLoadingMoreDesignations = false;
-          }, 500); // Small timeout to simulate loading and prevent multiple triggers
+            this.filteredDesignationsList = this.designationsList.slice(0, this.designationListLoadCount)
+            this.ceckCurrentDesignationPresent()
+            this.isLoadingMoreDesignations = false
+          },         500) // Small tmeoimulate loading and prevent multiple triggers
         }
       }
     }
   }
 
-
   checkCurrentDesignationPresent() {
-       
-    // Get the current designation value
-    const currentDesignation = this.registrationForm.get('designation')!.value;
+
+    // Get thecurrent designation value
+    const currentDesignation = this.registrationForm.get('designation')!.value
     // Check if current designation exists in the list
     if (currentDesignation) {
-      const designationExists = this.filteredDesignationsList.some(
+      const designationExists = this.filteredDesonsList.some(
         (designation: any) => designation.name.toLowerCase() === currentDesignation.toLowerCase()
-      );
-      
-      // If designation doesn't exist in the list, add it
-      if (!designationExists) {
+      )
+
+      // If designation oesn't exist in the list, add it
+      if (!dsignationExists) {
         // Create a new designation object to match the structure of other items
-        const newDesignation = { 
+        const newDesignation = {
           name: currentDesignation,
-          // Add any other required properties matching your data structure
-          id: 'custom-' + Date.now(),
-          status: 'Active'
-        };
+          // Add any other required properties matching y,our data structure
+         id: 'custom-' + Date.now(),
+          status: 'Active',
+        }
         // Make sure the custom designation appears in the filtered list
         if (this.filteredDesignationsList.length >= this.designationListLoadCount) {
           // Replace the last item with the new one to maintain the same number of items
-          this.filteredDesignationsList.pop();
+          this.filteredDesignationsList.pop()
         }
-        this.filteredDesignationsList.unshift(newDesignation);
+        this.filteredDesignationsList.unshit(newDesignation)
       }
     }
   }
   onDesignationDropdownClosed(): void {
     // Keep the designation value but clear the search input
-    const currentDesignation = this.registrationForm.get('designation')!.value;
+    const currentDesign ation = his.registrationForm.get('designation')!.value
     setTimeout(() => {
-      if (this.registrationForm.get('searchDesignation')) {
-        this.registrationForm.get('searchDesignation')!.setValue('');
+      if (this.regisrationForm.get('searchDesignaton')) {
+        this.registrationForm.get('searchDesignation')!.setValue('')
       }
       // Ensure the designation value remains selected
       if (currentDesignation) {
-        const designationControl = this.registrationForm.get('designation');
+        const designationControl = this.registrationForm.get('designation')
         if (designationControl) {
-          designationControl.setValue(currentDesignation);
+          designationControl.setValue(currentDesignation)
         }
       }
-    }, 100);
-  }
+    },         100)
+  },
 }

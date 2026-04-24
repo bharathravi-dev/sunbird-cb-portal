@@ -64,8 +64,6 @@ import { ConfirmDialogModule } from '@sunbird-cb/collection/src/lib/_common/conf
 import { KarmaPointsModule } from '@sunbird-cb/toc'
 import { TipsForLearnerModule } from '@sunbird-cb/collection/src/lib/_common/tips-for-learner/tips-for-learner.module'
 
-
-
 // Services
 import { ApiService, AccessControlService } from '../../../../../author/src/public-api'
 import { EditorService } from '../../../../../author/src/lib/routing/modules/editor/services/editor.service'
@@ -192,7 +190,7 @@ import { AppTocLibModule } from '@sunbird-cb/toc'
     WidgetCommentModule,
     SlidersDynamicModule,
     NonReleventFeedbackDialogModule,
-    AppTocLibModule
+    AppTocLibModule,
   ],
   providers: [
     AppPublicTocResolverService,
@@ -205,9 +203,9 @@ import { AppTocLibModule } from '@sunbird-cb/toc'
     UserProfileService,
     OtpService,
     ContentLanguageService,
-    DatePipe
+    DatePipe,
   ],
   exports: [
-  ]
+  ],
 })
 export class AppTocModule { }

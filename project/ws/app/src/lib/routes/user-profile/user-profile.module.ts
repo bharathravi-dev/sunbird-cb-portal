@@ -80,6 +80,6 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
         PipeDurationTransformModule,
         SkeletonLoaderModule,
     ],
-    providers: [UserProfileService, LoaderService, OtpService]
+    providers: [UserProfileService, LoaderService, OtpService],
 })
 export class UserProfileModule { }

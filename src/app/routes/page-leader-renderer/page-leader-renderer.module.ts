@@ -53,6 +53,6 @@ import { MatToolbarModule } from '@angular/material/toolbar'
         WidgetResolverModule,
         BtnPageBackModule,
     ],
-    exports: [LandingComponent]
+    exports: [LandingComponent],
 })
 export class PageLeaderRendererModule {}

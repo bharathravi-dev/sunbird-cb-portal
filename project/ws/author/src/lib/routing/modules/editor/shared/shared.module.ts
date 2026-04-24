@@ -75,6 +75,6 @@ import { HttpClient } from '@angular/common/http'
         CompetencyAddPopUpComponent,
         TranslateModule,
     ],
-    providers: [UploadService]
+    providers: [UploadService],
 })
 export class EditorSharedModule { }

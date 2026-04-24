@@ -35,8 +35,4 @@ export class CareerDetailComponent implements OnInit {
     })
   }
 
-
-
-
-
 }

@@ -20,7 +20,7 @@ import { CertificateViewPopupComponent } from '../../../../project/ws/app/src/li
   selector: 'ws-competency-card-details-v2',
   templateUrl: './competency-card-details-v2.component.html',
   styleUrls: ['./competency-card-details-v2.component.scss'],
-  providers: [PipeCertificateImageURL]
+  providers: [PipeCertificateImageURL],
 })
 
 export class CompetencyCardDetailsV2Component implements OnInit, OnDestroy {
@@ -239,7 +239,7 @@ export class CompetencyCardDetailsV2Component implements OnInit, OnDestroy {
     const payload = {
       request: {
         achievementIds: identifiers,
-      }
+      },
 
     }
     this.cpService.getAcheivementsList(payload)
@@ -268,10 +268,10 @@ export class CompetencyCardDetailsV2Component implements OnInit, OnDestroy {
     const identifiers = this.filteredExtCourses.map((course: any) => course.acquiredContextId)
     const payload = {
       filterCriteriaMap: {
-        contentId: identifiers
+        contentId: identifiers,
       },
       requestedFields: [
-        "name", "contentId"
+        'name', 'contentId',
       ],
       pageNumber: 0,
       pageSize: identifiers.length,
@@ -309,7 +309,7 @@ export class CompetencyCardDetailsV2Component implements OnInit, OnDestroy {
           width: '1200px',
           data: { cet: res.result.printUri, certId: obj.certificateId },
         })
-      }, (error: HttpErrorResponse) => {
+      },         (error: HttpErrorResponse) => {
         if (!error.ok) {
           obj['loading'] = false
           obj['error'] = 'Failed to fetch Certificate'
@@ -339,7 +339,7 @@ export class CompetencyCardDetailsV2Component implements OnInit, OnDestroy {
             width: '1200px',
             data: { cet: res.result.printUri, certId: obj.certificateId },
           })
-        }, (error: HttpErrorResponse) => {
+        },         (error: HttpErrorResponse) => {
           if (!error.ok) {
             obj['loading'] = false
             obj['error'] = 'Failed to fetch Certificate'
@@ -456,7 +456,7 @@ export class CompetencyCardDetailsV2Component implements OnInit, OnDestroy {
         width: '600px',
         panelClass: 'cover-photo-edit-popup',
         data: {
-          certificateUrl: url
+          certificateUrl: url,
         },
         disableClose: true,
         autoFocus: false,

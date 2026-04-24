@@ -14,22 +14,22 @@ import { ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'ws-app-my-notifications',
   templateUrl: './my-notifications.component.html',
-  styleUrls: ['./my-notifications.component.scss']
+  styleUrls: ['./my-notifications.component.scss'],
 })
 export class MyNotificationsComponent {
   selectedLanguage = 'en'
   roles: string[] = []
   fragment: string = ''
   constructor(private translate: TranslateService,
-    private langtranslations: MultilingualTranslationsService,
-    private notificationsService: NotificationsService,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog,
-    private configService: ConfigurationsService,
-    private events: EventService,
-    private libNotificationsService: LibNotificationsService,
-    private route: ActivatedRoute,
-    private matDialog: MatDialogNew) {
+              private langtranslations: MultilingualTranslationsService,
+              private notificationsService: NotificationsService,
+              private snackBar: MatSnackBar,
+              private dialog: MatDialog,
+              private configService: ConfigurationsService,
+              private events: EventService,
+              private libNotificationsService: LibNotificationsService,
+              private route: ActivatedRoute,
+              private matDialog: MatDialogNew) {
     if (localStorage.getItem('websiteLanguage')) {
       this.translate.setDefaultLang('en')
       let lang = JSON.stringify(localStorage.getItem('websiteLanguage'))
@@ -61,7 +61,6 @@ export class MyNotificationsComponent {
     })
   }
 
-
   redirectTo(notification: any) {
     this.raiseTelemetryEventForNotification(notification)
     if (notification.category === 'PEER_VALIDATION' || notification.sub_type === 'PEER_VALIDATION') {
@@ -91,11 +90,11 @@ export class MyNotificationsComponent {
     const profile = this.configService.userProfile
     const learnerName = `${profile?.firstName || ''} ${profile?.lastName || ''}`.trim()
     const notifData = notification.message?.data?.[0] || {}
-    if (notification.status === "SUBMITTED") {
+    if (notification.status === 'SUBMITTED') {
       this.snackBar.open('You have already completed the survey.', 'X', { duration: 3000 })
       return
     }
-    if (notification.status === "IGNORED") {
+    if (notification.status === 'IGNORED') {
       this.snackBar.open('You have already submitted the response.', 'X', { duration: 3000 })
       return
     }
@@ -133,11 +132,11 @@ export class MyNotificationsComponent {
 
   openVerificationPopup(notification: any) {
     const notifData = notification.message?.data?.[0] || {}
-    if (notification.status === "APPROVED" || notification.status === "REJECTED") {
+    if (notification.status === 'APPROVED' || notification.status === 'REJECTED') {
       this.snackBar.open('You have already submitted the review.', 'X', { duration: 3000 })
       return
     }
-    if (notification.status === "IGNORED") {
+    if (notification.status === 'IGNORED') {
       this.snackBar.open('You have already submitted the response.', 'X', { duration: 3000 })
       return
     }
