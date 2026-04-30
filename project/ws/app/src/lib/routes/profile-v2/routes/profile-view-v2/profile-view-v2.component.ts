@@ -364,6 +364,7 @@ export class ProfileViewV2Component implements OnInit, AfterViewInit, OnDestroy 
 
   getProfileDetailsFromRoutes() {
     this.activatedRoute.data.subscribe(data => {
+      debugger
       this.userId = _.get(data, 'profile.userId', '')
       this.isIgotOrg = _.get(this.configSvc, 'unMappedUser.profileDetails.employmentDetails.departmentName', '').toLowerCase() === 'igot' ? true : false
       this.isNotMyUser = _.get(this.configSvc, 'unMappedUser.profileDetails.profileStatus', '').toLowerCase() === 'not-my-user' ? true : false

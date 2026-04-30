@@ -8,6 +8,8 @@ import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { WidgetResolverModule } from '@sunbird-cb/resolver'
+import { UserProfileService } from '@ws/app/src/lib/routes/user-profile/services/user-profile.service'
+import { AccessControlService, ApiService } from '@ws/author/src/public-api'
 import { SbUiResolverModule } from '@sunbird-cb/resolver-v2'
 import { LoggerService, PipeSafeSanitizerModule, ConfigurationsService, PipeOrderByModule, NPSGridService, DomainConfService } from '@sunbird-cb/utils-v2'
 import 'hammerjs'
@@ -18,18 +20,9 @@ import { GlobalErrorHandlingService } from './services/global-error-handling.ser
 import { AppTocResolverService, WIDGET_REGISTRATION_TOC_LIB_CONFIG } from '@sunbird-cb/toc'
 
 import { RootComponent } from './component/root/root.component'
-import { LoginComponent } from './component/login/login.component'
 import { AppFooterComponent } from './component/app-footer/app-footer.component'
 import { AppPublicNavBarComponent } from './component/app-public-nav-bar/app-public-nav-bar.component'
 import { DialogConfirmComponent } from './component/dialog-confirm/dialog-confirm.component'
-import { InvalidUserComponent } from './component/invalid-user/invalid-user.component'
-import { LoginRootComponent } from './component/login-root/login-root.component'
-import { LoginRootDirective } from './component/login-root/login-root.directive'
-import { TncRendererComponent } from './component/tnc-renderer/tnc-renderer.component'
-import { MobileAppModule } from './routes/public/mobile-app/mobile-app.module'
-import { PublicAboutModule } from './routes/public/public-about/public-about.module'
-import { PublicContactModule } from './routes/public/public-contact/public-contact.module'
-import { TncComponent } from './routes/tnc/tnc.component'
 import { AppInterceptorService } from './services/app-interceptor.service'
 import { AppRetryInterceptorService } from './services/app-retry-interceptor.service'
 import { TncAppResolverService } from './services/tnc-app-resolver.service'
@@ -40,19 +33,9 @@ import { environment } from 'src/environments/environment'
 import { QuickTourModule } from '@ws/app/src/lib/routes/info/quick-tour/quick-tour.module'
 import { AppIntroComponent } from './component/app-intro/app-intro.component'
 import { NoConnectionComponent } from './component/no-connection/no-connection.component'
-import { PublicLogoutModule } from './routes/public/public-logout/public-logout.module'
-import { PublicSignupModule } from './routes/public/public-signup/public-signup.module'
 import { PublicHomeComponent } from './routes/public/public-home/public-home.component'
-import { PublicContacthomeComponent } from './routes/public/public-contacthome/public-contacthome.component'
-import { PublicLoginWComponent } from './routes/public/public-login-w/public-login-w.component'
-import { PublicLoginWGComponent } from './routes/public/public-login-wg/public-login-wg.component'
-import { PublicWelcomeModule } from './routes/public/welcome/public-welcome.module'
 import { WelcomeUserResolverService } from './services/welcome-user-resolver.service'
-import { PublicTocModule } from './routes/public/public-toc/public-toc.module'
-import { PublicRequestModule } from './routes/public/public-request/public-request.module'
-import { AppTourComponent } from './component/app-tour/app-tour.component'
-import { GuidedTourModule, GuidedTourService } from 'igot-cb-tour-guide'
-import { AppTourVideoComponent } from './component/app-tour-video/app-tour-video.component'
+
 import { AppChatbotModule } from './component/app-chatbot/app-chatbot.module'
 import { AppHierarchyResolverService } from './services/app-hierarchy-resolver.service'
 import { AppEnrollmentResolverService } from './services/app-enrollment-resolver.service'
@@ -67,16 +50,13 @@ import { FooterSectionComponent } from './component/app-footer/footer-section/fo
 import { AppLogoComponent } from './component/app-logo/app-logo.component'
 
 import { NoDataComponent } from './component/no-data/no-data.component'
-import { SurveyShikshaComponent } from './component/survey-shiksha/survey-shiksha.component'
 import {
   CardsModule, WIDGET_REGISTRATION_LIB_CONFIG,
 } from '@sunbird-cb/consumption'
-import { PrivacyPolicyComponent } from './component/privacy-policy/privacy-policy.component'
-import { LearnerAdvisoryComponent } from './learner-advisory/learner-advisory.component'
 import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button'
 import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card'
 import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox'
-import { PublicExtTocModule } from './routes/public/public-ext-toc/public-ext-toc.module'
+
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatIconModule } from '@angular/material/icon'
@@ -118,32 +98,17 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     RootComponent,
-    LoginComponent,
-    // AppNavBarComponent,
     AppPublicNavBarComponent,
     NoDataComponent,
-    TncComponent,
     AppIntroComponent,
-    TncRendererComponent,
     AppFooterComponent,
-    InvalidUserComponent,
     DialogConfirmComponent,
-    LoginRootComponent,
-    LoginRootDirective,
     NoConnectionComponent,
     PublicHomeComponent,
-    PublicContacthomeComponent,
-    PublicLoginWComponent,
-    PublicLoginWGComponent,
-    AppTourVideoComponent,
-    AppTourComponent,
     DialogBoxComponent,
     SocialLinkComponent,
     FooterSectionComponent,
     AppLogoComponent,
-    SurveyShikshaComponent,
-    PrivacyPolicyComponent,
-    LearnerAdvisoryComponent,
     ProfileVerificationDialogComponent,
     MandatoryNotificationModalComponent,
   ],
@@ -172,17 +137,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatProgressSpinnerModule,
     PipeOrderByModule,
-    PublicAboutModule,
-    PublicContactModule,
-    PublicLogoutModule,
-    PublicSignupModule,
-    PublicRequestModule,
-    PublicWelcomeModule,
-    PublicTocModule,
-    PublicExtTocModule,
-    MobileAppModule,
     PipeSafeSanitizerModule,
-    GuidedTourModule,
     AppChatbotModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     HeaderModule,
@@ -196,7 +151,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 
   ],
   exports: [
-    TncComponent,
     HeaderModule,
     TranslateModule,
   ],
@@ -233,6 +187,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppPreAssessmentContentResolverService,
     HttpClient,
     CommonDataService,
+    UserProfileService,
+    AccessControlService,
+    ApiService,
     DomainConfService,
     {
       provide: APP_BASE_HREF,
@@ -248,7 +205,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     // { provide: HAMMER_GESTURE_CONFIG, useClass: HammerConfig },
     { provide: ErrorHandler, useClass: GlobalErrorHandlingService },
     { provide: 'environment', useValue: environment },
-    GuidedTourService,
     ResourceDownloadHelperService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

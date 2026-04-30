@@ -299,6 +299,7 @@ export class ProfileViewComponent implements OnInit, AfterViewInit, OnDestroy {
     })
 
     this.route.data.subscribe(data => {
+      debugger
       if (data.profile.data) {
         this.orgId = data.profile.data.rootOrgId
       }

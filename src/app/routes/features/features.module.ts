@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FeaturesComponent } from './features.component'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
-import { RouterModule } from '@angular/router'
+import { RouterModule, Routes } from '@angular/router'
 import { BtnFeatureModule, BtnPageBackModule } from '@sunbird-cb/collection'
 import { WidgetResolverModule } from '@sunbird-cb/resolver'
 import { LogoutModule } from '@sunbird-cb/utils-v2'
@@ -15,6 +15,10 @@ import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip'
 
+const routes: Routes = [
+  { path: '', component: FeaturesComponent },
+]
+
 @NgModule({
   declarations: [FeaturesComponent],
   imports: [
@@ -25,7 +29,7 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
     LogoutModule,
     WidgetResolverModule,
     ReactiveFormsModule,
-    RouterModule,
+    RouterModule.forChild(routes),
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
@@ -34,7 +38,6 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
     MatTooltipModule,
     MatCardModule,
   ],
-  exports: [FeaturesComponent],
   providers: [AccessControlService],
 })
 export class FeaturesModule { }
