@@ -100,6 +100,10 @@ export class MyNotificationsComponent {
       this.snackBar.open('You have already submitted the response.', 'X', { duration: 3000 })
       return
     }
+    if (notification.status === "EXPIRED") {
+      this.snackBar.open('Survey has ended.', 'X', { duration: 3000 })
+      return
+    }
     if (notifData.surveyEndDate && new Date(notifData.surveyEndDate) < new Date()) {
       this.snackBar.open('Survey has ended.', 'X', { duration: 3000 })
       return
@@ -143,6 +147,10 @@ export class MyNotificationsComponent {
     }
     if (notification.status === 'IGNORED') {
       this.snackBar.open('You have already submitted the response.', 'X', { duration: 3000 })
+      return
+    }
+    if (notification.status === "EXPIRED") {
+      this.snackBar.open('Survey has ended.', 'X', { duration: 3000 })
       return
     }
     if (notifData.surveyEndDate && new Date(notifData.surveyEndDate) < new Date()) {
