@@ -50,7 +50,7 @@ import { RootService } from './root.service'
 // to it silently, but the dev server's Vite dependency optimizer errors out with
 // "Failed to resolve entry for package". Naming the subpath skips entry resolution.
 import { CsModule } from '@project-sunbird/client-services/index'
-import { SwUpdate } from '@angular/service-worker'
+import { SwUpdate, VersionReadyEvent } from '@angular/service-worker'
 import { environment } from '../../../environments/environment'
 import { MatDialog } from '@angular/material/dialog'
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component'
@@ -321,6 +321,8 @@ export class RootComponent implements OnInit, AfterViewInit, AfterViewChecked {
   appUpdateTitleRef: ElementRef | null = null
   @ViewChild('appUpdateBody')
   appUpdateBodyRef: ElementRef | null = null
+  @ViewChild('appUpdateHighlightsTitle')
+  appUpdateHighlightsTitleRef: ElementRef | null = null
 
   @ViewChild('skipper') skipper!: ElementRef
 
@@ -875,12 +877,23 @@ export class RootComponent implements OnInit, AfterViewInit, AfterViewChecked {
     // safe to activate. Subscribing unconditionally (as this did while `available` was
     // commented out) opened the update prompt on every single load.
     this.swUpdate.versionUpdates
-      .pipe(filter(evt => evt.type === 'VERSION_READY'))
-      .subscribe(() => {
+      .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
+      .subscribe(evt => {
+        // `appData` is the arbitrary metadata block from ngsw-config.json, shipped with
+        // the build the service worker just downloaded. Reading it off `latestVersion`
+        // (not `currentVersion`) is what makes the prompt describe the release the user
+        // is about to load rather than the one they are on.
+        const appData = this.readReleaseAppData(evt.latestVersion.appData)
         const dialogRef = this.dialog.open(DialogConfirmComponent, {
           data: {
             title: (this.appUpdateTitleRef && this.appUpdateTitleRef.nativeElement.value) || '',
             body: (this.appUpdateBodyRef && this.appUpdateBodyRef.nativeElement.value) || '',
+            highlights: {
+              title: (this.appUpdateHighlightsTitleRef
+                && this.appUpdateHighlightsTitleRef.nativeElement.value) || '',
+              version: appData.version,
+              items: appData.highlights,
+            },
           },
         })
         dialogRef.afterClosed().subscribe(result => {
@@ -893,6 +906,23 @@ export class RootComponent implements OnInit, AfterViewInit, AfterViewChecked {
           this.swUpdate.activateUpdate().then(() => window.location.reload())
         })
       })
+  }
+
+  /**
+   * `appData` is whatever ngsw-config.json carried at build time, so it reaches us
+   * untyped and can legitimately be missing (older builds ship no appData at all).
+   * Anything that is not a string / array of strings is dropped, leaving the dialog to
+   * fall back to the plain "do you want to load the new version?" prompt.
+   */
+  private readReleaseAppData(appData: object | undefined): { version: string, highlights: string[] } {
+    const data = (appData || {}) as { version?: unknown, highlights?: unknown }
+    const version = typeof data.version === 'string' ? data.version.trim() : ''
+    const highlights = Array.isArray(data.highlights)
+      ? data.highlights
+        .filter((item: unknown): item is string => typeof item === 'string' && item.trim().length > 0)
+        .map((item: string) => item.trim())
+      : []
+    return { version, highlights }
   }
 
   getTourGuide() {

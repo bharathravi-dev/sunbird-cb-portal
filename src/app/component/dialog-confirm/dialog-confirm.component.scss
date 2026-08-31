@@ -1,0 +1,39 @@
+.release-highlights {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+  // The list is the only part of this dialog that can grow with the release, so it
+  // scrolls on its own instead of pushing the action buttons off a small screen.
+  max-height: 220px;
+  overflow-y: auto;
+
+  &__heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 8px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+  }
+
+  &__version {
+    padding: 1px 8px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.06);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  &__list {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 13px;
+    line-height: 20px;
+
+    li + li {
+      margin-top: 4px;
+    }
+  }
+}

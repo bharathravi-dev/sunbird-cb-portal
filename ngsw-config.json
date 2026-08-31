@@ -1,5 +1,9 @@
 {
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "appData": {
+    "version": "4.8.40",
+    "highlights": []
+  },
   "index": "/index.html",
   "navigationUrls": [
     "/**",

@@ -1,6 +1,16 @@
 <h1 mat-dialog-title>{{ data.title }}</h1>
 <div mat-dialog-content>
   {{ data.body }}
+
+  <section class="release-highlights" *ngIf="highlightItems.length">
+    <h2 class="release-highlights__heading">
+      <span>{{ highlightsTitle }}</span>
+      <span class="release-highlights__version" *ngIf="highlightsVersion">{{ highlightsVersion }}</span>
+    </h2>
+    <ul class="release-highlights__list">
+      <li *ngFor="let item of highlightItems">{{ item }}</li>
+    </ul>
+  </section>
 </div>
 <div mat-dialog-actions class="flex-row-reverse">
   <ng-container *ngIf="data?.button?.length > 0">
