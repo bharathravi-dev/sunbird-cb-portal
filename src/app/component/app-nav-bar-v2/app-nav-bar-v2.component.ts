@@ -252,16 +252,8 @@ export class AppNavBarV2Component implements OnInit, OnChanges, OnDestroy {
         this.hideKPOnNav.set(false)
       }
 
-      if (event.url.includes('/page/home')) {
-        this.filteredPrimaryNavbarConfig = this.primaryNavbarConfig
-        const themeMode = this.themeSvc.currentTheme
-        this.themeSvc.setTheme(themeMode)
-      }
       this.setActiveRouteFromUrl(event.url)
-      if (!event.url.includes('/page/home')) {
-        this.filteredPrimaryNavbarConfig = this.removeThemeToggleFromConfig(this.primaryNavbarConfig)
-        this.themeSvc.applyTheme('light')
-      }
+      this.applyThemeForRoute(event.url)
     })
 
     if (this.configSvc.userProfile && this.configSvc.userProfile.userId) {
@@ -286,6 +278,10 @@ export class AppNavBarV2Component implements OnInit, OnChanges, OnDestroy {
       this.primaryNavbarBackground = this.configSvc.primaryNavBar
       this.pageNavbar = this.configSvc.pageNavBar
       this.primaryNavbarConfig = this.configSvc.primaryNavBarConfig
+      // The router can finish its first navigation before this component exists, in which
+      // case no NavigationEnd follows — so decide from the current URL too, or a direct load
+      // of a themed route would render the header with no toggle.
+      this.applyThemeForRoute(this.router.url)
     }
 
     if (this.configSvc.appsConfig) {
@@ -556,6 +552,33 @@ export class AppNavBarV2Component implements OnInit, OnChanges, OnDestroy {
 
   translateLabels(label: string, type: any): string {
     return this.langtranslations.translateLabelWithoutspace(label, type, '')
+  }
+
+  /**
+   * Routes that carry the header's light/dark toggle.
+   *
+   * Every other route hides the toggle and is pinned to light, because those pages still
+   * have hardcoded light-mode colours and would break under [data-theme="dark"]. Add a path
+   * here once its styles are driven by the design-system tokens.
+   */
+  private readonly themedRoutes = ['/page/home', '/app/plans']
+
+  /**
+   * Shows or hides the theme toggle for a URL and puts the app in the matching mode.
+   *
+   * Note the asymmetry, which is deliberate: leaving a themed route calls `applyTheme`,
+   * which does NOT persist, so forcing light on an un-themed page cannot overwrite the
+   * user's stored choice. Returning to a themed route then re-asserts that choice.
+   */
+  private applyThemeForRoute(url: string): void {
+    if (this.themedRoutes.some(route => url.includes(route))) {
+      this.filteredPrimaryNavbarConfig = this.primaryNavbarConfig
+      this.themeSvc.setTheme(this.themeSvc.currentTheme)
+      return
+    }
+
+    this.filteredPrimaryNavbarConfig = this.removeThemeToggleFromConfig(this.primaryNavbarConfig)
+    this.themeSvc.applyTheme('light')
   }
 
   removeThemeToggleFromConfig(config: NsInstanceConfig.IPrimaryNavbarConfig | null): NsInstanceConfig.IPrimaryNavbarConfig | null {

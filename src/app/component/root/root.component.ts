@@ -114,6 +114,15 @@ export class RootComponent implements OnInit, AfterViewInit, AfterViewChecked {
   // Add more prefixes here when another route needs the same treatment.
   fullWidthMobileRoutes = ['/app/learn/bharat-kalp']
   isFullWidthMobileRoute = signal(false)
+  // Routes that fill the content row instead of sitting in the 1200px .container-balanced
+  // column. A page that paints its own themed surface needs this: capped, its background stops
+  // mid-viewport and the shell's ground shows down both sides in dark mode. These routes get
+  // `w-full` rather than `.home-content` — the wrapper is a flex item inside
+  // `<div class="flex justify-center">`, and .home-content declares no width, so it would hug
+  // its content instead of stretching. Such pages cap their own inner content column.
+  // Add more prefixes here when another route needs the same treatment.
+  fullBleedRoutes = ['/app/plans']
+  isFullBleedRoute = signal(false)
   navBarOpenStatusBasedOnNav = signal(true)
   openStatusUserSelection = signal(true)
   // The sidebar only pushes page content on the home page. Everywhere else it is an overlay
@@ -532,6 +541,10 @@ export class RootComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
         this.isFullWidthMobileRoute.set(
           this.fullWidthMobileRoutes.some(route => this.currentUrl.startsWith(route))
+        )
+
+        this.isFullBleedRoute.set(
+          this.fullBleedRoutes.some(route => this.currentUrl.startsWith(route))
         )
 
         if (
