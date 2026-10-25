@@ -370,6 +370,8 @@ export class RootComponent implements OnInit, AfterViewInit, AfterViewChecked {
   viewerPage = false
 
   prevUrl = ''
+
+  private lastMandatoryCheckPath = ''
   currUrl = ''
   detailsChanged = signal(false)
   otherDetailsChanged = signal(false)
@@ -441,8 +443,13 @@ export class RootComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
       // Extract fragment from URL
       const fragment = this.route.snapshot.fragment || ''
-      // Initialize mandatory details from common data service
-      if (this.configSvc?.unMappedUser && !['mandatorySection', 'orgDetails'].includes(fragment)) {
+      // Initialize mandatory details from common data service. Only when the page itself changes:
+      // a query-param or fragment update (the TOC writes ?batchId&ML&MLId after it loads) is not a
+      // new page and must not repeat the mandatory notification / custom field checks
+      const path = (event.urlAfterRedirects || event.url || '').split(/[?#]/)[0]
+      const isNewPage = path !== this.lastMandatoryCheckPath
+      if (this.configSvc?.unMappedUser && isNewPage && !['mandatorySection', 'orgDetails'].includes(fragment)) {
+        this.lastMandatoryCheckPath = path
         this.commonDataSvc.mandatoryDetails(isPlayer)
       }
       // Check and show mandatory notification on route change
