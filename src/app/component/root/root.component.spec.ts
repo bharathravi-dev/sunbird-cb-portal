@@ -877,6 +877,23 @@ describe('RootComponent', () => {
       expect(() => mockSwUpdate.unrecoverable.next({})).not.toThrow()
     })
 
+    it('should reload at most once for repeated unrecoverable states', () => {
+      const originalLocation = window.location
+      const reload = jest.fn()
+      Object.defineProperty(window, 'location', { configurable: true, value: { ...originalLocation, reload } })
+      jest.spyOn(console, 'warn').mockImplementation(() => undefined)
+      sessionStorage.clear()
+      try {
+        component.initAppUpdateCheck()
+        mockSwUpdate.unrecoverable.next({ reason: 'hash mismatch' })
+        mockSwUpdate.unrecoverable.next({ reason: 'hash mismatch' })
+        expect(reload).toHaveBeenCalledTimes(1)
+      } finally {
+        Object.defineProperty(window, 'location', { configurable: true, value: originalLocation })
+        sessionStorage.clear()
+      }
+    })
+
     it('should ignore versions that are not ready', () => {
       component.initAppUpdateCheck()
       mockSwUpdate.versionUpdates.next({ type: 'VERSION_DETECTED' })
@@ -1206,6 +1223,16 @@ describe('RootComponent', () => {
       expect(component.showHubs).toBe(false)
       routerEvents.next(new NavigationStart(4, '/public/toc/x'))
       expect(component.viewerPage).toBe(true)
+    })
+
+    it('should show the route progress bar from start until the navigation settles', () => {
+      routerEvents.next(new NavigationStart(1, '/app/globalsearch'))
+      expect(component.routeChangeInProgress).toBe(true)
+      routerEvents.next(new NavigationEnd(1, '/app/globalsearch', '/app/globalsearch'))
+      expect(component.routeChangeInProgress).toBe(false)
+      routerEvents.next(new NavigationStart(2, '/app/event-hub'))
+      routerEvents.next(new NavigationError(2, '/app/event-hub', new Error('chunk')))
+      expect(component.routeChangeInProgress).toBe(false)
     })
 
     it('should reset flags on cancel and error', () => {

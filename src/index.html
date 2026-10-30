@@ -7,6 +7,64 @@
   <script>
     (function () { var k = 'kb-design-system-theme', s = null; try { s = localStorage.getItem(k) } catch (e) { } var t = s === 'dark' ? 'dark' : s === 'light' ? 'light' : null; if (!t) { t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light' } document.documentElement.setAttribute('data-theme', t); document.documentElement.classList.add('theme-igot'); document.documentElement.classList.add(t === 'dark' ? 'night-mode' : 'day-mode') })();
   </script>
+  <!--
+    Stale-build recovery, before Angular starts.
+    The service worker serves the cached index.html until it notices a new deployment, and a
+    deployment ships only the new build. The cached build's chunk-*.js then 404, main-*.js
+    never runs, and the page sits on the loader below for good. Two signals catch that:
+      - the error event of one of our own module scripts (it fires when any file it imports fails)
+      - the service worker's UNRECOVERABLE_STATE message (it marked the cached build broken)
+    Either one reloads the page once: by then the service worker fetches the current
+    index.html from the server. A second failure within 30 s does not reload again; it shows
+    a Reload button instead, so a build that is really broken cannot loop.
+    Same rule as src/app/services/stale-build-recovery.ts (used after Angular starts).
+  -->
+  <script>
+    (function () {
+      var KEY = 'staleBuildReloadAt'
+      var WINDOW_MS = 30000
+      function showReloadMessage() {
+        var loader = document.querySelector('ws-root .loader-container')
+        if (!loader) {
+          return
+        }
+        loader.innerHTML = '<div style="text-align:center;font-family:Lato,sans-serif;padding:16px">'
+          + '<p style="margin:0 0 12px">iGOT could not finish loading. Please reload the page.</p>'
+          + '<button type="button" onclick="window.location.reload()" style="padding:8px 20px;cursor:pointer">Reload</button>'
+          + '</div>'
+      }
+      function recover(reason) {
+        try {
+          var last = Number(sessionStorage.getItem(KEY)) || 0
+          if (Date.now() - last < WINDOW_MS) {
+            showReloadMessage()
+            return
+          }
+          sessionStorage.setItem(KEY, String(Date.now()))
+        } catch (e) {
+          showReloadMessage()
+          return
+        }
+        console.warn('Reloading to load the current build: ' + reason)
+        window.location.reload()
+      }
+      // resource errors do not bubble, so listen in the capture phase
+      window.addEventListener('error', function (event) {
+        var el = event.target
+        if (el && el.tagName === 'SCRIPT' && el.type === 'module' && el.src
+          && el.src.indexOf(window.location.origin + '/') === 0) {
+          recover('app script failed to load: ' + el.src)
+        }
+      }, true)
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.addEventListener('message', function (event) {
+          if (event.data && event.data.type === 'UNRECOVERABLE_STATE') {
+            recover('service worker: ' + event.data.reason)
+          }
+        })
+      }
+    })();
+  </script>
   <title>iGot</title>
   <base href="/" />
   <meta id="id-app-description" name="Description"

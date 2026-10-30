@@ -21,6 +21,7 @@ jest.mock('./netcore.service', () => ({ NetCoreService: class { } }))
 jest.mock('./common-data.service', () => ({ CommonDataService: class { } }))
 jest.mock('./form-ext.service', () => ({ FormExtService: class { } }))
 jest.mock('./form-env-config.service', () => ({ FormEnvConfigService: class { } }))
+jest.mock('@sunbird-cb/consumption', () => ({ CommonMethodsService: class { } }))
 
 describe('InitService', () => {
   let service: InitService
@@ -39,6 +40,7 @@ describe('InitService', () => {
   let commonDataSvc: any
   let formSvc: any
   let enrollmentSummaryState: any
+  let commonMethodsSvc: any
   let formConfigService: any
   let domSanitizer: any
   let iconRegistry: any
@@ -150,6 +152,7 @@ describe('InitService', () => {
     }
     commonDataSvc = { checkAndCacheNlw2026Eligibility: jest.fn() }
     enrollmentSummaryState = { start: jest.fn(), done: jest.fn() }
+    commonMethodsSvc = { isApiCacheValid: jest.fn().mockReturnValue(false), saveApiCacheTime: jest.fn() }
     formSvc = {
       formConfigReadData: jest.fn((req: any) => of({
         result: { data: req.request.subType === 'global-web' ? globalConfig : appConfig },
@@ -164,7 +167,7 @@ describe('InitService', () => {
     service = new InitService(
       logger, configSvc, domainConfSvc, widgetResolver, sbUiResolver, settingsSvc, userPreference, http, npsSvc,
       translate, enrollSvc, netCoreService, commonDataSvc, formSvc, formConfigService, enrollmentSummaryState,
-      '/', domSanitizer, iconRegistry,
+      commonMethodsSvc, '/', domSanitizer, iconRegistry,
     )
   })
 
@@ -562,6 +565,49 @@ describe('InitService', () => {
       enrollSvc.fetchEnrollStats.mockReturnValue(of(res))
       await (service as any).fetchUserEnrollDetails()
       expect(stored().enrolledCourseCount).toBe(0)
+    })
+
+    describe('apicache.summaryTime', () => {
+      beforeEach(() => {
+        enrollSvc.fetchEnrollStats.mockReturnValue(of(courseRes()))
+        enrollSvc.fetchEventEnrollStats.mockReturnValue(of(eventRes))
+      })
+
+      it('stamps a successful summary for the user', async () => {
+        await (service as any).fetchUserEnrollDetails()
+        expect(commonMethodsSvc.saveApiCacheTime).toHaveBeenCalledWith('summaryTime', 'u1')
+      })
+
+      it('skips the api while the saved summary is fresh, and still sets up netcore', async () => {
+        configSvc.userProfile = { userId: 'u1', rootOrgId: 'r1' }
+        localStorage.setItem('userEnrollmentCount', JSON.stringify({ enrolledCourseCount: 4 }))
+        commonMethodsSvc.isApiCacheValid.mockReturnValue(true)
+        expect(await (service as any).fetchUserEnrollDetails()).toEqual({})
+        expect(commonMethodsSvc.isApiCacheValid).toHaveBeenCalledWith('summaryTime', 'u1')
+        expect(enrollSvc.fetchEnrollStats).not.toHaveBeenCalled()
+        expect(enrollSvc.fetchEventEnrollStats).not.toHaveBeenCalled()
+        expect(stored().enrolledCourseCount).toBe(4)
+        expect(netCoreService.getOrgReadData).toHaveBeenCalledWith('r1')
+      })
+
+      it('calls the api when the saved summary is no longer fresh', async () => {
+        localStorage.setItem('userEnrollmentCount', JSON.stringify({ enrolledCourseCount: 4 }))
+        await (service as any).fetchUserEnrollDetails()
+        expect(enrollSvc.fetchEnrollStats).toHaveBeenCalled()
+        expect(stored().enrolledCourseCount).toBe(8)
+      })
+
+      it('calls the api when nothing is saved in userEnrollmentCount', async () => {
+        commonMethodsSvc.isApiCacheValid.mockReturnValue(true)
+        await (service as any).fetchUserEnrollDetails()
+        expect(enrollSvc.fetchEnrollStats).toHaveBeenCalled()
+      })
+
+      it('does not stamp a fallback summary, so the next load calls the api again', async () => {
+        enrollSvc.fetchEnrollStats.mockReturnValue(throwError(() => new Error('x')))
+        await (service as any).fetchUserEnrollDetails()
+        expect(commonMethodsSvc.saveApiCacheTime).not.toHaveBeenCalled()
+      })
     })
 
     describe('netcore bootstrap', () => {
