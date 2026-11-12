@@ -17,6 +17,7 @@ import { LoggerService, PipeSafeSanitizerModule, ConfigurationsService, PipeOrde
 import 'hammerjs'
 import { AppRoutingModule } from './app-routing.module'
 import { InitService } from './services/init.service'
+import { appInitializer } from './services/app-initializer'
 import { GlobalErrorHandlingService } from './services/global-error-handling.service'
 import { AppTocResolverService, WIDGET_REGISTRATION_TOC_LIB_CONFIG } from '@sunbird-cb/toc'
 
@@ -82,15 +83,6 @@ import { AppTourSharedModule } from './component/app-tour/app-tour-shared.module
 //     return new GestureConfig({ touchAction: 'pan-y' }).buildHammer(element)
 //   }
 // }
-const appInitializer = (initSvc: InitService, logger: LoggerService) => async () => {
-  try {
-    // Load dynamic configuration first
-
-    await initSvc.init()
-  } catch (error) {
-    logger.error('ERROR DURING APP INITIALIZATION >', error)
-  }
-}
 
 const getBaseHref = (platformLocation: PlatformLocation): string => {
   return platformLocation.getBaseHrefFromDOM()
@@ -171,7 +163,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   bootstrap: [RootComponent],
   providers: [
     {
-      deps: [InitService, LoggerService],
+      deps: [InitService, LoggerService, ConfigurationsService],
       multi: true,
       provide: APP_INITIALIZER,
       useFactory: appInitializer,

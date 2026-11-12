@@ -51,6 +51,12 @@ export class GeneralGuard {
         || window.location.href.includes('/certs'))
       // !this.configSvc.isAuthenticated
     ) {
+      // Startup did not finish in time (app-initializer deadline): the root component shows the
+      // error screen. The user is probably still logged in - the backend was just slow - so stay on
+      // that screen rather than sending them through the login page.
+      if (this.configSvc.globalConfigLoadFailed) {
+        return false
+      }
       let refAppend = ''
       // let redirectUrl
       if (state.url) {

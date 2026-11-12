@@ -20,6 +20,7 @@ import { environment } from '../../environments/environment'
 /* tslint:disable */
 import _ from 'lodash'
 import { firstValueFrom, forkJoin, of } from 'rxjs'
+import { startupStatus } from './startup-status'
 import { catchError, map } from 'rxjs/operators'
 import { v4 as uuid } from 'uuid'
 import { BtnSettingsService } from '@sunbird-cb/collection/src/lib/btn-settings/btn-settings.service'
@@ -243,14 +244,14 @@ export class InitService {
     this.userRead = null
     let user: any = null
     // environment values come first: everything after this (form reads, user read) runs on them
-    await this.loadEnvironment()
+    await startupStatus.step('environment', () => this.loadEnvironment())
     if (!isPublicPreviewOrCreator) {
       // the user is read first: the global-web and application config forms are picked from it
-      user = await this.prefetchUser()
-      await this.globalConfigData(user)
+      user = await startupStatus.step('user-read', () => this.prefetchUser())
+      await startupStatus.step('global-config', () => this.globalConfigData(user))
       this.prefetchHomeConfig(user)
     }
-    await this.fetchDefaultConfig(isPublicPreviewOrCreator, user)
+    await startupStatus.step('app-config', () => this.fetchDefaultConfig(isPublicPreviewOrCreator, user))
 
     // Invalid User
     try {
@@ -259,15 +260,15 @@ export class InitService {
         || window.location.href.includes('&preview=true') || window.location.href.includes('/certs') || window.location.href.includes('/achievements') || window.location.href.includes('/crp/')
       this.setTelemetrySessionId()
       if (!path.startsWith('/public') && !isPublic) {
-        await this.fetchStartUpDetails()
+        await startupStatus.step('startup-details', () => this.fetchStartUpDetails())
         this.loadEnrollmentSummaryInBackground()
         // the content dictionary is not preloaded: ContentDictionaryService fetches it on the
         // first lookup, so routes that never show a content card (TOC, profile) skip it
 
       } else if (path.includes('/public/welcome')) {
-        await this.fetchStartUpDetails()
+        await startupStatus.step('startup-details', () => this.fetchStartUpDetails())
       } else if (window.location.href.includes('editMode=true') && window.location.href.includes('_rc')) {
-        await this.fetchStartUpDetails()
+        await startupStatus.step('startup-details', () => this.fetchStartUpDetails())
       }
 
       // detail: depends only on userID
@@ -278,12 +279,12 @@ export class InitService {
       this.isAnonymousTelemetry = true
       this.updateTelemetryConfig()
       this.logger.info('Not Authenticated')
-      await this.initFeatured()
+      await startupStatus.step('featured', () => this.initFeatured())
       return false
 
     }
     try {
-      await this.initFeatured()
+      await startupStatus.step('featured', () => this.initFeatured())
     } catch (e) {
       this.logger.warn(
         'Initialization process encountered some error. Application may not work as expected',
@@ -301,7 +302,7 @@ export class InitService {
         window.location.href.includes('/viewer') || window.location.href.includes('/helpcenter')
       )
     ) {
-      await this.logFirstLogin()
+      await startupStatus.step('first-login', () => this.logFirstLogin())
     }
     return true
   }

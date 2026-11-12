@@ -2,6 +2,7 @@ import { HttpErrorResponse, HttpRequest, HttpResponse } from '@angular/common/ht
 import { fakeAsync, tick } from '@angular/core/testing'
 import { defer, of, throwError } from 'rxjs'
 import { AppRetryInterceptorService } from './app-retry-interceptor.service'
+import { startupStatus } from './startup-status'
 
 describe('AppRetryInterceptorService', () => {
   let interceptor: AppRetryInterceptorService
@@ -20,6 +21,22 @@ describe('AppRetryInterceptorService', () => {
 
   beforeEach(() => {
     interceptor = new AppRetryInterceptorService()
+    // the tests below are about requests made after startup; startup itself has its own test
+    startupStatus.reset()
+    startupStatus.booting = false
+  })
+
+  afterAll(() => startupStatus.reset())
+
+  it('should not retry while the app is starting - a retried 5xx only kept users on the spinner longer', () => {
+    startupStatus.booting = true
+    const handler = failingHandler(504)
+    let error: any
+    interceptor.intercept(new HttpRequest('GET', '/apis/some/api'), handler as any)
+      .subscribe({ error: (err: any) => { error = err } })
+
+    expect(handler.calls).toBe(1)
+    expect(error.status).toBe(504)
   })
 
   it('should not retry a failed POST — the error goes straight to the caller', () => {

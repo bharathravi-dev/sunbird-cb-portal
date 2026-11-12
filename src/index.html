@@ -252,6 +252,35 @@
     </div>
   </ws-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
+  <!--
+    Slow-start notice. The spinner above stays until the app has started, and starting waits
+    on a chain of API calls (InitService). When that takes long - a slow connection, a slow
+    backend - users used to see nothing but the spinner and reported that the page never
+    loaded. After STARTUP_SLOW_NOTICE_MS this adds a short note and a Reload button under the
+    spinner; it does not stop anything, the app keeps starting and replaces the spinner as
+    soon as it is ready. If startup takes longer still, the app gives up at STARTUP_DEADLINE_MS
+    (src/app/services/startup-status.ts) and shows its own error screen.
+  -->
+  <script>
+    (function () {
+      var STARTUP_SLOW_NOTICE_MS = 20000
+      window.setTimeout(function () {
+        // still the index.html spinner: Angular replaces the content of ws-root once started
+        var loader = document.querySelector('ws-root .loader-container')
+        if (!loader || loader.querySelector('.startup-slow-notice')) { return }
+        var note = document.createElement('div')
+        note.className = 'startup-slow-notice'
+        note.setAttribute('role', 'status')
+        note.style.cssText = 'margin-top:16px;text-align:center;font-family:Lato,sans-serif;width:280px;'
+          + 'position:relative;left:50%;transform:translateX(-50%)'
+        note.innerHTML = '<p style="margin:0 0 12px">This is taking longer than usual. '
+          + 'Please check your connection, or reload the page.</p>'
+          + '<button type="button" style="padding:8px 20px;cursor:pointer">Reload</button>'
+        note.querySelector('button').addEventListener('click', function () { window.location.reload() })
+        loader.appendChild(note)
+      }, STARTUP_SLOW_NOTICE_MS)
+    })();
+  </script>
 
   <!-- <script type="text/javascript" nonce="{place_your_nonce_value_here}" src="https://desk.zoho.in/portal/api/web/inapp/120349000000222059?orgId=60023043070" defer></script> -->
   <!-- <script src="https://desk.zoho.in/portal/api/feedbackwidget/120349000000212259?orgId=60023043070&displayType=popout"></script> -->

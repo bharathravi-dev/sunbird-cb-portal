@@ -3,6 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import { Observable, throwError, timer } from 'rxjs'
 import { retryWhen, mergeMap } from 'rxjs/operators'
 import { EXCLUDED_APIS_FROM_RETRY } from '../constants/excluded-apis.constant'
+import { startupStatus } from './startup-status'
 
 const EXCLUDE_RETRY = EXCLUDED_APIS_FROM_RETRY
 
@@ -14,7 +15,9 @@ export class AppRetryInterceptorService implements HttpInterceptor {
   private scalingDuration = 5000
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // POST is not idempotent — a retry could create duplicates, so fail on the first error
-    if (req.method === 'POST' || req.body?.excludeRetry) {
+    // No retries while the app is starting: a retried 5xx (usually a 504 gateway timeout) only
+    // doubled the time users spent on the index.html spinner, and startup has its own deadline
+    if (req.method === 'POST' || req.body?.excludeRetry || startupStatus.booting) {
       return next.handle(req)
     }
     return next.handle(req).pipe(retryWhen(this.genericRetryStrategy()))

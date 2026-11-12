@@ -27,6 +27,12 @@ export class EmptyRouteGuard  {
     }
     // logger.log('redirecting to login page as the user is not loggedIn');
     // return this.router.parseUrl('/login')
+    // Startup did not finish in time (app-initializer deadline): the root component shows the
+    // error screen. The user is probably still logged in - the backend was just slow - so stay on
+    // that screen rather than sending them through the login page.
+    if (this.configSvc.globalConfigLoadFailed) {
+      return false
+    }
     const paramsMap = this.activateRoute.snapshot.queryParamMap
     let redirectUrl
     if (paramsMap.has('redirect_uri')) {
